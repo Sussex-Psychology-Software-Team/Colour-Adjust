@@ -127,7 +127,7 @@ function rgb2xyz(rgb){
 
     const R = adj(rgb.r)
     const G = adj(rgb.g)
-    const B = adj(rgb.b,12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
+    const B = adj(rgb.b, 12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
 
     //adj gamma-expanded linear values https://color.org/chardata/rgb/sRGB.pdf
     const x =  0.4124*R + 0.3576*G + 0.1805*B
@@ -142,9 +142,9 @@ function rgb2xyz(rgb){
 // Convert RGB to LAB
 function rgb2lab(rgb){
     const xyz = rgb2xyz(rgb)
-    console.log(xyz)
+    //console.log(xyz)
     const lab = xyz2lab(xyz)
-    console.log(lab)
+    //console.log(lab)
     return lab
 }
 
@@ -152,9 +152,9 @@ function rgb2lab(rgb){
 // Convert LAB to RGB
 function lab2rgb(lab){
     const xyz = lab2xyz(lab)
-    console.log(xyz)
+    //console.log(xyz)
     const rgb = xyz2rgb(xyz)
-    console.log(rgb)
+    //console.log(rgb)
     return rgb
 }
 
@@ -162,12 +162,36 @@ function lab2rgb(lab){
 function test(){
     //check here: https://www.nixsensor.com/free-color-converter/ input: XYZ, in and out ref angles the same, uncheck 0-1 box.    
     let rgb = {r:255, g:255, b:255}
-    console.log(rgb)
     let lab = rgb2lab(rgb)
     rgb = lab2rgb(lab)
+
+    lab = {l:50,a:-128,b:-128}
+    rgb = lab2rgb(lab)
+    console.log(rgb)
 }
 
+
 const il = illuminants()
+test()
+
 const canvas = document.getElementById('canvas')
+const ctx = canvas.getContext('2d');
 
+function drawLAB(){
+    //L:0-100, A:-128-128, B:-128-128
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const w = canvas.width/(128*2) //canvas width / number of a and b vals
+    let lab = {'l':50,'a':0,'b':0}
+    for(let a=-128; a<128; a++){
+        lab.a = a
+        for(let b=-128; b<128; b++){
+            lab.b = b
+            const rgb = lab2rgb(lab)
+            console.log(rgb)
+            ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}%, ${rgb.b}%)`;
+            ctx.fillRect(Math.ceil(a+128*w),Math.ceil(b+128*w),Math.ceil(w),Math.ceil(w)); //w+1 on last two also deals with aliasing well enough?
+        }
+    }
+}
 
+//drawLAB()
