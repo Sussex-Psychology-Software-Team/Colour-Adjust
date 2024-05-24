@@ -1,0 +1,13 @@
+html, body{
+    margin: 0;
+}
+
+#pad {
+    height: 90%;
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+}
