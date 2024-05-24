@@ -84,18 +84,20 @@ function xyz2rgb(xyz){
 
     //convert to srgb
     function adj(C) {
+        let a
         //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
         if (Math.abs(C) <= 0.0031308) {
-          return 12.9232102 * C; //others often round to 12.92
+            a = 12.9232102 * C; //others often round to 12.92
         } else {
-            return 1.055 * (C**0.41666) - 0.055;
+            a = 1.055 * (C**0.41666) - 0.055;
         }
+        return Math.round(a*255) //'multiplied by 2^bit_depth-1 and quantized.'
     }
 
     //adjust and make int 0-255
-    const R = Math.round(adj(r)*255)
-    const G = Math.round(adj(g)*255)
-    const B = Math.round(adj(b)*255)
+    const R = adj(r)
+    const G = adj(g)
+    const B = adj(b)
 
     return { 'r':R, 'g':G, 'b':B }
 }
@@ -115,7 +117,7 @@ function rgb2xyz(rgb){
 
     // linear RGB
     function adj(C, d=12.9232102) { //or just use more common 12.92
-        C = C/255
+        C = C/255 //Convert to 0-1
         if (Math.abs(C) <= 0.04045) {
             return C / d;
         } else {
