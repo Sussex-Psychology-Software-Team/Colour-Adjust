@@ -26,8 +26,6 @@ function illuminants(d=65,deg=2){
 
 
 
-
-
 // Convert CIELAB to XYZ
 function lab2xyz(lab){
     //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIELAB_to_CIEXYZ
@@ -73,14 +71,13 @@ function xyz2rgb(xyz){
     // from: https://stackoverflow.com/a/45238704/7705626
     // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
         //for D65 only??
-    // see https://en.wikipedia.org/wiki/SRGB#cite_note-11
+    // for improved constants see: https://www.color.org/chardata/rgb/srgb.pdf
     //scale 0-1
     for (key of Object.keys(xyz)) {
         xyz[key]=xyz[key]/100;
     }
 
-    //get linear RGB - 
-        //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
+    //get linear RGB - //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
     const r =  3.2406255*xyz.x - 1.5372080*xyz.y - 0.4986286*xyz.z
     const g = -0.9689307*xyz.x + 1.8757561*xyz.y + 0.0415175*xyz.z
     const b =  0.0557101*xyz.x - 0.2040211*xyz.y + 1.0569959*xyz.z
@@ -95,10 +92,10 @@ function xyz2rgb(xyz){
         }
     }
 
-    //adjust and make 0-255
-    const R = adj(r)*255
-    const G = adj(g)*255
-    const B = adj(b)*255
+    //adjust and make int 0-255
+    const R = Math.round(adj(r)*255)
+    const G = Math.round(adj(g)*255)
+    const B = Math.round(adj(b)*255)
 
     return { 'r':R, 'g':G, 'b':B }
 }
@@ -108,13 +105,19 @@ function xyz2rgb(xyz){
 function rgb2xyz(rgb){
     // from https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
         //may need to consider conversion for other colourspaces - D65 and 2deg here??
-    
-    //RGB must be in range of 0-1 by /255
+
+    // scale 0-1
+    //for (key of Object.keys(rgb)) {
+    //    if(rgb[key]>1){
+    //        rgb[key]=rgb[key]/255;
+    //    }
+    //}
+
     // linear RGB
-    function adj(C) {
+    function adj(C, d=12.9232102) { //or just use more common 12.92
         C = C/255
         if (Math.abs(C) <= 0.04045) {
-            return C / 12.92;
+            return C / d;
         } else {
             return ((C+0.055)/1.055)**2.4
         }
@@ -122,7 +125,7 @@ function rgb2xyz(rgb){
 
     const R = adj(rgb.r)
     const G = adj(rgb.g)
-    const B = adj(rgb.b)
+    const B = adj(rgb.b,12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
 
     //adj gamma-expanded linear values https://color.org/chardata/rgb/sRGB.pdf
     const x =  0.4124*R + 0.3576*G + 0.1805*B
@@ -133,6 +136,7 @@ function rgb2xyz(rgb){
 }
 
 
+// Wrappers
 // Convert RGB to LAB
 function rgb2lab(rgb){
     const xyz = rgb2xyz(rgb)
@@ -152,7 +156,7 @@ function lab2rgb(lab){
     return rgb
 }
 
-// TESTING
+// Testing ---------------------------------------------------------------
 function test(){
     //check here: https://www.nixsensor.com/free-color-converter/ input: XYZ, in and out ref angles the same, uncheck 0-1 box.    
     let rgb = {r:255, g:255, b:255}
