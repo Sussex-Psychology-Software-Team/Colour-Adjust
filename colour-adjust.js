@@ -46,6 +46,35 @@ function lab2xyz(lab){
     return {'x':x, 'y':y, 'z':z}
 }
 
+
+function lab2xyzBD(lab){
+    //http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
+    //but see http://www.brucelindbloom.com/index.html?LContinuity.html
+    const e = 216/24389 //epsillon
+    const k = 24389/27 //kappa
+    // Y
+    const fy = ((lab.l+16)/116)
+    let yr;
+    if(lab.l>(k*e)){ yr = ((lab.l+16)/116)**3
+    } else { yr = lab.l/k }
+    const y = yr*il.Yn
+    // X
+    const fx = fy+(lab.a/500)
+    let xr;
+    if(fx**3>e){ xr = fx**3
+    } else { xr = (116*fx-16)/k }
+    const x = xr*il.Xn
+    // Z
+    const fz = fy-(lab.b/200)
+    let zr;
+    if(fz**3>e){ zr = fz**3
+    } else { zr = (116*fz-16)/k }
+    const z = zr*il.Zn
+
+    console.log('Bruce: ', {'x':x, 'y':y, 'z':z})
+    return {'x':x, 'y':y, 'z':z} 
+} 
+
 // Convert XYZ to CIELAB
 function xyz2lab(xyz){
     //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIEXYZ_to_CIELAB
