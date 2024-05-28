@@ -1,7 +1,7 @@
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
-function illuminants(d=65,deg=2){
+function illuminants(d=65,deg=2, scale=1){
     let Xn, Yn, Zn //not these assume 2 degree observer
     if(d===65){ //from https://en.wikipedia.org/wiki/Standard_illuminant#D65_values
         if(deg===2){
@@ -21,114 +21,10 @@ function illuminants(d=65,deg=2){
         }
     }
 
+    Xn = Xn/scale
+    Yn = Yn/scale
+    Zn = Zn/scale
     return { 'Xn': Xn, 'Yn': Yn, 'Zn': Zn }
-}
-
-
-
-// Convert CIELAB to XYZ
-function lab2xyz(lab){
-    //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIELAB_to_CIEXYZ
-    function finv(t){
-        const sigma = 6/29
-        if(t>sigma){
-            return t**3
-        } else {
-            return 3*sigma**2 * (t-(4/29))
-        }
-    }
-
-    const w = ((lab.l+16)/116)
-    const x = il.Xn* finv( w + (lab.a/500))
-    const y = il.Yn* finv( w )
-    const z = il.Zn* finv( w - (lab.b/200))
-
-    return {'x':x, 'y':y, 'z':z}
-}
-
-
-function lab2xyzBD(lab){
-    //http://www.brucelindbloom.com/index.html?Eqn_Lab_to_XYZ.html
-    //but see http://www.brucelindbloom.com/index.html?LContinuity.html
-    const e = 216/24389 //epsillon
-    const k = 24389/27 //kappa
-    // Y
-    const fy = ((lab.l+16)/116)
-    let yr;
-    if(lab.l>(k*e)){ yr = ((lab.l+16)/116)**3
-    } else { yr = lab.l/k }
-    const y = yr*il.Yn
-    // X
-    const fx = fy+(lab.a/500)
-    let xr;
-    if(fx**3>e){ xr = fx**3
-    } else { xr = (116*fx-16)/k }
-    const x = xr*il.Xn
-    // Z
-    const fz = fy-(lab.b/200)
-    let zr;
-    if(fz**3>e){ zr = fz**3
-    } else { zr = (116*fz-16)/k }
-    const z = zr*il.Zn
-
-    console.log('Bruce: ', {'x':x, 'y':y, 'z':z})
-    return {'x':x, 'y':y, 'z':z} 
-} 
-
-// Convert XYZ to CIELAB
-function xyz2lab(xyz){
-    //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIEXYZ_to_CIELAB
-    function f(t){
-        const sigma = 6/29
-        if(t>sigma**3){
-            return t**(1/3)
-        } else {
-            return ((1/3)*t*sigma**-2) + (4/29)
-        }
-    }
-
-    const l = 116 * f(xyz.y / il.Yn) - 16
-    const a = 500 * (f(xyz.x / il.Xn) - f(xyz.y / il.Yn))
-    const b = 200 * (f(xyz.y / il.Yn) - f(xyz.z / il.Zn))
-
-    return { 'l':l, 'a':a, 'b':b }
-}
-
-
-// Convert XYZ to sRGB
-function xyz2rgb(xyz){
-    // from: https://stackoverflow.com/a/45238704/7705626
-    // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
-        //for D65 only??
-    // for improved constants see: https://www.color.org/chardata/rgb/srgb.pdf
-    //scale 0-1
-    for (key of Object.keys(xyz)) {
-        xyz[key]=xyz[key]/100;
-    }
-
-    //get linear RGB - //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
-    const r =  3.2406255*xyz.x - 1.5372080*xyz.y - 0.4986286*xyz.z
-    const g = -0.9689307*xyz.x + 1.8757561*xyz.y + 0.0415175*xyz.z
-    const b =  0.0557101*xyz.x - 0.2040211*xyz.y + 1.0569959*xyz.z
-
-    //convert to srgb
-    function adj(C) {
-        let a
-        //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
-        if (Math.abs(C) <= 0.0031308) {
-            a = 12.9232102 * C; //others often round to 12.92
-        } else {
-            a = 1.055 * (C**0.41666) - 0.055;
-        }
-        return Math.round(a*255) //'multiplied by 2^bit_depth-1 and quantized.'
-    }
-
-    //adjust and make int 0-255
-    const R = adj(r)
-    const G = adj(g)
-    const B = adj(b)
-
-    return { 'r':R, 'g':G, 'b':B }
 }
 
 
@@ -139,11 +35,9 @@ function rgb2xyz(rgb){
 
     // scale 0-1
     //for (key of Object.keys(rgb)) {
-    //    if(rgb[key]>1){
-    //        rgb[key]=rgb[key]/255;
-    //    }
+    //    rgb[key]=rgb[key]/255;
     //}
-
+    
     // linear RGB
     function adj(C, d=12.9232102) { //or just use more common 12.92
         C = C/255 //Convert to 0-1
@@ -156,15 +50,105 @@ function rgb2xyz(rgb){
 
     const R = adj(rgb.r)
     const G = adj(rgb.g)
-    const B = adj(rgb.b, 12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
+    const B = adj(rgb.b)//, 12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
 
     //adj gamma-expanded linear values https://color.org/chardata/rgb/sRGB.pdf
     const x =  0.4124*R + 0.3576*G + 0.1805*B
     const y = 0.2126*R + 0.7152*G + 0.0722*B
     const z =  0.0193*R + 0.1192*G + 0.9505*B
 
-    return { 'x':x*100, 'y':y*100, 'z':z*100 }
+    return { 'x':x, 'y':y, 'z':z }
 }
+
+// Convert XYZ to CIELAB
+function xyz2lab(xyz, scale=1){
+    // scale 0-100
+    for (key of Object.keys(xyz)) {
+        xyz[key]=xyz[key]*100;
+    }
+
+    //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIEXYZ_to_CIELAB
+    function f(t){
+        const sigma = 6/29 //216/24389
+        if(t>sigma**3){
+            return t**(1/3)
+        } else {
+            return ((1/3)*t*sigma**-2) + (4/29) //t / (3 * delta ** 2)???
+        }
+    }
+
+    const l = 116 * f(xyz.y / il.Yn) - 16
+    const a = 500 * (f(xyz.x / il.Xn) - f(xyz.y / il.Yn))
+    const b = 200 * (f(xyz.y / il.Yn) - f(xyz.z / il.Zn))
+
+    return { 'l':l, 'a':a, 'b':b }
+}
+
+
+
+// Convert CIELAB to XYZ
+function lab2xyz(lab, scale=1){
+    //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIELAB_to_CIEXYZ
+    //reference white 100
+    function finv(t){
+        const sigma = 6/29
+        if(t>sigma){
+            return t**3
+        } else {
+            return 3*sigma**2 * t-4/29
+        }
+    }
+
+    const fy = ((lab.l+16)/116)
+    const x = (il.Xn/scale) * finv( fy + (lab.a/500))
+    const y = (il.Yn/scale) * finv( fy )
+    const z = (il.Zn/scale) * finv( fy - (lab.b/200))
+    
+    return {'x':x, 'y':y, 'z':z}
+}
+
+
+// Convert XYZ to sRGB
+function xyz2rgb(xyz){
+    // from: https://stackoverflow.com/a/45238704/7705626
+    // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
+        //for D65 only??
+    // for improved constants see: https://www.color.org/chardata/rgb/srgb.pdf
+    //https://www.image-engineering.de/library/technotes/958-how-to-convert-between-srgb-and-ciexyz%20*%20@param%20%20%7Bstring%7D%20hex
+
+    //get linear RGB - //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
+    const r =  3.2404542*xyz.x - 1.5372080*xyz.y - 0.4986286*xyz.z
+    const g = -0.9689307*xyz.x + 1.8757561*xyz.y + 0.0415175*xyz.z
+    const b =  0.0557101*xyz.x - 0.2040211*xyz.y + 1.0569959*xyz.z
+
+    console.log(r)
+    console.log(g)
+    console.log(b)
+    //convert to srgb
+    function adj(C) {
+        let v
+        //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
+        if (C <= 0.0031308) {
+            v = 12.9232102 * C //12.9232102 often round to 12.92
+        } else {
+            v = 1.055 * C**(1/24) - 0.055 // (C<0?-C:C) applying −f(−x) when x is negative https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=applying%20%E2%88%92f(%E2%88%92x)%20when%20x%20is%20negative
+        }
+        //clip 0-1
+        //if(v>1){ v = 1 
+        //} else if(v<0) { v = 0 }
+        return Math.round(v*255) //'multiplied by 2^bit_depth-1 and quantized.'
+    }
+
+
+    //adjust and make int 0-255
+    const R = adj(r)
+    const G = adj(g)
+    const B = adj(b)
+
+    return { 'r':R, 'g':G, 'b':B }
+}
+
+
 
 
 // Wrappers
@@ -180,22 +164,23 @@ function rgb2lab(rgb){
 
 // Convert LAB to RGB
 function lab2rgb(lab){
-    const xyz = lab2xyz(lab)
-    //console.log(xyz)
+    const xyz = lab2xyz(lab, 100) //scale 0-1 for RGB formula
+    console.log(xyz)
     const rgb = xyz2rgb(xyz)
-    //console.log(rgb)
+    console.log(rgb)
     return rgb
 }
 
 // Testing ---------------------------------------------------------------
 function test(){
     //check here: https://www.nixsensor.com/free-color-converter/ input: XYZ, in and out ref angles the same, uncheck 0-1 box.    
-    let rgb = {r:255, g:255, b:255}
-    let lab = rgb2lab(rgb)
-    rgb = lab2rgb(lab)
+    // let rgb = {r:255, g:255, b:255}
+    // let lab = rgb2lab(rgb)
+    // rgb = lab2rgb(lab)
 
-    lab = {l:50,a:-128,b:-128}
-    rgb = lab2rgb(lab)
+    let lab = {l:50, a:-128, b:-128}
+    console.log(lab)
+    let rgb = lab2rgb(lab)
     console.log(rgb)
 }
 
