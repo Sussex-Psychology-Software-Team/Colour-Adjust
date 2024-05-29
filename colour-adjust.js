@@ -175,22 +175,52 @@ const il = illuminants()
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d');
 
-function drawLAB(){
+
+function drawLAB(l){
     //L:0-100, A:-128-128, B:-128-128
     ctx.clearRect(0,0,canvas.width,canvas.height);
     const w = canvas.width/(128*2) //canvas width / number of a and b vals
-    let lab = {'l':50,'a':0,'b':0}
-    for(let a=-128; a<=128; a++){
+    let lab = {'l':l,'a':0,'b':0}
+    for(let a= -128; a<129; a++){
         lab.a = a
-        for(let b=-128; b<=128; b++){
+        for(let b= -128; b<129; b++){
             lab.b = b
             const rgb = lab2rgb(lab)
             console.log(rgb)
             // ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}%, ${rgb.b}%)`
             ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
-            ctx.fillRect(Math.ceil((a+128)*w),Math.ceil((b+128)*w),Math.ceil(w),Math.ceil(w)); //w+1 on last two also deals with aliasing well enough?
+            ctx.fillRect(Math.ceil((a+128)*w),Math.floor((b+128)*w),Math.ceil(w),Math.ceil(w)) //w+1 on last two also deals with aliasing well enough?
         }
     }
 }
 
-drawLAB()
+function drawLABAA(l){
+    canvas.width = (128*2)+1
+    canvas.height = (128*2)+1
+    canvas.style.width = '100%'
+    canvas.style.height = '100%'
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    let lab = {'l':l,'a':0,'b':0}
+    for(let a= -128; a<129; a++){
+        lab.a = a
+        for(let b= -128; b<129; b++){
+            lab.b = b
+            const rgb = lab2rgb(lab)
+            console.log(rgb)
+            // ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}%, ${rgb.b}%)`
+            ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+            ctx.fillRect(a+128,b+128,1,1) //w+1 on last two also deals with aliasing well enough?
+        }
+    }
+}
+
+drawLABAA(50)
+
+//window.onresize = windowResize
+function windowResize(){ // set canvas size in HTML
+    canvas.width = window.innerWidth-10
+    canvas.height = window.innerHeight-10
+    drawLAB(50)
+}
+
+//windowResize()
