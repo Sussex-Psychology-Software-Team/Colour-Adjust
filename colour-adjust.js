@@ -111,41 +111,29 @@ function lab2xyz(lab, scale=1){
 // Convert XYZ to sRGB
 function xyz2rgb(xyz){
     // from: https://stackoverflow.com/a/45238704/7705626
-    // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB
+    // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB, https://gist.github.com/mnito/da28c930d270f280f0989b9a707d71b5
         //for D65 only??
     // for improved constants see: https://www.color.org/chardata/rgb/srgb.pdf
     //https://www.image-engineering.de/library/technotes/958-how-to-convert-between-srgb-and-ciexyz%20*%20@param%20%20%7Bstring%7D%20hex
-
+    
     //get linear RGB - //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
     const r =  3.2404542*xyz.x - 1.5372080*xyz.y - 0.4986286*xyz.z
     const g = -0.9689307*xyz.x + 1.8757561*xyz.y + 0.0415175*xyz.z
     const b =  0.0557101*xyz.x - 0.2040211*xyz.y + 1.0569959*xyz.z
 
-    console.log(r)
-    console.log(g)
-    console.log(b)
     //convert to srgb
-    function adj(C) {
-        let v
+    function adj(c) {
+        c = Math.max(0, Math.min(1, c)); //clamp 0-1
         //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
-        if (C <= 0.0031308) {
-            v = 12.9232102 * C //12.9232102 often round to 12.92
+        if (c <= 0.0031308) {
+            c = 12.92 * c //12.9232102 often round to 12.92
         } else {
-            v = 1.055 * C**(1/24) - 0.055 // (C<0?-C:C) applying −f(−x) when x is negative https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=applying%20%E2%88%92f(%E2%88%92x)%20when%20x%20is%20negative
+            c = 1.055 * (c**(1/2.4)) - 0.055 // can try applying −f(−x) when x is negative https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=applying%20%E2%88%92f(%E2%88%92x)%20when%20x%20is%20negative
         }
-        //clip 0-1
-        //if(v>1){ v = 1 
-        //} else if(v<0) { v = 0 }
-        return Math.round(v*255) //'multiplied by 2^bit_depth-1 and quantized.'
+        return Math.round(c*255) //'multiplied by 2^bit_depth-1 and quantized.'
     }
 
-
-    //adjust and make int 0-255
-    const R = adj(r)
-    const G = adj(g)
-    const B = adj(b)
-
-    return { 'r':R, 'g':G, 'b':B }
+    return { 'r':adj(r), 'g':adj(g), 'b':adj(b) }
 }
 
 
@@ -165,29 +153,25 @@ function rgb2lab(rgb){
 // Convert LAB to RGB
 function lab2rgb(lab){
     const xyz = lab2xyz(lab, 100) //scale 0-1 for RGB formula
-    console.log(xyz)
+    //console.log(xyz)
     const rgb = xyz2rgb(xyz)
-    console.log(rgb)
+    //console.log(rgb)
     return rgb
 }
 
 // Testing ---------------------------------------------------------------
 function test(){
     //check here: https://www.nixsensor.com/free-color-converter/ input: XYZ, in and out ref angles the same, uncheck 0-1 box.    
-    // let rgb = {r:255, g:255, b:255}
-    // let lab = rgb2lab(rgb)
-    // rgb = lab2rgb(lab)
-
-    let lab = {l:50, a:-128, b:-128}
-    console.log(lab)
-    let rgb = lab2rgb(lab)
+    let rgb = {r:255, g:255, b:255}
+    let lab = rgb2lab(rgb)
+    rgb = lab2rgb(lab)
+    console.log(rgb)
+    let xyz = {x:0.02,y:0.18,z:1.08}
+    rgb = xyz2rgb(xyz)
     console.log(rgb)
 }
 
-
 const il = illuminants()
-test()
-
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d');
 
