@@ -189,16 +189,16 @@ function drawLAB(l){
     }
 }
 
-canvas.addEventListener('mousedown', mouseY)
+document.addEventListener('mousedown', mouseY)
 function mouseY(e){
     const y = (e.clientY/window.innerHeight)*100
     drawLAB(y)
-    canvas.addEventListener('mousemove', mouseY)
+    document.addEventListener('mousemove', mouseY)
 }
 
-canvas.addEventListener('mouseup', removeY)
+document.addEventListener('mouseup', removeY)
 function removeY(){
-    canvas.removeEventListener('mousemove', mouseY)
+    document.removeEventListener('mousemove', mouseY)
 }
 
 drawLAB(50)
