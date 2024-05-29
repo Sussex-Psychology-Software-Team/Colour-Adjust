@@ -180,16 +180,17 @@ function drawLAB(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     const w = canvas.width/(128*2) //canvas width / number of a and b vals
     let lab = {'l':50,'a':0,'b':0}
-    for(let a=-128; a<128; a++){
+    for(let a=-128; a<=128; a++){
         lab.a = a
-        for(let b=-128; b<128; b++){
+        for(let b=-128; b<=128; b++){
             lab.b = b
             const rgb = lab2rgb(lab)
             console.log(rgb)
-            ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}%, ${rgb.b}%)`;
-            ctx.fillRect(Math.ceil(a+128*w),Math.ceil(b+128*w),Math.ceil(w),Math.ceil(w)); //w+1 on last two also deals with aliasing well enough?
+            // ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}%, ${rgb.b}%)`
+            ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+            ctx.fillRect(Math.ceil((a+128)*w),Math.ceil((b+128)*w),Math.ceil(w),Math.ceil(w)); //w+1 on last two also deals with aliasing well enough?
         }
     }
 }
 
-//drawLAB()
+drawLAB()
