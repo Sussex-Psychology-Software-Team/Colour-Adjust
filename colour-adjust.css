@@ -13,3 +13,14 @@ html, body{
     -webkit-user-select: none; /* Safari */
     user-select: none;
 }
+
+p{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: larger;
+    color: white;
+    text-align: center;
+    z-index: 999;
+}
