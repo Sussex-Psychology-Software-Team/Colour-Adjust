@@ -192,6 +192,7 @@ function drawLAB(l){
 document.addEventListener('mousedown', mouseY)
 function mouseY(e){
     const y = (e.clientY/window.innerHeight)*100
+    console.log(y)
     drawLAB(y)
     document.addEventListener('mousemove', mouseY)
 }
@@ -215,7 +216,7 @@ window.addEventListener("beforeinstallprompt", (event) => {
 })
 
 installButton.addEventListener("click", async () => {
-    if (!installPrompt) { return}
+    if (!installPrompt) { return }
     const result = await installPrompt.prompt()
     console.log(`Install prompt was: ${result.outcome}`)
     disableInAppInstallPrompt()
