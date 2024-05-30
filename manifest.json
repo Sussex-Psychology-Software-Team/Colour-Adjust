@@ -3,7 +3,7 @@
     "start_url": "https://sussex-psychology-software-team.github.io/Colour-Adjust/colour-adjust.html",
     "display": "fullscreen",
     "description": "A colour adjustment experiment.",
-    "theme_color": "#02ffff",
+    "theme_color": "black",
     "icons": [
         {
             "src": "icons/LAB_1918_original.png",
