@@ -3,22 +3,17 @@ html, body{
     overscroll-behavior-y: none;
 }
 
-#canvas {
-    height: 100%;
-    width: 100%;
+.centre {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+}
     -webkit-user-select: none; /* Safari */
     user-select: none;
 }
 
 #version {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
     font-size: larger;
     color: white;
     text-align: center;
