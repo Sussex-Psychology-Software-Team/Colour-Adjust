@@ -178,9 +178,9 @@ const ctx = canvas.getContext('2d');
 function drawLAB(l){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let lab = {'l':l,'a':0,'b':0}
-    for(let a= -128; a<129; a++){
+    for(let a= -128; a<128; a++){ //note LAB is -128 to 127
         lab.a = a
-        for(let b= -128; b<129; b++){
+        for(let b= -128; b<128; b++){
             lab.b = b
             const rgb = lab2rgb(lab)
             ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
