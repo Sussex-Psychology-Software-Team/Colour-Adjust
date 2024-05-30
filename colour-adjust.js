@@ -197,10 +197,7 @@ function mouseY(e){
     document.addEventListener('mousemove', mouseY)
 }
 
-document.addEventListener('mouseup', removeY)
-function removeY(){
-    document.removeEventListener('mousemove', mouseY)
-}
+document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
 
 drawLAB(50)
 
