@@ -1,6 +1,6 @@
 {
     "name": "Adjustour",
-    "start_url": "/",
+    "start_url": "https://users.sussex.ac.uk/~mel29/experiments/Colour-Adjust/colour-adjust.html",
     "display": "standalone",
     "description": "A colour adjustment experiment.",
     "theme_color": "#02ffff",
