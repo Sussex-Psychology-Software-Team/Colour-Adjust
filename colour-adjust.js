@@ -202,7 +202,8 @@ function mouseY(e){
 
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
 
-// Android Installers ---------------------------------------------------------------
+// Installers ---------------------------------------------------------------
+// Android
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 let installPrompt = null;
 const installButton = document.getElementById("install");
@@ -224,3 +225,12 @@ function disableInAppInstallPrompt() {
     installPrompt = null
     installButton.setAttribute("hidden", "")
 }
+
+//iOS
+const instructions = document.getElementById("instructions")
+//if running as webapp - relying on the necessary page reload to start it
+if(window.navigator.standalone || document.referrer.includes("android-app://") ||  window.matchMedia("(display-mode: standalone)").matches){
+    instructions.setAttribute("hidden", "")
+}
+
+
