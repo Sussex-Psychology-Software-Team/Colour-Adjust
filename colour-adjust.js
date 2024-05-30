@@ -171,10 +171,10 @@ function test(){
     console.log(rgb)
 }
 
+// Draw ---------------------------------------------------------------
 const il = illuminants()
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d');
-
 function drawLAB(l){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let lab = {'l':l,'a':0,'b':0}
@@ -189,6 +189,9 @@ function drawLAB(l){
     }
 }
 
+drawLAB(50)
+
+// Mouse listeners ---------------------------------------------------------------
 document.addEventListener('mousedown', mouseY)
 function mouseY(e){
     const y = (e.clientY/window.innerHeight)*100
@@ -199,9 +202,7 @@ function mouseY(e){
 
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
 
-drawLAB(50)
-
-// ANDROID INSTALL
+// Android Installers ---------------------------------------------------------------
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 let installPrompt = null;
 const installButton = document.getElementById("install");
