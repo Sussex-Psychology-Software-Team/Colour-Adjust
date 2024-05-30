@@ -14,7 +14,7 @@ html, body{
     user-select: none;
 }
 
-p{
+#version {
     position: absolute;
     left: 50%;
     top: 50%;
