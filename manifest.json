@@ -1,0 +1,10 @@
+{
+    "name": "Adjustour",
+    "start_url": "/",
+    "display": "fullscreen",
+    "icons": [{
+        "src": "LAB.png",
+        "type": "image/png",
+        "sizes": "512x512"
+    }]
+}
