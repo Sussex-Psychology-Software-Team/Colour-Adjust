@@ -1,7 +1,9 @@
 {
     "name": "Adjustour",
     "start_url": "/",
-    "display": "fullscreen",
+    "display": "standalone",
+    "description": "A colour adjustment experiment.",
+    "theme_color": "#02ffff",
     "icons": [{
         "src": "LAB.png",
         "type": "image/png",
