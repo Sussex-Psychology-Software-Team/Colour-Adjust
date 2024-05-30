@@ -11,6 +11,26 @@
             "sizes": "1918x1918"
         },
         {
+            "src": "icons/apple-touch-icon.png",
+            "type": "image/png",
+            "sizes": "180x180"
+        },
+        {
+            "src": "icons/favicon.ico",
+            "type": "image/ico",
+            "sizes": "42x42"
+        },
+        {
+            "src": "icons/LAB_32.png",
+            "type": "image/png",
+            "sizes": "32x32"
+        },
+        {
+            "src": "icons/LAB_64.png",
+            "type": "image/png",
+            "sizes": "64x64"
+        },
+        {
             "src": "icons/LAB_72.png",
             "type": "image/png",
             "sizes": "72x72"
