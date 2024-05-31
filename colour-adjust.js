@@ -226,12 +226,15 @@ function disableInAppInstallPrompt() {
     installButton.setAttribute("hidden", "")
 }
 
-//iOS
+//iOS and Desktop
 const instructions = document.getElementById("instructions")
-//if running as webapp - relying on the necessary page reload to start it
-console.log(window.navigator)
-if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
-    instructions.style.display = 'none';
-}
+window.addEventListener("appinstalled", () => {
+    //if running as webapp - relying on the necessary page reload to start it
+    if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
+        instructions.style.display = 'none';
+    }
+});
+
+
 
 
