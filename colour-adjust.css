@@ -17,12 +17,16 @@ html, body{
     user-select: none;
 }
 
-p {
+p, li {
     font-size: larger;
     color: white;
     text-align: center;
     -webkit-user-select: none; /* Safari */
     user-select: none;
+}
+
+li{
+    text-align: start;
 }
 
 #install {
