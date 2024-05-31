@@ -21,8 +21,10 @@ p {
     font-size: larger;
     color: white;
     text-align: center;
+    -webkit-user-select: none; /* Safari */
+    user-select: none;
 }
 
-#container{
-    z-index: 9;
+#install {
+    position: relative;
 }
