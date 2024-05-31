@@ -243,6 +243,8 @@ window.addEventListener("load", hideInstructions); //when opened up
 document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
+        instructions.style.display = 'none';
+        disableInAppInstallPrompt()
         hideInstructions(e)
     } else {
         instructions.style.display = 'block'
