@@ -174,7 +174,7 @@ function test(){
 // Draw whole gamut ---------------------------------------------------------------
 const il = illuminants()
 const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d')
 function drawLAB(l){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let lab = {'l':l,'a':0,'b':0}
@@ -228,8 +228,19 @@ function mouseY(e){
     document.addEventListener('mousemove', mouseY) //enable click and drag
 }
 
-//disable click and drag
+// disable click and drag
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
+
+// Colours ---------------------------------------------------------------
+const colour = document.getElementById('colour')
+
+const colours = ['white', 'grey', 'blue']
+let i = 0
+
+function newTrial(){
+    colour.innerHTML = colours[i]
+}
+newTrial()
 
 // Installers ---------------------------------------------------------------
 // Android
