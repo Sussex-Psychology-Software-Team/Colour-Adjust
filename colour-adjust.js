@@ -229,14 +229,13 @@ function disableInAppInstallPrompt() {
 //iOS and Desktop
 function hideInstructions(e){
     console.log(e.type)
-
-    console.log(window.matchMedia("(display-mode: standalone)").matches)
     const instructions = document.getElementById("instructions")
+    // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
     if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
         instructions.style.display = 'none';
     }
 }
 
 window.addEventListener("appinstalled", hideInstructions);
-window.addEventListener("load", hideInstructions);
-document.addEventListener('visibilitychange', hideInstructions);
+window.addEventListener("load", hideInstructions); //when opened up
+document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
