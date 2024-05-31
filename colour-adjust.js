@@ -241,14 +241,10 @@ window.addEventListener("appinstalled", hideInstructions);
 window.addEventListener("load", hideInstructions); //when opened up
 document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
-    let displayMode = 'browser';
     if (e.matches) {
-        displayMode = 'standalone';
-        instructions.style.display = 'none';
-        disableInAppInstallPrompt()
+        hideInstructions(e)
     } else {
-        instructions.innerHTML = 'Please return to or reinstall the app version of this website.' 
+        instructions.style.display = 'block'
+        instructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
-    // Log display mode change to analytics
-    console.log('DISPLAY_MODE_CHANGED', displayMode);
   });
