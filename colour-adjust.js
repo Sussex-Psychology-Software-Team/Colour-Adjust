@@ -227,14 +227,16 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
-const instructions = document.getElementById("instructions")
-window.addEventListener("appinstalled", () => {
-    //if running as webapp - relying on the necessary page reload to start it
+function hideInstructions(e){
+    console.log(e.type)
+
+    console.log(window.matchMedia("(display-mode: standalone)").matches)
+    const instructions = document.getElementById("instructions")
     if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
         instructions.style.display = 'none';
     }
-});
+}
 
-window.addEventListener("load", (event) => {
-    console.log("page is fully loaded");
-  });
+window.addEventListener("appinstalled", hideInstructions);
+window.addEventListener("load", hideInstructions);
+document.addEventListener('visibilitychange', hideInstructions);
