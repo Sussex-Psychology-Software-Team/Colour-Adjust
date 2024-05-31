@@ -171,7 +171,7 @@ function test(){
     console.log(rgb)
 }
 
-// Draw ---------------------------------------------------------------
+// Draw whole gamut ---------------------------------------------------------------
 const il = illuminants()
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d');
@@ -189,17 +189,46 @@ function drawLAB(l){
     }
 }
 
-drawLAB(50)
+;(function init(){
+    // const lab = {l:100,a:128,b:0}
+    // const rgb = lab2rgb(lab)
+    // fillColour(rgb)
+    drawLAB(50)
+})();
 
 // Mouse listeners ---------------------------------------------------------------
 document.addEventListener('mousedown', mouseY)
-function mouseY(e){
-    const y = (e.clientY/window.innerHeight)*100
-    console.log(y)
-    drawLAB(y)
-    document.addEventListener('mousemove', mouseY)
+
+function xy2ab(c,max){ // c is coord, max=window.innerHeight or width
+    const m = max/2; // midpoint
+    const a = c>m? m-c : c-m // absolute distance from midpoint
+    const n = 129*(a/m) // normailse 0-128 on whole screen
+    return c<max/2 ? n*-1 : n //filp sign based on midpoint
 }
 
+function fillColour(rgb){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+    ctx.fillRect(0,0,canvas.width,canvas.height)
+}
+
+function mouseY(e){
+    //Note old functions for scrolling L*
+        //const y = (e.clientY/window.innerHeight)*100
+        //drawLAB(y)
+
+    // y = a* = green to red, x = b* = blue to yellow
+    const a = xy2ab(e.clientY, window.innerHeight)
+    const b = xy2ab(e.clientX, window.innerWidth) 
+    const lab = {l:100,a:a,b:b}
+    console.log(lab)
+    const rgb = lab2rgb(lab)
+    console.log(rgb)
+    fillColour(rgb)
+    document.addEventListener('mousemove', mouseY) //enable click and drag
+}
+
+//disable click and drag
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
 
 // Installers ---------------------------------------------------------------
