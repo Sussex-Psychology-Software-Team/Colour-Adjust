@@ -32,3 +32,9 @@ li{
 #install {
     position: relative;
 }
+
+@media all and (display-mode: standalone) {
+    #install{
+        display: none;
+    }
+}
