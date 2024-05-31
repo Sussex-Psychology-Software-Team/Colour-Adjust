@@ -21,9 +21,8 @@ p {
     font-size: larger;
     color: white;
     text-align: center;
-    z-index: 999;
 }
 
-#version{
-    padding-top: 10%;
+#container{
+    z-index: 9;
 }
