@@ -224,6 +224,7 @@ installButton.addEventListener("click", async () => {
 function disableInAppInstallPrompt() {
     installPrompt = null
     installButton.setAttribute("hidden", "")
+    hideInstructions()
 }
 
 //iOS and Desktop
