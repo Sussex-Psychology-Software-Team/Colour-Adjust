@@ -227,15 +227,28 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
+const instructions = document.getElementById("instructions")
 function hideInstructions(e){
     console.log(e.type)
-    const instructions = document.getElementById("instructions")
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
     if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
         instructions.style.display = 'none';
+        disableInAppInstallPrompt()
     }
 }
 
 window.addEventListener("appinstalled", hideInstructions);
 window.addEventListener("load", hideInstructions); //when opened up
 document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
+window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+    let displayMode = 'browser';
+    if (e.matches) {
+        displayMode = 'standalone';
+        instructions.style.display = 'none';
+        disableInAppInstallPrompt()
+    } else {
+        instructions.innerHTML = 'Please return to or reinstall the app version of this website.' 
+    }
+    // Log display mode change to analytics
+    console.log('DISPLAY_MODE_CHANGED', displayMode);
+  });
