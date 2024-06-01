@@ -264,13 +264,12 @@ installButton.addEventListener("click", async () => {
 function disableInAppInstallPrompt() {
     installPrompt = null
     installButton.setAttribute("hidden", "")
-    hideInstructions()
 }
 
 //iOS and Desktop
 const instructions = document.getElementById("instructions")
 function hideInstructions(e){
-    console.log(e.type)
+    //console.log(e.type)
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
     if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://")){
         instructions.style.display = 'none';
@@ -284,10 +283,9 @@ document.addEventListener('visibilitychange', hideInstructions); //hacky but fir
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
         instructions.style.display = 'none';
-        disableInAppInstallPrompt()
         hideInstructions(e)
     } else {
         instructions.style.display = 'block'
         instructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
-  });
+});
