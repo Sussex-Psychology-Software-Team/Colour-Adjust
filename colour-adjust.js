@@ -244,6 +244,14 @@ const colour = document.getElementById('colour')
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 
 
+function addAdjustColourListeners(){
+    const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
+    for (let i=0; i<adjustColourButtons.length; i++) {
+        adjustColourButtons[i].addEventListener('click', changeLAB)
+    }
+}
+addAdjustColourListeners()
+
 function sameColour(colour1, colour2, channels){
     return colour1[channels.charAt(0)] === colour2[channels.charAt(0)] &&
     colour1[channels.charAt(1)] === colour2[channels.charAt(1)] &&
