@@ -250,6 +250,12 @@ function whiteTrial(){
     document.getElementById('down').value = 'G+'
 }
 
+function hueTrial(){
+    document.getElementById('left').hidden = true
+    document.getElementById('right').hidden = true
+    document.getElementById('up').value = '+'
+    document.getElementById('down').value = '-'
+}
 function addAdjustColourListeners(){
     const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
     for (let i=0; i<adjustColourButtons.length; i++) {
