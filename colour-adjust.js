@@ -243,6 +243,7 @@ function fillColour(rgb){
 const colour = document.getElementById('colour')
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 
+let currentColour
 function whiteTrial(){
     document.getElementById('left').hidden = false
     document.getElementById('right').hidden = false
