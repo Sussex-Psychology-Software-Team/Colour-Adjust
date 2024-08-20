@@ -239,6 +239,10 @@ function randomLAB(l){
     const b = Math.floor(Math.random() * (Math.floor(127) - Math.ceil(-128) + 1) + Math.ceil(-128)); // The maximum is inclusive and the minimum is inclusive
     return { 'l':l, 'a':a, 'b':b }
 }
+
+function updateCanvasColour(lab){
+    const rgb = lab2rgb(lab)
+    fillColour(rgb)
 }
 
 function fillColour(rgb){
