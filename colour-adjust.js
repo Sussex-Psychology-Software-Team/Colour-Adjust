@@ -250,6 +250,34 @@ function sameColour(colour1, colour2, channels){
     colour1[channels.charAt(2)] === colour2[channels.charAt(2)]
 }
 
+function changeLAB(e){
+    const changeAmount = 10 //consider separating for white and hue
+    const oldRGB = lab2rgb(currentColour)
+    const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
+
+    if(e.target.id==='submit') newTrial()
+    else if(e.target.value==='B+') currentColour.b -= changeAmount
+    else if(e.target.value==='R+') currentColour.a += changeAmount
+    else if(e.target.value==='Y+') currentColour.b += changeAmount
+    else if(e.target.value==='G+') currentColour.a -= changeAmount
+    else if(colour.textContent !== 'white'){ // or just else is hue trial
+        const lch = lab2lch(currentColour)
+        if(e.target.value==='+') lch.h += changeAmount
+        else if(e.target.value==='-') lch.h -= changeAmount
+        currentColour = lch2lab(lch)
+    }
+    // Check  changes and update UI if not out of bounds
+    currentColour = clampLAB(currentColour)
+    console.log(currentColour)
+    const newRGB = lab2rgb(currentColour)
+    console.log('oldRGB: ', oldRGB)
+    console.log('newRGB: ', newRGB)
+
+    if(!sameColour(oldRGB,newRGB,'rgb')) updateCanvasColour(currentColour)
+    else currentColour = oldLAB;
+}
+
+
 
 
 // Mouse listeners ---------------------------------------------------------------
