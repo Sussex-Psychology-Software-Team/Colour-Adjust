@@ -212,6 +212,9 @@ function fillColour(rgb){
     ctx.fillRect(0,0,canvas.width,canvas.height)
 }
 
+// Colours ---------------------------------------------------------------
+const colour = document.getElementById('colour')
+const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 function mouseY(e){
     //Note old functions for scrolling L*
         //const y = (e.clientY/window.innerHeight)*100
@@ -231,16 +234,9 @@ function mouseY(e){
 // disable click and drag
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
 
-// Colours ---------------------------------------------------------------
-const colour = document.getElementById('colour')
 
-const colours = ['white', 'grey', 'blue']
-let i = 0
 
-function newTrial(){
-    colour.innerHTML = colours[i]
-}
-newTrial()
+
 
 // Installers ---------------------------------------------------------------
 // Android
