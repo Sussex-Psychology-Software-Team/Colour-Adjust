@@ -1,7 +1,13 @@
 // GLObALS ---------------------------------------------------------------
+// Dom references
 const colour = document.getElementById('colour')
+const canvas = document.getElementById('canvas')
+const ctx = canvas.getContext('2d')
+// Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 let currentColour
+// Init functions
+const il = illuminants()
 addButtonListeners()
 newTrial() // call new trial
 
@@ -216,9 +222,6 @@ function test(){
 }
 
 // Draw whole gamut ---------------------------------------------------------------
-const il = illuminants()
-const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d')
 function drawLAB(l){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let lab = {'l':l,'a':0,'b':0}
