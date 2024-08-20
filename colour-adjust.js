@@ -243,6 +243,7 @@ function fillColour(rgb){
 const colour = document.getElementById('colour')
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 
+// Button listeners ---------------------------------------------------------------
 let currentColour
 
 function newTrial(){
@@ -272,6 +273,9 @@ function hueTrial(){
     document.getElementById('up').value = '+'
     document.getElementById('down').value = '-'
 }
+
+
+newTrial()
 
 function endTrials(){
     colour.textContent = 'FIN'
