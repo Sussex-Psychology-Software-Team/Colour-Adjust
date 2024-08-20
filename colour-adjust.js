@@ -1,3 +1,10 @@
+// GLObALS ---------------------------------------------------------------
+const colour = document.getElementById('colour')
+const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
+let currentColour
+addButtonListeners()
+newTrial() // call new trial
+
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
@@ -254,13 +261,7 @@ function fillColour(rgb){
     ctx.fillRect(0,0,canvas.width,canvas.height)
 }
 
-// Colours ---------------------------------------------------------------
-const colour = document.getElementById('colour')
-const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
-
 // Button listeners ---------------------------------------------------------------
-let currentColour
-
 function newTrial(){
     if(colours.length === 0) endTrials()
     else {
@@ -289,20 +290,16 @@ function hueTrial(){
     document.getElementById('down').value = '-'
 }
 
-
-newTrial()
-
 function endTrials(){
     colour.textContent = 'FIN'
 }
 
-function addAdjustColourListeners(){
+function addButtonListeners(){
     const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
     for (let i=0; i<adjustColourButtons.length; i++) {
         adjustColourButtons[i].addEventListener('click', changeLAB)
     }
 }
-addAdjustColourListeners()
 
 function sameColour(colour1, colour2, channels){
     return colour1[channels.charAt(0)] === colour2[channels.charAt(0)] &&
@@ -368,8 +365,6 @@ function mouseY(e){
 
 // disable click and drag
 document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
-
-
 
 
 
