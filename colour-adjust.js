@@ -243,6 +243,12 @@ function fillColour(rgb){
 const colour = document.getElementById('colour')
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 
+function whiteTrial(){
+    document.getElementById('left').hidden = false
+    document.getElementById('right').hidden = false
+    document.getElementById('up').value = 'R+'
+    document.getElementById('down').value = 'G+'
+}
 
 function addAdjustColourListeners(){
     const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
