@@ -136,6 +136,17 @@ function xyz2rgb(xyz){
     return { 'r':adj(r), 'g':adj(g), 'b':adj(b) }
 }
 
+// Convert LAB to Cylindrical model LCH
+function lab2lch(lab){ //https://en.wikipedia.org/wiki/CIELAB_color_space#Cylindrical_model
+    // convert from cartesian to polar
+    const c = Math.sqrt(lab.a**2 + lab.b**2)
+    let h = Math.atan2(lab.b, lab.a) //use atan2 not atan??
+    // h from radians to degrees for interpretability
+    h *= 180/Math.PI
+    if(h<0) h += 360 // h 0-360
+    // store and check bounds
+    return { 'l':lab.l, 'c':c, 'h':h }
+}
 
 
 
