@@ -256,6 +256,11 @@ function hueTrial(){
     document.getElementById('up').value = '+'
     document.getElementById('down').value = '-'
 }
+
+function endTrials(){
+    colour.textContent = 'FIN'
+}
+
 function addAdjustColourListeners(){
     const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
     for (let i=0; i<adjustColourButtons.length; i++) {
