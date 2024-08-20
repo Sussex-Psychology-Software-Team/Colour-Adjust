@@ -1,3 +1,5 @@
+/* Global and canvas */
+
 html, body{
     margin: 0;
     overscroll-behavior-y: none;
@@ -17,6 +19,63 @@ html, body{
     user-select: none;
 }
 
+
+
+/* Buttons */
+.adjustColourButton{
+    padding: 40px;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.adjustColourButton:hover{
+    cursor: pointer;
+}
+
+.adjustColourButton:active{
+    background-color: black;
+}
+
+#left{
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#up{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#right{
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#down{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#submit{
+    padding: 20px;
+    font-size: 20px;
+}
+
+/* Colour Display */
+#colour {
+    font-size: 30px;
+}
+
+/* Install instructions */
 p, li {
     font-size: larger;
     color: black;
