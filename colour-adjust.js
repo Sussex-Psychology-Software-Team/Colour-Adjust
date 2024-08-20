@@ -223,12 +223,12 @@ function drawLAB(l){
     }
 }
 
-;(function init(){
+function init(){ //draws whole colour space
     // const lab = {l:100,a:128,b:0}
     // const rgb = lab2rgb(lab)
     // fillColour(rgb)
     drawLAB(50)
-})();
+}
 
 // Mouse listeners ---------------------------------------------------------------
 document.addEventListener('mousedown', mouseY)
