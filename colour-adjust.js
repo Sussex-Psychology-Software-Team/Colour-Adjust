@@ -1,7 +1,7 @@
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
-function illuminants(d=65,deg=2, scale=1){
+function illuminants(d=65, deg=2, scale=1){
     let Xn, Yn, Zn //not these assume 2 degree observer
     if(d===65){ //from https://en.wikipedia.org/wiki/Standard_illuminant#D65_values
         if(deg===2){
@@ -123,6 +123,7 @@ function xyz2rgb(xyz){
 
     //convert to srgb
     function adj(c) {
+        //Clamp
         c = Math.max(0, Math.min(1, c)); //clamp 0-1
         //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
         if (c <= 0.0031308) {
@@ -133,7 +134,7 @@ function xyz2rgb(xyz){
         return Math.round(c*255) //'multiplied by 2^bit_depth-1 and quantized.'
     }
 
-    return { 'r':adj(r), 'g':adj(g), 'b':adj(b) }
+    return { 'r':adj(r), 'g':adj(g), 'b':adj(b) } // Consider storing out of bounds values?
 }
 
 // Convert LAB to Cylindrical model LCH
@@ -192,6 +193,8 @@ function lab2rgb(lab){
     //console.log(rgb)
     return rgb
 }
+
+
 
 // Testing ---------------------------------------------------------------
 function test(){
