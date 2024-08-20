@@ -244,6 +244,21 @@ const colour = document.getElementById('colour')
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 
 let currentColour
+
+function newTrial(){
+    if(colours.length === 0) endTrials()
+    else {
+        //colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
+        colour.innerText = 'White'
+        // Change buttons for white or hue
+        if(colour.innerText === 'White') whiteTrial()
+        else hueTrial()
+        // Present random starting colour
+        currentColour = randomLAB()
+        updateCanvasColour(currentColour)
+    }
+}
+
 function whiteTrial(){
     document.getElementById('left').hidden = false
     document.getElementById('right').hidden = false
