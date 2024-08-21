@@ -22,10 +22,13 @@ html, body {
 
 /* Buttons */
 .adjustColourButton {
-    padding: 40px;
+    /* padding: 40px; */
+    width: 100px;
+    height: 100px;
     background: transparent;
     border: 2px solid black;
     border-radius: 15px;
+    font-size: 20px;
     /* turn off select for touchscreen */
     -webkit-touch-callout: none; /* Safari */
     -webkit-user-select: none; /* Chrome */     
