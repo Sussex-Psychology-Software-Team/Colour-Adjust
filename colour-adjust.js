@@ -12,7 +12,7 @@ let currentColour
 let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
-
+document.getElementById('submit').addEventListener('click', newTrial)
 // Init functions
 const il = illuminants()
 newTrial() // call new trial
@@ -280,11 +280,9 @@ function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-mo
 
 function changeLAB(e){
     console.log('function call')
-    
-    if(e.target.id==='submit') newTrial() // New trial on submit
 
     // White trials
-    else if(colour.textContent === 'White'){ // stop exceeding range
+    if(colour.textContent === 'White'){ // stop exceeding range
         // Save current values
         const oldRGB = lab2rgb(currentColour)
         const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
@@ -322,7 +320,7 @@ function changeLAB(e){
 }
 
 function clickHold(e){
-    if(['left','up','right','down','submit'].includes(e.target.id)) intervalID = setInterval(changeLAB, 50, e)
+    if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeLAB, 50, e)
 }
 
 function cancelClickHold(){
