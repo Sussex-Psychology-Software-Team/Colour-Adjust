@@ -301,16 +301,11 @@ function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-mo
     return ((n % m) + m) % m;
 }
 
-function reenableDisabledButton(e){
-    const adjustColourButtons = document.getElementsByClassName('adjustColourButton')
-    for (let i=0; i<adjustColourButtons.length; i++) {
-        // If button is disabled and opposite was pressed, undisable that button
-        if(adjustColourButtons[i].disabled && 
-            ((adjustColourButtons[i].id === 'up' && e.target.id === 'down') || 
-            (adjustColourButtons[i].id === 'down' && e.target.id === 'up') || 
-            (adjustColourButtons[i].id === 'left' && e.target.id === 'right') || 
-            (adjustColourButtons[i].id === 'right' && e.target.id === 'left'))) adjustColourButtons[i].disabled = false
-    }
+function toggleButtonDisable(){
+    document.getElementById('up').disabled = currentColour.a >= 128
+    document.getElementById('down').disabled = currentColour.a <= -127
+    document.getElementById('left').disabled = currentColour.b <= -127
+    document.getElementById('right').disabled = currentColour.b >= 128
 }
 
 function changeLAB(e){
@@ -324,11 +319,11 @@ function changeLAB(e){
         else if(e.target.value==='Y+') currentColour.b++
         else if(e.target.value==='G+') currentColour.a--
 
-        // Clamp resulting change
+        // Clamp resulting change to valid LAB values
         currentColour = clampLAB(currentColour)
-        // Disable button if beyond bounds
-        if(currentColour.a === -127 || currentColour.a === 128 || currentColour.b === -127 || currentColour.b === 128) e.target.disabled = true
-        else reenableDisabledButton(e)
+        console.log(currentColour)
+        // Disable button and cancel if beyond bounds
+        toggleButtonDisable()
 
     // Hue trials
     } else if(colour.textContent !== 'White'){ // or just else is hue trial
