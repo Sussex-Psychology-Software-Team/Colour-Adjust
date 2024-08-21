@@ -267,12 +267,6 @@ function endTrials(){
 }
 
 // Button Listeners---------------------------------------------------------------
-function sameColour(colour1, colour2, channels){
-    return colour1[channels.charAt(0)] === colour2[channels.charAt(0)] &&
-    colour1[channels.charAt(1)] === colour2[channels.charAt(1)] &&
-    colour1[channels.charAt(2)] === colour2[channels.charAt(2)]
-}
-
 // mod fuction to handle negative numbers
 function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
     return ((n % m) + m) % m;
@@ -295,9 +289,6 @@ function changeLAB(e){
 
     // White trials
     if(colour.textContent === 'White'){ // stop exceeding range
-        // Save current values
-        const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
-
         // Change a or b by predefined amount
         if(e.target.value==='B+') currentColour.b--
         else if(e.target.value==='R+') currentColour.a++
@@ -306,11 +297,10 @@ function changeLAB(e){
 
         // Clamp resulting change
         currentColour = clampLAB(currentColour)
-        // // Check new RGB is different - if not we are out of bounds
-
-        // Disable button if no change is made
-        if(sameColour(oldLAB, currentColour, 'lab')) e.target.disabled = true
+        // Disable button if beyond bounds
+        if(currentColour.a === -127 || currentColour.a === 128 || currentColour.b === -127 || currentColour.b === 128) e.target.disabled = true
         else reenableDisabledButton(e)
+
     // Hue trials
     } else if(colour.textContent !== 'White'){ // or just else is hue trial
         // Extract hue and change
@@ -318,10 +308,11 @@ function changeLAB(e){
         if(e.target.value==='+') lch.h++
         else if(e.target.value==='-') lch.h--
         // Clamp 0-360 degrees
-        lch.h = mod(lch.h, 360) //handle small negatives and >360
+        lch.h = mod(lch.h, 360) //custom mod handles small negatives and >360
         // Convert back to lab and update colour
         currentColour = lch2lab(lch)
     }
+
     updateCanvasColour(currentColour)
 }
 
@@ -332,7 +323,6 @@ function clickHold(e){
 function cancelClickHold(){
     intervalID && clearInterval(intervalID)
 }
-
 
 
 
