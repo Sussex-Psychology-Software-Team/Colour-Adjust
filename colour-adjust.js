@@ -331,14 +331,17 @@ function changeLAB(e){
 
     // Hue trials
     } else if(colour.textContent !== 'White'){ // or just else is hue trial
+        const oldRGB = lab2rgb(currentColour)
         // Extract hue and change
-        const lch = lab2lch(currentColour)
-        if(e.target.value==='+') lch.h++
-        else if(e.target.value==='-') lch.h--
-        // Clamp 0-360 degrees
-        lch.h = mod(lch.h, 360) //custom mod handles small negatives and >360
-        // Convert back to lab and update colour
-        currentColour = lch2lab(lch)
+        while(sameColour(oldRGB,lab2rgb(currentColour),'rgb') && validAB(currentColour)){//if(true){
+            const lch = lab2lch(currentColour)
+            if(e.target.value==='+') lch.h++
+            else if(e.target.value==='-') lch.h--
+            // Clamp 0-360 degrees
+            lch.h = mod(lch.h, 360) //custom mod handles small negatives and >360
+            // Convert back to lab and update colour
+            currentColour = lch2lab(lch)
+        }
     }
 
     updateCanvasColour(currentColour)
