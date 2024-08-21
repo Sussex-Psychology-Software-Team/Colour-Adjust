@@ -323,7 +323,7 @@ function changeLAB(e){
 }
 
 function clickHold(e){
-    if(['left','up','right','down','submit'].includes(e.target.id)) intervalID = setInterval(changeLAB, 100, e)
+    if(['left','up','right','down','submit'].includes(e.target.id)) intervalID = setInterval(changeLAB, 50, e)
 }
 
 function cancelClickHold(){
