@@ -79,8 +79,12 @@ html, body {
 }
 
 #submit {
-    padding: 20px;
-    font-size: 20px;
+    /* padding: 20px; */
+    /* width: 150px; */
+    height: initial;
+    width: initial;
+    padding: 10px;
+    font-size: 15px;
 }
 
 /* Colour Display */
