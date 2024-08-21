@@ -5,7 +5,7 @@ const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
-let currentColour
+let currentColour // Current user selected LAB for background
 // Event listeners
 let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
@@ -311,17 +311,16 @@ function toggleButtonDisable(){
     document.getElementById('right').disabled = currentColour.b >= 128
 }
 
+// Main listeners ---
 function changeLAB(e){
-    console.log('function call')
-
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     // White trials
     if(colour.textContent === 'White'){ // stop exceeding range
-        // Change a or b by predefined amount
-        if(e.target.value==='B+') currentColour.b--
-        else if(e.target.value==='R+') currentColour.a++
-        else if(e.target.value==='Y+') currentColour.b++
-        else if(e.target.value==='G+') currentColour.a--
+        //change A or B according to button pressed
+        if(e.target.value ==='B+') currentColour.b--
+        else if(e.target.value ==='R+') currentColour.a++
+        else if(e.target.value ==='Y+') currentColour.b++
+        else if(e.target.value ==='G+') currentColour.a--
 
         // Clamp resulting change to valid LAB values
         currentColour = clampLAB(currentColour)
@@ -344,6 +343,7 @@ function changeLAB(e){
         }
     }
 
+    console.log('lab: ', currentColour, 'rgb: ', lab2rgb(currentColour))
     updateCanvasColour(currentColour)
 }
 
