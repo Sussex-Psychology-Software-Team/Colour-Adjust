@@ -3,12 +3,19 @@
 const colour = document.getElementById('colour')
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+// Mouse tracker
+let mousedown = false
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 let currentColour
+// Event listeners
+//addButtonListeners()
+let intervalID // Stores loaded call for button clicks
+document.addEventListener('mousedown', clickHold)
+document.addEventListener('mouseup', cancelClickHold)
+
 // Init functions
 const il = illuminants()
-addButtonListeners()
 newTrial() // call new trial
 
 // COLOUR CONVERSION ---------------------------------------------------------------
