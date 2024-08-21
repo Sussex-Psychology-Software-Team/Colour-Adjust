@@ -323,39 +323,13 @@ function changeLAB(e){
     }
 }
 
-
-
-
-// Mouse listeners ---------------------------------------------------------------
-//document.addEventListener('mousedown', mouseY)
-
-function xy2ab(c,max){ // c is coord, max=window.innerHeight or width
-    const m = max/2; // midpoint
-    const a = c>m? m-c : c-m // absolute distance from midpoint
-    const n = 129*(a/m) // normailse 0-128 on whole screen
-    return c<max/2 ? n*-1 : n //filp sign based on midpoint
+function clickHold(e){
+    if(['left','up','right','down','submit'].includes(e.target.id)) intervalID = setInterval(changeLAB, 100, e)
 }
 
-function mouseY(e){
-    //Note old functions for scrolling L*
-        //const y = (e.clientY/window.innerHeight)*100
-        //drawLAB(y)
-
-    // y = a* = green to red, x = b* = blue to yellow
-    const a = xy2ab(e.clientY, window.innerHeight)
-    const b = xy2ab(e.clientX, window.innerWidth) 
-    const lab = {l:100,a:a,b:b}
-    console.log(lab)
-    const rgb = lab2rgb(lab)
-    console.log(rgb)
-    fillColour(rgb)
-    document.addEventListener('mousemove', mouseY) //enable click and drag
+function cancelClickHold(){
+    intervalID && clearInterval(intervalID)
 }
-
-// disable click and drag
-document.addEventListener('mouseup', ()=> document.removeEventListener('mousemove', mouseY) )
-
-
 
 // Installers ---------------------------------------------------------------
 // Android
