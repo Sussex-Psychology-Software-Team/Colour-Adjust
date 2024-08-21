@@ -274,6 +274,10 @@ function sameColour(colour1, colour2, channels){
     colour1[channels.charAt(2)] === colour2[channels.charAt(2)]
 }
 
+// mod fuction to handle negative numbers
+function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+    return ((n % m) + m) % m;
+}
 function changeLAB(e){
     const changeAmount = 10 //consider separating for white and hue
     const oldRGB = lab2rgb(currentColour)
