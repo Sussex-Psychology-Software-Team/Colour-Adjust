@@ -278,31 +278,49 @@ function sameColour(colour1, colour2, channels){
 function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
     return ((n % m) + m) % m;
 }
-function changeLAB(e){
-    const changeAmount = 10 //consider separating for white and hue
-    const oldRGB = lab2rgb(currentColour)
-    const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
 
-    if(e.target.id==='submit') newTrial()
-    else if(e.target.value==='B+') currentColour.b -= changeAmount
-    else if(e.target.value==='R+') currentColour.a += changeAmount
-    else if(e.target.value==='Y+') currentColour.b += changeAmount
-    else if(e.target.value==='G+') currentColour.a -= changeAmount
-    else if(colour.textContent !== 'white'){ // or just else is hue trial
+function changeLAB(e){
+    console.log('function call')
+    const changeAmount = 1 //consider separating for white and hue
+
+    if(e.target.id==='submit') newTrial() // New trial on submit
+
+    // White trials
+    else if(colour.textContent === 'White'){ // stop exceeding range
+        // Save current values
+        const oldRGB = lab2rgb(currentColour)
+        const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
+
+        // Change a or b by predefined amount
+        if(e.target.value==='B+') currentColour.b -= changeAmount
+        else if(e.target.value==='R+') currentColour.a += changeAmount
+        else if(e.target.value==='Y+') currentColour.b += changeAmount
+        else if(e.target.value==='G+') currentColour.a -= changeAmount
+
+        // Clamp resulting change
+        currentColour = clampLAB(currentColour)
+        // Check new RGB is different - if not we are out of bounds
+        console.log(currentColour)
+        const newRGB = lab2rgb(currentColour)
+        console.log('oldRGB: ', oldRGB)
+        console.log('newRGB: ', newRGB)
+
+        // Update colour if different
+        if(!sameColour(oldRGB,newRGB,'rgb')) updateCanvasColour(currentColour)
+        else currentColour = oldLAB;
+
+    // Hue trials
+    } else if(colour.textContent !== 'White'){ // or just else is hue trial
+        // Extract hue and change
         const lch = lab2lch(currentColour)
         if(e.target.value==='+') lch.h += changeAmount
         else if(e.target.value==='-') lch.h -= changeAmount
+        // Clamp 0-360 degrees
+        lch.h = mod(lch.h, 360) //handle small negatives and >360
+        // Convert back to lab and update colour
         currentColour = lch2lab(lch)
+        updateCanvasColour(currentColour)
     }
-    // Check  changes and update UI if not out of bounds
-    currentColour = clampLAB(currentColour)
-    console.log(currentColour)
-    const newRGB = lab2rgb(currentColour)
-    console.log('oldRGB: ', oldRGB)
-    console.log('newRGB: ', newRGB)
-
-    if(!sameColour(oldRGB,newRGB,'rgb')) updateCanvasColour(currentColour)
-    else currentColour = oldLAB;
 }
 
 
