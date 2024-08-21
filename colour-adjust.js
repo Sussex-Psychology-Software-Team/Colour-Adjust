@@ -9,7 +9,6 @@ let mousedown = false
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 let currentColour
 // Event listeners
-//addButtonListeners()
 let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
@@ -266,13 +265,6 @@ function hueTrial(){
 
 function endTrials(){
     colour.textContent = 'FIN'
-}
-
-function addButtonListeners(){
-    const adjustColourButtons = document.getElementsByClassName("adjustColourButton")
-    for (let i=0; i<adjustColourButtons.length; i++) {
-        adjustColourButtons[i].addEventListener('click', changeLAB)
-    }
 }
 
 function sameColour(colour1, colour2, channels){
