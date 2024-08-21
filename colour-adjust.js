@@ -214,7 +214,7 @@ function lab2rgb(lab){
 }
 
 
-// Trials ---------------------------------------------------------------
+// Canvas colour changes ---------------------------------------------------------------
 function randomLAB(l){
     //−128 to 127 https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates:~:text=the%20range%20of-,%E2%88%92128%20to%20127,-.
     if(!l) l = Math.floor(Math.random() * (Math.floor(100) - Math.ceil(0) + 1) + Math.ceil(0)); // The maximum is inclusive and the minimum is inclusive
@@ -234,12 +234,11 @@ function fillColour(rgb){
     ctx.fillRect(0,0,canvas.width,canvas.height)
 }
 
-// Button listeners ---------------------------------------------------------------
+// Define trials ---------------------------------------------------------------
 function newTrial(){
     if(colours.length === 0) endTrials()
     else {
         colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
-        //colour.innerText = 'White'
         // Change buttons for white or hue
         if(colour.innerText === 'White') whiteTrial()
         else hueTrial()
@@ -267,6 +266,7 @@ function endTrials(){
     colour.textContent = 'FIN'
 }
 
+// Button Listeners---------------------------------------------------------------
 function sameColour(colour1, colour2, channels){
     return colour1[channels.charAt(0)] === colour2[channels.charAt(0)] &&
     colour1[channels.charAt(1)] === colour2[channels.charAt(1)] &&
@@ -329,6 +329,10 @@ function clickHold(e){
 function cancelClickHold(){
     intervalID && clearInterval(intervalID)
 }
+
+
+
+
 
 // Installers ---------------------------------------------------------------
 // Android
