@@ -1,6 +1,6 @@
 /* Global and canvas */
 
-html, body{
+html, body {
     margin: 0;
     overscroll-behavior-y: none;
 }
@@ -20,52 +20,53 @@ html, body{
 }
 
 
-
 /* Buttons */
-.adjustColourButton{
+.adjustColourButton {
     padding: 40px;
     background: transparent;
     border: 2px solid black;
     border-radius: 15px;
 }
 
-.adjustColourButton:hover{
+.adjustColourButton:hover {
     cursor: pointer;
 }
 
-.adjustColourButton:active{
+.adjustColourButton:active {
     background-color: black;
 }
 
-#left{
+
+
+#left {
     position: absolute;
     left: 10%;
     top: 50%;
     transform: translateY(-50%);
 }
 
-#up{
+#up {
     position: absolute;
     top: 10%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-#right{
+#right {
     position: absolute;
     right: 10%;
     top: 50%;
     transform: translateY(-50%);
 }
 
-#down{
+#down {
     position: absolute;
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-#submit{
+#submit {
     padding: 20px;
     font-size: 20px;
 }
