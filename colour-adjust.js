@@ -290,6 +290,12 @@ function clampLAB(lab){
     else if(lab.b>128) lab.b=128
     return { 'l':lab.l, 'a':lab.a, 'b':lab.b }
 }
+
+function validAB(lab){
+    return lab.a>=-127 && lab.a<=128 && lab.b>=-127 && lab.b<=128
+}
+
+// Helpers ---
 // mod fuction to handle negative numbers
 function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
     return ((n % m) + m) % m;
