@@ -208,42 +208,6 @@ function lab2rgb(lab){
 }
 
 
-
-// Testing ---------------------------------------------------------------
-function test(){
-    //check here: https://www.nixsensor.com/free-color-converter/ input: XYZ, in and out ref angles the same, uncheck 0-1 box.    
-    let rgb = {r:255, g:255, b:255}
-    let lab = rgb2lab(rgb)
-    rgb = lab2rgb(lab)
-    console.log(rgb)
-    let xyz = {x:0.02,y:0.18,z:1.08}
-    rgb = xyz2rgb(xyz)
-    console.log(rgb)
-}
-
-// Draw whole gamut ---------------------------------------------------------------
-function drawLAB(l){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    let lab = {'l':l,'a':0,'b':0}
-    for(let a= -128; a<128; a++){ //note LAB is -128 to 127
-        lab.a = a
-        for(let b= -128; b<128; b++){
-            lab.b = b
-            const rgb = lab2rgb(lab)
-            ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
-            ctx.fillRect(a+128,b+128,1,1) //NOTE: lines are not ailiasing: https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates
-        }
-    }
-}
-
-function init(){ //draws whole colour space
-    // const lab = {l:100,a:128,b:0}
-    // const rgb = lab2rgb(lab)
-    // fillColour(rgb)
-    drawLAB(50)
-}
-
-
 // Trials ---------------------------------------------------------------
 function randomLAB(l){
     //−128 to 127 https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates:~:text=the%20range%20of-,%E2%88%92128%20to%20127,-.
