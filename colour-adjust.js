@@ -275,7 +275,11 @@ function hueTrial(){
 }
 
 function endTrials(){
-    colour.textContent = 'FIN'
+    document.getElementById('textContainer').textContent = 'FIN'
+    document.getElementById('left').hidden = true
+    document.getElementById('up').hidden = true
+    document.getElementById('right').hidden = true
+    document.getElementById('down').hidden = true
 }
 
 // Button Listeners---------------------------------------------------------------
