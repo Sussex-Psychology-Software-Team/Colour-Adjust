@@ -1,11 +1,14 @@
 // GLObALS ---------------------------------------------------------------
+
 // Dom references
 const colour = document.getElementById('colour')
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 let currentColour // Current user selected LAB for background
+
 // Event listeners
 let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
@@ -14,9 +17,20 @@ document.addEventListener('touchstart', clickHold);
 document.addEventListener('touchend', cancelClickHold);
 document.addEventListener('touchcancel', cancelClickHold);
 document.getElementById('submit').addEventListener('click', newTrial)
+
+// Installing functions and vars
+let installPrompt = null;
+const installButton = document.getElementById("install");
+const instructions = document.getElementById("instructions")
+window.addEventListener("appinstalled", hideInstructions);
+window.addEventListener("load", hideInstructions); //when opened up
+document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
+
 // Init functions
 const il = illuminants()
 newTrial() // call new trial
+
+
 
 // COLOUR CONVERSION ---------------------------------------------------------------
 
@@ -361,8 +375,6 @@ function cancelClickHold(){
 // Installers ---------------------------------------------------------------
 // Android
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
-let installPrompt = null;
-const installButton = document.getElementById("install");
 
 window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault()
@@ -383,7 +395,6 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
-const instructions = document.getElementById("instructions")
 function hideInstructions(e){
     //console.log(e.type)
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
@@ -395,9 +406,6 @@ function hideInstructions(e){
     }
 }
 
-window.addEventListener("appinstalled", hideInstructions);
-window.addEventListener("load", hideInstructions); //when opened up
-document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
         hideInstructions(e)
