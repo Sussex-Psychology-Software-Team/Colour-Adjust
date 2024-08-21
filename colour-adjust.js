@@ -314,6 +314,7 @@ function toggleButtonDisable(){
 function changeLAB(e){
     console.log('function call')
 
+    if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     // White trials
     if(colour.textContent === 'White'){ // stop exceeding range
         // Change a or b by predefined amount
