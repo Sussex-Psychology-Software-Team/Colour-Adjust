@@ -243,7 +243,7 @@ function newTrial(){
         if(colour.innerText === 'White') whiteTrial()
         else hueTrial()
         // Present random starting colour
-        currentColour = randomLAB(75) // Add L* value here
+        currentColour = randomLAB(l=75) // Add L* value here
         updateCanvasColour(currentColour)
     }
 }
