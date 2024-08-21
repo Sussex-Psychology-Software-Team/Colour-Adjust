@@ -278,13 +278,24 @@ function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-mo
     return ((n % m) + m) % m;
 }
 
+function reenableDisabledButton(e){
+    const adjustColourButtons = document.getElementsByClassName('adjustColourButton')
+    for (let i=0; i<adjustColourButtons.length; i++) {
+        // If button is disabled and opposite was pressed, undisable that button
+        if(adjustColourButtons[i].disabled && 
+            ((adjustColourButtons[i].id === 'up' && e.target.id === 'down') || 
+            (adjustColourButtons[i].id === 'down' && e.target.id === 'up') || 
+            (adjustColourButtons[i].id === 'left' && e.target.id === 'right') || 
+            (adjustColourButtons[i].id === 'right' && e.target.id === 'left'))) adjustColourButtons[i].disabled = false
+    }
+}
+
 function changeLAB(e){
     console.log('function call')
 
     // White trials
     if(colour.textContent === 'White'){ // stop exceeding range
         // Save current values
-        const oldRGB = lab2rgb(currentColour)
         const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
 
         // Change a or b by predefined amount
@@ -295,16 +306,11 @@ function changeLAB(e){
 
         // Clamp resulting change
         currentColour = clampLAB(currentColour)
-        // Check new RGB is different - if not we are out of bounds
-        console.log(currentColour)
-        const newRGB = lab2rgb(currentColour)
-        console.log('oldRGB: ', oldRGB)
-        console.log('newRGB: ', newRGB)
+        // // Check new RGB is different - if not we are out of bounds
 
-        // Update colour if different
-        if(!sameColour(oldRGB,newRGB,'rgb')) updateCanvasColour(currentColour)
-        else currentColour = oldLAB;
-
+        // Disable button if no change is made
+        if(sameColour(oldLAB, currentColour, 'lab')) e.target.disabled = true
+        else reenableDisabledButton(e)
     // Hue trials
     } else if(colour.textContent !== 'White'){ // or just else is hue trial
         // Extract hue and change
@@ -315,8 +321,8 @@ function changeLAB(e){
         lch.h = mod(lch.h, 360) //handle small negatives and >360
         // Convert back to lab and update colour
         currentColour = lch2lab(lch)
-        updateCanvasColour(currentColour)
     }
+    updateCanvasColour(currentColour)
 }
 
 function clickHold(e){
