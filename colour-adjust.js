@@ -213,11 +213,11 @@ function lab2rgb(lab){
 
 
 // Canvas colour changes ---------------------------------------------------------------
-function randomLAB(l){
+function randomLAB(l, a, b){
     //−128 to 127 https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates:~:text=the%20range%20of-,%E2%88%92128%20to%20127,-.
     if(!l) l = Math.floor(Math.random() * (Math.floor(100) - Math.ceil(0) + 1) + Math.ceil(0)); // The maximum is inclusive and the minimum is inclusive
-    const a = Math.floor(Math.random() * (Math.floor(127) - Math.ceil(-128) + 1) + Math.ceil(-128)); // The maximum is inclusive and the minimum is inclusive
-    const b = Math.floor(Math.random() * (Math.floor(127) - Math.ceil(-128) + 1) + Math.ceil(-128)); // The maximum is inclusive and the minimum is inclusive
+    if(!a) a = Math.floor(Math.random() * (Math.floor(127) - Math.ceil(-128) + 1) + Math.ceil(-128)); // The maximum is inclusive and the minimum is inclusive
+    if(!b) b = Math.floor(Math.random() * (Math.floor(127) - Math.ceil(-128) + 1) + Math.ceil(-128)); // The maximum is inclusive and the minimum is inclusive
     return { 'l':l, 'a':a, 'b':b }
 }
 
