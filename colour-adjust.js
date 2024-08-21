@@ -280,8 +280,7 @@ function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-mo
 
 function changeLAB(e){
     console.log('function call')
-    const changeAmount = 1 //consider separating for white and hue
-
+    
     if(e.target.id==='submit') newTrial() // New trial on submit
 
     // White trials
@@ -291,10 +290,10 @@ function changeLAB(e){
         const oldLAB = {'l': currentColour.l, 'a': currentColour.a, 'b': currentColour.b}
 
         // Change a or b by predefined amount
-        if(e.target.value==='B+') currentColour.b -= changeAmount
-        else if(e.target.value==='R+') currentColour.a += changeAmount
-        else if(e.target.value==='Y+') currentColour.b += changeAmount
-        else if(e.target.value==='G+') currentColour.a -= changeAmount
+        if(e.target.value==='B+') currentColour.b--
+        else if(e.target.value==='R+') currentColour.a++
+        else if(e.target.value==='Y+') currentColour.b++
+        else if(e.target.value==='G+') currentColour.a--
 
         // Clamp resulting change
         currentColour = clampLAB(currentColour)
@@ -312,8 +311,8 @@ function changeLAB(e){
     } else if(colour.textContent !== 'White'){ // or just else is hue trial
         // Extract hue and change
         const lch = lab2lch(currentColour)
-        if(e.target.value==='+') lch.h += changeAmount
-        else if(e.target.value==='-') lch.h -= changeAmount
+        if(e.target.value==='+') lch.h++
+        else if(e.target.value==='-') lch.h--
         // Clamp 0-360 degrees
         lch.h = mod(lch.h, 360) //handle small negatives and >360
         // Convert back to lab and update colour
