@@ -238,10 +238,24 @@ function newTrial(){
     else {
         colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
         // Change buttons for white or hue
-        if(colour.innerText === 'White') whiteTrial()
-        else hueTrial()
-        // Present random starting colour
-        currentColour = randomLAB(l=75) // Add L* value here
+        if(colour.innerText === 'White'){
+            whiteTrial()
+            currentColour = randomLAB(100)
+        } else{
+            hueTrial()
+            // Get fully saturated RGB
+            let rgb
+            if(colour.innerText === 'Red') rgb = {r:255, g:0, b:0}
+            if(colour.innerText === 'Green') rgb = {r:0, g:255, b:0}
+            if(colour.innerText === 'Blue') rgb = {r:0, g:0, b:255}
+            if(colour.innerText === 'Yellow') rgb = {r:255, g:255, b:0}
+            // convert to lch to randomise h and convert back
+            const lab = rgb2lab(rgb)
+            const lch = lab2lch(lab)
+            lch.h = Math.floor(Math.random()*(360-0+1)+0) //random degree
+            currentColour = lch2lab(lch)
+        }
+        // Present starting colour
         updateCanvasColour(currentColour)
     }
 }
