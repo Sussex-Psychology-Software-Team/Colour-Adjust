@@ -36,6 +36,12 @@ html, body {
     background-color: black;
 }
 
+.adjustColourButton:disabled {
+    /* Allow for border-color to have disabled styling */
+    border-color: initial;
+    /* allows for mouseup events on a disable element to cancel interval */
+    pointer-events: none;
+}
 
 
 #left {
