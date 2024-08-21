@@ -10,6 +10,9 @@ let currentColour
 let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
+document.addEventListener('touchstart', clickHold);
+document.addEventListener('touchend', cancelClickHold);
+document.addEventListener('touchcancel', cancelClickHold);
 document.getElementById('submit').addEventListener('click', newTrial)
 // Init functions
 const il = illuminants()
