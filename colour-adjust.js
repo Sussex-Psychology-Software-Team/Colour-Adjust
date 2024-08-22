@@ -423,7 +423,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
 
 screen.orientation.addEventListener("change",(e) => {
     document.getElementById('version').innerHTML = e.target.type
-    if(e.target.type === 'portrait'){
+    if(e.target.type === 'portrait-primary' || e.target.type === 'portrait-secondary'){
         instructions.style.display = 'block'
         instructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
     } else {
