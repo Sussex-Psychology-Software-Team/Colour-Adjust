@@ -394,9 +394,10 @@ function disableInAppInstallPrompt() {
 //iOS and Desktop
 function hideInstructions(){
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
-    if(window.matchMedia("(display-mode: standalone)").matches || //android
+    if((window.matchMedia("(display-mode: standalone)").matches || //android
         window.navigator.standalone || //ios
-        document.referrer.includes("android-app://")){ //android 2
+        document.referrer.includes("android-app://"))  //android 2
+        && colour.innerText === ''){ // if trials not already started
             instructions.style.display = 'none'
             disableInAppInstallPrompt()
             addOrientationListener()
