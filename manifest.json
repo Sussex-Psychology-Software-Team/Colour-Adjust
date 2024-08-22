@@ -4,8 +4,9 @@
     "scope": "https://sussex-psychology-software-team.github.io/Colour-Adjust/colour-adjust.html",
     "display": "fullscreen",
     "description": "A colour adjustment experiment.",
-    "theme_color": "black",
+    "theme_color": "#000000",
     "orientation":  "landscape",
+    "background_color": "#000000",
     "icons": [
         {
             "src": "icons/LAB_1918_original.png",
