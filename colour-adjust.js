@@ -392,14 +392,11 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
-function hideInstructions(e){
-    //console.log(e.type)
+function hideInstructions(){
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
-
     if(window.matchMedia("(display-mode: standalone)").matches || //android
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://")){ //android 2
-            instructions.style.display = 'none'
             disableInAppInstallPrompt()
             setupTrial()
             screen.orientation.lock('landscape')
@@ -416,9 +413,18 @@ function setupTrial(){
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
-        hideInstructions(e)
+        instructions.style.display = 'none'
     } else {
         instructions.style.display = 'block'
         instructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
-});
+})å
+
+screen.orientation.addEventListener("change",(e) => {
+    if(e.target.type === 'portrait'){
+        instructions.style.display = 'block'
+        instructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
+    } else {
+        instructions.style.display = 'none'
+    }
+})
