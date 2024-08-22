@@ -402,6 +402,7 @@ function hideInstructions(e){
             instructions.style.display = 'none'
             disableInAppInstallPrompt()
             setupTrial()
+            screen.orientation.lock('landscape')
     }
 }
 
