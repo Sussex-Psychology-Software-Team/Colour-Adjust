@@ -418,7 +418,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
         instructions.style.display = 'block'
         instructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
-})å
+})
 
 screen.orientation.addEventListener("change",(e) => {
     if(e.target.type === 'portrait'){
