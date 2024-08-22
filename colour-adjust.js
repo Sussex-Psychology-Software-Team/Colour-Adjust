@@ -395,7 +395,7 @@ function disableInAppInstallPrompt() {
 function hideInstructions(e){
     //console.log(e.type)
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
-    if(window.matchMedia("(display-mode: standalone)").matches || //android
+    if(window.matchMedia("(display-mode: standalone)").matches || window.matchMedia("(display-mode: fullscreen)").matches || //android
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://")){ //android 2
             instructions.style.display = 'none';
