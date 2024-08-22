@@ -397,6 +397,7 @@ function hideInstructions(){
     if(window.matchMedia("(display-mode: standalone)").matches || //android
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://")){ //android 2
+            instructions.style.display = 'block'
             disableInAppInstallPrompt()
             setupTrial()
             screen.orientation.lock('landscape')
@@ -421,6 +422,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
 })
 
 screen.orientation.addEventListener("change",(e) => {
+    document.getElementById('version').innerHTML = e.target.type
     if(e.target.type === 'portrait'){
         instructions.style.display = 'block'
         instructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
