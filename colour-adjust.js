@@ -28,9 +28,6 @@ document.addEventListener('visibilitychange', hideInstructions); //hacky but fir
 
 // Init functions
 const il = illuminants()
-newTrial() // call new trial
-
-
 
 // COLOUR CONVERSION ---------------------------------------------------------------
 
@@ -158,7 +155,7 @@ function xyz2rgb(xyz){
     //convert to srgb
     function adj(c) {
         //Clamp
-        c = Math.max(0, Math.min(1, c)); //clamp 0-1
+        c = Math.max(0, Math.min(1, c)); //clamp 0-1 -- REMOVE CLAMP - MAYBE GO BLACK IF OUT OF GAMUT
         //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
         if (c <= 0.0031308) {
             c = 12.92 * c //12.9232102 often round to 12.92
@@ -244,7 +241,7 @@ function newTrial(){
         // Change buttons for white or hue
         if(colour.innerText === 'White'){
             whiteTrial()
-            currentColour = randomLAB(100)
+            currentColour = randomLAB(75)
         } else{
             hueTrial()
             // Get fully saturated RGB
@@ -357,7 +354,7 @@ function changeLAB(e){
         }
     }
 
-    console.log('lab: ', currentColour, 'rgb: ', lab2rgb(currentColour))
+    console.log('lab: ', currentColour, 'lch: ', lab2lch(currentColour), 'rgb: ', lab2rgb(currentColour))
     updateCanvasColour(currentColour)
 }
 
@@ -403,7 +400,16 @@ function hideInstructions(e){
         document.referrer.includes("android-app://")){ //android 2
             instructions.style.display = 'none';
             disableInAppInstallPrompt()
+            setupTrial()
     }
+}
+
+function setupTrial(){
+    const buttons = document.getElementsByClassName('adjustColourButton')
+    for(let i=0; i<buttons.length; i++){
+        buttons[i].hidden = false
+    }
+    newTrial() // call new trial
 }
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {

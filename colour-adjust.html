@@ -17,17 +17,17 @@
   <body>
     <main id="main">
       <canvas height="256" width="256" id="canvas" class="centre"></canvas>
-      <input type="button" id="left" class="adjustColourButton" value="B+"/>
-      <input type="button" id="up" class="adjustColourButton" value="R+"/>
-      <input type="button" id="right" class="adjustColourButton" value="Y+"/>
-      <input type="button" id="down" class="adjustColourButton" value="G+"/>
+      <input type="button" id="left" class="adjustColourButton" value="B+" hidden/>
+      <input type="button" id="up" class="adjustColourButton" value="R+" hidden/>
+      <input type="button" id="right" class="adjustColourButton" value="Y+" hidden/>
+      <input type="button" id="down" class="adjustColourButton" value="G+" hidden/>
 
       <div class="centre" id="textContainer">
         <p id="version">V1.13</p>
         <p id="colour"></p>
-        <input type="button" id="submit" class="adjustColourButton" value="submit" />
+        <input type="button" id="submit" class="adjustColourButton" value="submit" hidden/>
         
-        <div id="instructions" hidden><p>Please install this app to your device:</p>
+        <div id="instructions"><p>Please install this app to your device:</p>
           <ul>
             <li><strong>iPhone</strong>: Press the 'Share' <img src="icons/share.svg"/> button and click 'Add to home screen'.</li>
             <li><strong>Android</strong>: Press the 'More' <img src="icons/dots.svg"/> button and click 'Install app'/'Add to home screen', or click the button below.</li>
