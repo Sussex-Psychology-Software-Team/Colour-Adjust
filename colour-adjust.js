@@ -397,7 +397,7 @@ function hideInstructions(){
     if(window.matchMedia("(display-mode: standalone)").matches || //android
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://")){ //android 2
-            instructions.style.display = 'block'
+            instructions.style.display = 'none'
             disableInAppInstallPrompt()
             setupTrial()
             screen.orientation.lock('landscape')
