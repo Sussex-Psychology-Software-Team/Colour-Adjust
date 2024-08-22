@@ -4,6 +4,7 @@
     "display": "fullscreen",
     "description": "A colour adjustment experiment.",
     "theme_color": "black",
+    "orientation":  "landscape",
     "icons": [
         {
             "src": "icons/LAB_1918_original.png",
