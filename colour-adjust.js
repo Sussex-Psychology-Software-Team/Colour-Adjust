@@ -428,5 +428,6 @@ screen.orientation.addEventListener("change",(e) => {
         instructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
     } else {
         instructions.style.display = 'none'
+        if(screen.orientation.lock) screen.orientation.lock('landscape')
     }
 })
