@@ -44,6 +44,87 @@
           <input type="button" id="submit" class="adjustColourButton" value="submit"/>
         </div>
       </div>
+
+      <!-- Survey -->
+      <form>
+        <fieldset>
+          <legend>About your device:</legend>
+          <div id="about">
+            <label for="make">What make is your phone?</label><input type="text" name="make" id="make">
+            <label for="model">What model is your phone?</label><input type="text" name="model" id="model">
+
+            <label for="os">Does your phone run Android or iOS?</label>
+              <div class="radio">
+                <label for="android">Android</label><input type="radio" id="android" name="os" value="android" />
+                <label for="ios">iOS</label><input type="radio" id="ios" name="os" value="ios" />
+              </div>
+
+            <label for="browser">What browser do you use?</label><input type="text" name="browser" id="browser">
+
+            <label for="filter">Do you use a “blue light filter” app or setting?</label>
+              <div class="radio">
+                <label for="filterYes">Yes</label><input type="radio" id="filterYes" value="filterYes" name="filter"/>
+                <label for="filterNo">No</label><input type="radio" id="filterNo" value="filterNo" name="filter"/>
+                <label for="filterDontKnow">Don't know</label><input type="radio" id="filterDontKnow" value="filterDontKnow" name="filter"/>
+              </div>
+            
+            <label for="filterOn">[If yes] Was the “blue light filter” switched on when you completed the task?</label>
+              <div class="radio">
+                <label for="filterOnYes">Yes</label><input type="radio" id="filterOnYes" value="filterOnYes" name="filterOn"/>
+                <label for="filterOnNo">No</label><input type="radio" id="filterOnNo" value="filterOnNo" name="filterOn"/>
+                <label for="filterOnDontKnow">Don't know</label><input type="radio" id="filterOnDontKnow" value="filterOnDontKnow" name="filterOn"/>
+              </div>
+            
+            <label for="mode">What mode do you generally use your phone in?</label>
+              <div class="radio">
+                <label for="darkMode">Dark mode</label><input type="radio" id="darkMode" value="darkMode" name="mode"/>
+                <label for="lightMode">Light mode</label><input type="radio" id="lightMode" value="lightMode" name="mode"/>
+                <label for="dontKnow">Don't know</label><input type="radio" id="dontKnow" value="dontKnow" name="mode"/>
+                <label for="other">Other</label><input type="radio" id="other" value="other" name="mode"/>
+              </div>
+            
+            <label for="adjust">Does your phone adjust brightness automatically?</label>
+              <div class="radio">
+                <label for="adjustYes">Yes</label><input type="radio" id="adjustYes" value="adjustYes" name="adjust"/>
+                <label for="adjustNo">No</label><input type="radio" id="adjustNo" value="adjustNo" name="adjust"/>
+                <label for="adjustDontKnow">Don't know</label><input type="radio" id="adjustDontKnow" value="adjustDontKnow" name="adjust"/>
+              </div>
+            
+            <label for="trueTone">Does your phone trueTone brightness automatically?</label>
+              <div class="radio">
+                <label for="trueToneYes">Yes</label><input type="radio" id="trueToneYes" value="trueToneYes" name="trueTone"/>
+                <label for="trueToneNo">No</label><input type="radio" id="trueToneNo" value="trueToneNo" name="trueTone"/>
+                <label for="trueToneDontKnow">Don't know</label><input type="radio" id="trueToneDontKnow" value="trueToneDontKnow" name="trueTone"/>
+              </div>
+
+            <label for="months">How long have you had this phone for? (months)</label><input type="number" name="months" id="months" value="0" min="0" size="2">
+            <label for="hours">Approximately how many hours per day do you spend using this phone?</label><input type="number" name="hours" id="hours" value="0" min="0" size="2">
+
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>About your surroundings:</legend>
+
+          <div id="surroundings">
+            <label for="location">Where are you currently?</label>
+            <div class="radio">
+              <label for="atHome">At home</label><input type="radio" id="atHome" value="atHome" name="location"/>
+              <label for="onCampus">On campus</label><input type="radio" id="onCampus" value="onCampus" name="location"/>
+            </div>
+          
+            <label for="room">[on campus] What room are you in?</label><input type="text" name="room" id="room">
+
+            <label for="lighting">What is the lighting like where you are sitting?</label>
+            <div class="radio">
+              <label for="completelyNatural">Completely natural</label><input type="radio" id="completelyNatural" value="completelyNatural" name="lighting"/>
+              <label for="majorityNatural">Majority natural</label><input type="radio" id="majorityNatural" value="majorityNatural" name="lighting"/>
+              <label for="majorityArtificial">Majority artificial</label><input type="radio" id="majorityArtificial" value="majorityArtificial" name="lighting"/>
+              <label for="completelyArtificial">Completely artificial</label><input type="radio" id="completelyArtificial" value="completelyArtificial" name="lighting"/>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
     </main>
     <script src="colour-adjust.js?ver<%=DateTime.Now.Ticks.ToString()%>"></script>
   </body>

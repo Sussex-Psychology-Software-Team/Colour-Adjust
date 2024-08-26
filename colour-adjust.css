@@ -94,3 +94,38 @@ li{
         display: none;
     }
 }
+
+/* survey */
+fieldset{
+    width: 700px;
+}
+
+#about, #surroundings{
+    display: flex;
+    flex-direction: column;
+}
+
+#about > label, #surroundings > label {
+    border-top: 1px solid black;
+    margin-bottom: 5px;
+    font-weight: bold;
+    /* border-bottom: 1px solid black; */
+}
+
+#about > input, #surroundings > input {
+    /* border-bottom: 1px solid black; */
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.radio {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 200px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+input[type=number]{
+    width: 100px;
+}
