@@ -489,7 +489,6 @@ function hideInstall(){
     if(inStandalone()){
             installInstructions.hidden = true
             disableInAppInstallPrompt()
-            landscapeLock()
             screen.orientation.addEventListener("change", checkOrientation)
             checkOrientation()
             // Show relevant part of exp   
@@ -533,13 +532,14 @@ function checkOrientation(){
             document.getElementById('orientationWarning').hidden = false
         } else { // if landscape
             document.getElementById('orientationWarning').hidden = true
-            landscapeLock()
             showMaterials()
         }
     }
 }
 
 function landscapeLock(){
+    // Support is terrible for this https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/lock#browser_compatibility
+    //  Includes chrome on iOS not working - only place I really need it
     if(screen.orientation.lock) screen.orientation.lock('landscape')
     .then(() => {console.log('locked to: ' + screen.orientation.type)})
     .catch((err) => { console.log('error: ' + err) });
