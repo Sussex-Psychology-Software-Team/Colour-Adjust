@@ -393,14 +393,12 @@ function cancelClickHold(){
 }
 
 
-
-
 // Installers ---------------------------------------------------------------
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault()
     installPrompt = e
-    installButton.removeAttribute("hidden")
+    installButton.hidden = false
 })
 
 installButton.addEventListener("click", async () => {
@@ -412,49 +410,64 @@ installButton.addEventListener("click", async () => {
 
 function disableInAppInstallPrompt() {
     installPrompt = null
-    installButton.setAttribute("hidden", "")
+    installButton.hidden = true
 }
 
 //iOS and Desktop
 function hideInstall(){
-    // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
-    if((window.matchMedia("(display-mode: standalone)").matches || //android
-        window.navigator.standalone || //ios
-        document.referrer.includes("android-app://"))  //android 2
-        && colour.innerText === ''){ // if trials not already started
+    if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://") ){
             installInstructions.hidden = true
             disableInAppInstallPrompt()
-            addOrientationListener()
             landscapeLock()
-            showMainInstructions()
+            screen.orientation.addEventListener("change", checkOrientation)
+            console.log(screen.orientation)
+            checkOrientation()
+            // Show relevant part of exp   
+            showMaterials()
     }
 }
 
-function showMainInstructions(){
-    document.getElementById('mainInstructions').hidden = false;
+function showMaterials(){
+    if(colours.length === 5){ // If no colours removed yet
+        mainInstructions.hidden = false
+    } else if(colours.length === 0){ // If no colours left
+        survey.hidden = false
+    } else { // Else show the current trial
+        trialsContainer.hidden = false
+    }
+}
+
+function hideMaterials(){
+    // hide everything
+    mainInstructions.hidden = true
+    trialsContainer.hidden = true
+    survey.hidden = true
 }
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
+        document.getElementById('browserModeWarning').hidden = true
         installInstructions.hidden = true
+        showMaterials()
     } else {
-        installInstructions.hidden = false
-        installInstructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
+        hideMaterials()
+        // Show reinstall prompt
+        document.getElementById('browserModeWarning').hidden = false
     }
 })
 
-function addOrientationListener(){
-    screen.orientation.addEventListener("change",(e) => {
-        if(window.matchMedia("(display-mode: standalone)").matches){ // Run if in app mode
-            if(e.target.type === 'portrait-primary' || e.target.type === 'portrait-secondary'){
-                installInstructions.style.display = 'block'
-                installInstructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
-            } else { // if landscape
-                installInstructions.hidden = true
-                landscapeLock()
-            }
+function checkOrientation(){
+
+    if(window.matchMedia("(display-mode: standalone)").matches){ // Run if in app mode
+        if(screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary'){
+            hideMaterials()
+            document.getElementById('orientationWarning').hidden = false
+        } else { // if landscape
+            document.getElementById('orientationWarning').hidden = true
+            landscapeLock()
+            showMaterials()
         }
-    })
+    }
 }
 
 function landscapeLock(){
