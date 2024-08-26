@@ -33,7 +33,7 @@ li{
 }
 
 @media all and (display-mode: standalone) {
-    #install{
+    #installInstructions{
         display: none;
     }
 }
