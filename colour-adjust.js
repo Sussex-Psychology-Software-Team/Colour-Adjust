@@ -67,7 +67,7 @@ function submitSurvey(e){
     sendData(requestBody)
     hideMaterials()
     document.getElementById('debrief').hidden = false
-    document.getElementById('displayData').innerHTML = JSON.stringify(data)
+    document.getElementById('displayData').innerHTML = JSON.stringify(data, null, 4)
 }
 
 function makeRequestBody(id, dataToSend){
