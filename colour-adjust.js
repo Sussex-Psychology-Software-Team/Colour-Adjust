@@ -75,7 +75,7 @@ function makeRequestBody(id, dataToSend){
     // Participants: eXM0k3gPdL9y https://pipe.jspsych.org/admin/eXM0k3gPdL9y OSF: https://osf.io/7ecsb/
     return {
         experimentID: id,
-        filename: data.randomID + ".json",
+        filename: data.metadata.randomID + ".json",
         data: JSON.stringify(dataToSend)
     }
 }
