@@ -103,7 +103,7 @@ html, body {
 }
 
 /* Install instructions */
-p, li {
+#installInstructions {
     font-size: larger;
     color: black;
     /* text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000; */
@@ -116,7 +116,7 @@ li{
     text-align: start;
 }
 
-#install {
+#installButton {
     position: relative;
 }
 

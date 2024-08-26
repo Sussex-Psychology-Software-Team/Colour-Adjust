@@ -426,7 +426,7 @@ function hideInstructions(){
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://"))  //android 2
         && colour.innerText === ''){ // if trials not already started
-            instructions.style.display = 'none'
+            installInstructions.style.display = 'none'
             disableInAppInstallPrompt()
             addOrientationListener()
             setupTrial()
@@ -444,10 +444,10 @@ function setupTrial(){
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
-        instructions.style.display = 'none'
+        installInstructions.style.display = 'none'
     } else {
-        instructions.style.display = 'block'
-        instructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
+        installInstructions.style.display = 'block'
+        installInstructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
 })
 
@@ -455,10 +455,10 @@ function addOrientationListener(){
     screen.orientation.addEventListener("change",(e) => {
         if(window.matchMedia("(display-mode: standalone)").matches){ // Run if in app mode
             if(e.target.type === 'portrait-primary' || e.target.type === 'portrait-secondary'){
-                instructions.style.display = 'block'
-                instructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
+                installInstructions.style.display = 'block'
+                installInstructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
             } else { // if landscape
-                instructions.style.display = 'none'
+                installInstructions.style.display = 'none'
                 if(screen.orientation.lock) screen.orientation.lock('landscape')
             }
         }
