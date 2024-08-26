@@ -17,24 +17,31 @@
   </head>
   <body>
     <main id="main">
-      <input type="button" id="left" class="adjustColourButton" value="B+" hidden/>
-      <input type="button" id="up" class="adjustColourButton" value="R+" hidden/>
-      <input type="button" id="right" class="adjustColourButton" value="Y+" hidden/>
-      <input type="button" id="down" class="adjustColourButton" value="G+" hidden/>
 
-      <div class="centre" id="textContainer">
-        <p id="version">V1.19</p>
-        <p id="colour"></p>
-        <input type="button" id="submit" class="adjustColourButton" value="submit" hidden/>
-        
-        <div id="instructions"><p>Please install this app to your device:</p>
-          <ul>
-            <li><strong>iPhone</strong>: Press the 'Share' <img src="icons/share.svg"/> button and click 'Add to home screen'.</li>
-            <li><strong>Android</strong>: Press the 'More' <img src="icons/dots.svg"/> button and click 'Install app'/'Add to home screen', or click the button below.</li>
-            <li><strong>Chrome on Computer</strong>: please click the install <img src="icons/install.svg"/> button in your address bar.</li>
-          </ul>
+      <!-- Install instructions -->
       <div id="installInstructions" class="centre" hidden>
+        <p>Please install this app to your device:</p>
+        <ul>
+          <li><strong>iPhone</strong>: Press the 'Share' <img src="icons/share.svg"/> button and click 'Add to home screen'.</li>
+          <li><strong>Android</strong>: Press the 'More' <img src="icons/dots.svg"/> button and click 'Install app'/'Add to home screen', or click the button below.</li>
+          <li><strong>Chrome on Computer</strong>: please click the install <img src="icons/install.svg"/> button in your address bar.</li>
+        </ul>
         <button id="installButton" hidden>Install</button>
+      </div>
+      
+      <!-- Task Materials -->
+      <div id="trials" hidden>
+        <!-- Buttons -->
+        <input type="button" id="left" class="adjustColourButton centre" value="B+"/>
+        <input type="button" id="up" class="adjustColourButton centre" value="R+"/>
+        <input type="button" id="right" class="adjustColourButton centre" value="Y+"/>
+        <input type="button" id="down" class="adjustColourButton centre" value="G+"/>
+  
+        <!-- Central stuff: Trial text and submit button-->
+        <div id="colourAndSubmit" class="centre" >
+          <p id="version">V1.19</p>
+          <p id="colour"></p>
+          <input type="button" id="submit" class="adjustColourButton" value="submit"/>
         </div>
       </div>
     </main>
