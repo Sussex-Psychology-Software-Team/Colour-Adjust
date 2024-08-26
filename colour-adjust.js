@@ -306,7 +306,7 @@ function hueTrial(){
 }
 
 function endTrials(){
-    document.getElementById('textContainer').textContent = 'FIN'
+    document.getElementById('colourAndSubmit').textContent = 'FIN'
     document.getElementById('left').hidden = true
     document.getElementById('up').hidden = true
     document.getElementById('right').hidden = true
