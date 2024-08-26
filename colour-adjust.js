@@ -283,8 +283,11 @@ function newTrial(){
             lch.h = Math.floor(Math.random()*(360-0+1)+0) //random degree
             currentColour = lch2lab(lch)
         }
+        
         // Present starting colour
         colourBackground(currentColour)
+
+        initialColour = currentColour
     }
 }
 
