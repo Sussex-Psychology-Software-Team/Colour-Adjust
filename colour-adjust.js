@@ -1,7 +1,9 @@
 // GLObALS ---------------------------------------------------------------
 
 // Dom references
-const colour = document.getElementById('colour')
+const colour = document.getElementById('colour') // Text display of colour
+const installButton = document.getElementById("installButton") // Button for installing
+const installInstructions = document.getElementById("installInstructions") // Install instructions
 
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
@@ -21,8 +23,7 @@ document.addEventListener('touchcancel', cancelClickHold);
 document.getElementById('submit').addEventListener('click', submit)
 
 // Installing functions and vars
-const installButton = document.getElementById("install");
-const instructions = document.getElementById("instructions")
+
 window.addEventListener("appinstalled", hideInstructions);
 window.addEventListener("load", hideInstructions); //when opened up
 document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
