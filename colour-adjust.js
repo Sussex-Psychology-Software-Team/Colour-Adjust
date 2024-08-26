@@ -24,9 +24,9 @@ const data = {
     }
 
 // Install listeners
-window.addEventListener("appinstalled", hideInstall)
-window.addEventListener("load", hideInstall) //when opened up
-document.addEventListener('visibilitychange', hideInstall) //hacky but fires on switch from browser to standalone
+window.addEventListener("appinstalled", startExperiment)
+window.addEventListener("load", startExperiment) //when opened up
+document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
 // Event listeners for trials
 document.getElementById('continue').addEventListener('click', setupTrials)
@@ -459,6 +459,8 @@ function cancelClickHold(){
 
 
 // Installers ---------------------------------------------------------------
+
+// Install Prompt 
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
 window.addEventListener("beforeinstallprompt", (e) => {
     e.preventDefault()
@@ -478,24 +480,7 @@ function disableInAppInstallPrompt() {
     installButton.hidden = true
 }
 
-//iOS and Desktop
-function inStandalone(){
-    return window.matchMedia("(display-mode: standalone)").matches || // Android
-    window.navigator.standalone || // iOS
-    document.referrer.includes("android-app://") // Android 2
-}
-
-function hideInstall(){
-    if(inStandalone()){
-            installInstructions.hidden = true
-            disableInAppInstallPrompt()
-            screen.orientation.addEventListener("change", checkOrientation)
-            checkOrientation()
-            // Show relevant part of exp   
-            showMaterials()
-    }
-}
-
+// Show and hide materials on change
 function showMaterials(){
     if(colours.length === 5){ // If no colours removed yet
         mainInstructions.hidden = false
@@ -513,8 +498,15 @@ function hideMaterials(){
     survey.hidden = true
 }
 
+function inStandalone(){
+    return window.matchMedia("(display-mode: standalone)").matches || // Android
+    window.navigator.standalone || // iOS
+    document.referrer.includes("android-app://") // Android 2
+}
+
+// Listener if not in PWA mode
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
-    if (e.matches) {
+    if(e.matches || inStandalone()) {
         document.getElementById('browserModeWarning').hidden = true
         installInstructions.hidden = true
         showMaterials()
@@ -525,6 +517,7 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
     }
 })
 
+// Display warning if not in landscape
 function checkOrientation(){
     if(inStandalone()){ // Run if in app mode
         if(screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary'){
@@ -537,9 +530,23 @@ function checkOrientation(){
     }
 }
 
+// Start the experiment if install load or visibility change triggered
+function startExperiment(){
+    if(inStandalone()){
+        installInstructions.hidden = true
+        disableInAppInstallPrompt()
+        // Load Orientation listener
+        screen.orientation.addEventListener("change", checkOrientation)
+        // Show relevant part of exp   
+        showMaterials()
+        // Double check orientation again
+        checkOrientation()
+    }
+}
+
 function landscapeLock(){
     // Support is terrible for this https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation/lock#browser_compatibility
-    //  Includes chrome on iOS not working - only place I really need it
+    // Includes chrome on iOS not working - only place I really need it - removed for now
     if(screen.orientation.lock) screen.orientation.lock('landscape')
     .then(() => {console.log('locked to: ' + screen.orientation.type)})
     .catch((err) => { console.log('error: ' + err) });
