@@ -308,9 +308,11 @@ function hueTrial(){
 }
 
 function endTrials(){
+    console.log(data)
     document.getElementById('trials').hidden = true
     document.body.style.backgroundColor = 'white'
     document.getElementById('survey').hidden = false
+    screen.orientation.removeEventListener("change", checkOrientation)
 }
 
 // Button Listeners ---------------------------------------------------------------
