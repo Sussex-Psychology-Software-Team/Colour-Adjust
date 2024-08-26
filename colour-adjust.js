@@ -242,6 +242,7 @@ function submit(e){
 
 function saveTrial(time){
     const trialData = {
+        targetColour: colour.innerText,
         initialColour: initialColour,
         LAB: currentColour,
         RGB: lab2rgb(currentColour),
