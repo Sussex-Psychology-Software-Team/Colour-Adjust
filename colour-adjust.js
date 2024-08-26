@@ -19,6 +19,7 @@ const data = {
         metadata:{
             randomID: randomID(24),
             username: 'abc123',
+            userAgent: window.navigator.userAgent
         },
         trials: [], 
         survey: {}
