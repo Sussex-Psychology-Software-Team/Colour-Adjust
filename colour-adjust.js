@@ -1,5 +1,4 @@
 // GLObALS ---------------------------------------------------------------
-
 // Dom references
 const colour = document.getElementById('colour') // Text display of colour
 const installButton = document.getElementById("installButton") // Button for installing
@@ -14,19 +13,20 @@ let currentColour, // Current user selected LAB for background
     installPrompt = null
 const data = []
 
-// Event listeners
+// Install listeners
+window.addEventListener("appinstalled", hideInstall)
+window.addEventListener("load", hideInstall) //when opened up
+document.addEventListener('visibilitychange', hideInstall) //hacky but fires on switch from browser to standalone
+
+// Event listeners for trials
+document.getElementById('continue').addEventListener('click', setupTrials)
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
-document.addEventListener('touchstart', clickHold);
-document.addEventListener('touchend', cancelClickHold);
-document.addEventListener('touchcancel', cancelClickHold);
+document.addEventListener('touchstart', clickHold)
+document.addEventListener('touchend', cancelClickHold)
+document.addEventListener('touchcancel', cancelClickHold)
 document.getElementById('submit').addEventListener('click', submit)
 
-// Installing functions and vars
-
-window.addEventListener("appinstalled", hideInstructions);
-window.addEventListener("load", hideInstructions); //when opened up
-document.addEventListener('visibilitychange', hideInstructions); //hacky but fires on switch from browser to standalone
 
 // Init functions
 const il = illuminants()
@@ -231,7 +231,7 @@ function colourBackground(lab){
 }
 
 
-// End trial --------------------
+// End trial ---------------------------------------------------------------
 function submit(e){
     saveTrial(e.timeStamp)
     newTrial()
@@ -253,6 +253,7 @@ function saveTrial(time){
 
 // Define trials ---------------------------------------------------------------
 function setupTrials(){
+    document.getElementById('mainInstructions').hidden = true
     document.getElementById('trials').hidden = false
     newTrial() // call new trial
 }
@@ -308,7 +309,7 @@ function endTrials(){
     document.getElementById('survey').hidden = false
 }
 
-// Button Listeners---------------------------------------------------------------
+// Button Listeners ---------------------------------------------------------------
 
 // Colour checks ---
 function sameColour(colour1, colour2, channels){
@@ -334,7 +335,7 @@ function validAB(lab){
     return lab.a>=-127 && lab.a<=128 && lab.b>=-127 && lab.b<=128
 }
 
-// Helpers ---
+// Helpers ---------------------------------------------------------------
 // mod fuction to handle negative numbers
 function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
     return ((n % m) + m) % m;
@@ -347,7 +348,7 @@ function toggleButtonDisable(){
     document.getElementById('right').disabled = currentColour.b >= 128
 }
 
-// Main listeners ---
+// Main listeners ---------------------------------------------------------------
 function changeLAB(e){
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     // White trials
@@ -395,9 +396,7 @@ function cancelClickHold(){
 
 
 // Installers ---------------------------------------------------------------
-// Android
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
-
 window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault()
     installPrompt = event
@@ -417,25 +416,29 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
-function hideInstructions(){
+function hideInstall(){
     // note seems window.matchMedia("(display-mode: standalone)").matches is the working part here?
     if((window.matchMedia("(display-mode: standalone)").matches || //android
         window.navigator.standalone || //ios
         document.referrer.includes("android-app://"))  //android 2
         && colour.innerText === ''){ // if trials not already started
-            installInstructions.style.display = 'none'
+            installInstructions.hidden = true
             disableInAppInstallPrompt()
             addOrientationListener()
-            setupTrials()
             landscapeLock()
+            showMainInstructions()
     }
+}
+
+function showMainInstructions(){
+    document.getElementById('mainInstructions').hidden = false;
 }
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
     if (e.matches) {
-        installInstructions.style.display = 'none'
+        installInstructions.hidden = true
     } else {
-        installInstructions.style.display = 'block'
+        installInstructions.hidden = false
         installInstructions.innerHTML = '<p>Please return to or reinstall the app version of this website.</p>' 
     }
 })
@@ -447,7 +450,7 @@ function addOrientationListener(){
                 installInstructions.style.display = 'block'
                 installInstructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
             } else { // if landscape
-                installInstructions.style.display = 'none'
+                installInstructions.hidden = true
                 landscapeLock()
             }
         }
