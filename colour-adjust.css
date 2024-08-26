@@ -135,4 +135,11 @@ fieldset{
 input[type=number]{
     width: 50px;
 }
+
+input[type=submit]{
+    font-size: 20px;
+    margin: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
 }
