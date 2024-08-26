@@ -429,17 +429,9 @@ function hideInstructions(){
             installInstructions.style.display = 'none'
             disableInAppInstallPrompt()
             addOrientationListener()
-            setupTrial()
+            setupTrials()
             if(screen.orientation.lock) screen.orientation.lock('landscape')
     }
-}
-
-function setupTrial(){
-    const buttons = document.getElementsByClassName('adjustColourButton')
-    for(let i=0; i<buttons.length; i++){
-        buttons[i].hidden = false
-    }
-    newTrial() // call new trial
 }
 
 window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
