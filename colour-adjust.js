@@ -296,19 +296,7 @@ function endTrials(){
     document.getElementById('up').hidden = true
     document.getElementById('right').hidden = true
     document.getElementById('down').hidden = true
-}
-
-// Data ---------------------------------------------------------------
-
-function saveTrial(){
-    const trialData = {
-        'LAB': currentColour,
-        'RGB': lab2rgb(currentColour),
-        'LCH': lab2lch(currentColour),
-        'rt': 0,
-    }
-
-    data.push(trialData)
+    document.body.style.backgroundColor = 'white'
 }
 
 // Button Listeners---------------------------------------------------------------
