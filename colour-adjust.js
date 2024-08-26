@@ -537,7 +537,7 @@ function checkOrientation(){
 
 // Start the experiment if install load or visibility change triggered
 function startExperiment(){
-    if(inStandalone()){
+    if(inStandalone() && !installInstructions.hidden){
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
