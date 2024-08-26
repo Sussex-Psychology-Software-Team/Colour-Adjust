@@ -309,9 +309,7 @@ function saveTrial(time){
     const trialData = {
         targetColour: colour.innerText,
         initialColour: initialColour,
-        LAB: currentColour,
-        RGB: lab2rgb(currentColour),
-        LCH: lab2lch(currentColour),
+        finalColour: currentColour,
         rt: time-timer,
     }
 
