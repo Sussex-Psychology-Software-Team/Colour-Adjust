@@ -229,6 +229,16 @@ function colourBackground(lab){
 }
 }
 
+function saveTrial(time){
+    const trialData = {
+        initialColour: initialColour,
+        LAB: currentColour,
+        RGB: lab2rgb(currentColour),
+        LCH: lab2lch(currentColour),
+        rt: timer-time,
+    }
+
+    data.push(trialData)
 }
 
 // Define trials ---------------------------------------------------------------
