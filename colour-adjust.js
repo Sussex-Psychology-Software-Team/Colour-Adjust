@@ -306,12 +306,9 @@ function hueTrial(){
 }
 
 function endTrials(){
-    document.getElementById('colourAndSubmit').textContent = 'FIN'
-    document.getElementById('left').hidden = true
-    document.getElementById('up').hidden = true
-    document.getElementById('right').hidden = true
-    document.getElementById('down').hidden = true
+    document.getElementById('trials').hidden = true
     document.body.style.backgroundColor = 'white'
+    document.getElementById('survey').hidden = false
 }
 
 // Button Listeners---------------------------------------------------------------
