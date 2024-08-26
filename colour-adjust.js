@@ -430,7 +430,7 @@ function hideInstructions(){
             disableInAppInstallPrompt()
             addOrientationListener()
             setupTrials()
-            if(screen.orientation.lock) screen.orientation.lock('landscape')
+            landscapeLock()
     }
 }
 
@@ -451,8 +451,14 @@ function addOrientationListener(){
                 installInstructions.innerHTML = '<p>This app is only available in landscape mode. Please roate your phone.</p>' 
             } else { // if landscape
                 installInstructions.style.display = 'none'
-                if(screen.orientation.lock) screen.orientation.lock('landscape')
+                landscapeLock()
             }
         }
     })
+}
+
+function landscapeLock(){
+    if(screen.orientation.lock) screen.orientation.lock('landscape')
+    .then(() => {console.log('locked to: ' + screen.orientation.type)})
+    .catch((err) => { console.log('error: ' + err) });
 }
