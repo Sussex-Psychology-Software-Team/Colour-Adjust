@@ -43,6 +43,11 @@ li {
     }
 }
 
+#browserModeWarning, #orientationWarning{
+    width: 80%;
+    text-align: center;
+}
+
 
 /* Instructions */
 #mainInstructions {
