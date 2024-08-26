@@ -479,13 +479,18 @@ function disableInAppInstallPrompt() {
 }
 
 //iOS and Desktop
+function inStandalone(){
+    return window.matchMedia("(display-mode: standalone)").matches || // Android
+    window.navigator.standalone || // iOS
+    document.referrer.includes("android-app://") // Android 2
+}
+
 function hideInstall(){
-    if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone || document.referrer.includes("android-app://") ){
+    if(inStandalone()){
             installInstructions.hidden = true
             disableInAppInstallPrompt()
             landscapeLock()
             screen.orientation.addEventListener("change", checkOrientation)
-            console.log(screen.orientation)
             checkOrientation()
             // Show relevant part of exp   
             showMaterials()
@@ -522,14 +527,12 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
 })
 
 function checkOrientation(){
-    if(window.matchMedia("(display-mode: standalone)").matches){ // Run if in app mode
+    if(inStandalone()){ // Run if in app mode
         if(screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary'){
             hideMaterials()
             document.getElementById('orientationWarning').hidden = false
         } else { // if landscape
             document.getElementById('orientationWarning').hidden = true
-            console.log(window)
-            mainInstructions.innerHTML = window.matchMedia("(display-mode: standalone)").matches +'<br><br>' + screen.orientation.type
             landscapeLock()
             showMaterials()
         }
