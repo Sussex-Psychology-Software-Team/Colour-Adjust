@@ -14,7 +14,13 @@ let currentColour, // Current user selected LAB for background
     initialColour, // Data for current trial
     intervalID, // Stores loaded call for button clicks
     installPrompt = null
-const data = []
+const data = { 
+    metadata:{
+        randomID: randomID(24),
+
+    },
+    trials: [], 
+    survey: {} }
 
 // Install listeners
 window.addEventListener("appinstalled", hideInstall)
@@ -250,7 +256,7 @@ function saveTrial(time){
         rt: time-timer,
     }
 
-    data.push(trialData)
+    data.trials.push(trialData)
 }
 
 
