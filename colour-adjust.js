@@ -15,12 +15,13 @@ let currentColour, // Current user selected LAB for background
     intervalID, // Stores loaded call for button clicks
     installPrompt = null
 const data = { 
-    metadata:{
-        randomID: randomID(24),
-
-    },
-    trials: [], 
-    survey: {} }
+        metadata:{
+            randomID: randomID(24),
+            username: 'abc123',
+        },
+        trials: [], 
+        survey: {}
+    }
 
 // Install listeners
 window.addEventListener("appinstalled", hideInstall)
@@ -59,8 +60,41 @@ function submitSurvey(e){
     e.preventDefault()
     const formData = new FormData(e.target)
     data.survey = Object.fromEntries(formData.entries())
+    const requestBody = makeRequestBody("CdE5fn8ckU5w", data)
+    sendData(requestBody)
     console.log(data)
 }
+
+function makeRequestBody(id, dataToSend){
+    // Responses: CdE5fn8ckU5w https://pipe.jspsych.org/admin/CdE5fn8ckU5w OSF: https://osf.io/7qs4n/
+    // Participants: eXM0k3gPdL9y https://pipe.jspsych.org/admin/eXM0k3gPdL9y OSF: https://osf.io/7ecsb/
+    return {
+        experimentID: id,
+        filename: data.randomID + ".json",
+        data: JSON.stringify(dataToSend)
+    }
+}
+
+async function sendData(requestBody){
+    try {
+        const response = await fetch("https://pipe.jspsych.org/api/data/", {
+            method: "POST",
+            body: JSON.stringify(requestBody),
+            headers: { "Content-Type": "application/json", },
+        })
+
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        
+        const json = await response.json();
+        console.log(json);
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
