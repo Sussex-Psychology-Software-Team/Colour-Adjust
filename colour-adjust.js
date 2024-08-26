@@ -30,6 +30,7 @@ document.addEventListener('visibilitychange', hideInstructions); //hacky but fir
 
 // Init functions
 const il = illuminants()
+// setupTrials() // For testing
 
 // COLOUR CONVERSION ---------------------------------------------------------------
 
@@ -248,7 +249,17 @@ function saveTrial(time){
     data.push(trialData)
 }
 
+
+
 // Define trials ---------------------------------------------------------------
+function setupTrials(){
+    const buttons = document.getElementsByClassName('adjustColourButton')
+    for(let i=0; i<buttons.length; i++){
+        buttons[i].hidden = false
+    }
+    newTrial() // call new trial
+}
+
 function newTrial(){
     if(colours.length === 0) endTrials()
     else {
