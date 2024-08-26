@@ -334,7 +334,6 @@ function hueTrial(){
 }
 
 function endTrials(){
-    console.log(data)
     document.getElementById('trials').hidden = true
     document.body.style.backgroundColor = 'white'
     document.getElementById('survey').hidden = false
@@ -489,13 +488,14 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
 })
 
 function checkOrientation(){
-
     if(window.matchMedia("(display-mode: standalone)").matches){ // Run if in app mode
         if(screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary'){
             hideMaterials()
             document.getElementById('orientationWarning').hidden = false
         } else { // if landscape
             document.getElementById('orientationWarning').hidden = true
+            console.log(window)
+            mainInstructions.innerHTML = window.matchMedia("(display-mode: standalone)").matches +'<br><br>' + screen.orientation.type
             landscapeLock()
             showMaterials()
         }
