@@ -14,6 +14,7 @@ let currentColour, // Current user selected LAB for background
     initialColour, // Data for current trial
     intervalID, // Stores loaded call for button clicks
     installPrompt = null
+// Participant data structure
 const data = { 
         metadata:{
             randomID: randomID(24),
@@ -37,6 +38,9 @@ document.addEventListener('touchend', cancelClickHold)
 document.addEventListener('touchcancel', cancelClickHold)
 document.getElementById('submit').addEventListener('click', submit)
 
+// Survey listener
+document.getElementById('survey').addEventListener('submit', submitSurvey)
+
 
 // Init functions
 const il = illuminants()
@@ -54,15 +58,16 @@ function randomID(len){ // Note consider a gross UUID function: https://stackove
 }
 
 // SURVEY ---------------------------------------------------------------
-document.getElementById('survey').addEventListener('submit', submitSurvey)
-
 function submitSurvey(e){
     e.preventDefault()
     const formData = new FormData(e.target)
     data.survey = Object.fromEntries(formData.entries())
+    console.log(data)
     const requestBody = makeRequestBody("CdE5fn8ckU5w", data)
     sendData(requestBody)
-    console.log(data)
+    hideMaterials()
+    document.getElementById('debrief').hidden = false
+    document.getElementById('displayData').innerHTML = JSON.stringify(data)
 }
 
 function makeRequestBody(id, dataToSend){
