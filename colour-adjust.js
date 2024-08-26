@@ -2,8 +2,6 @@
 
 // Dom references
 const colour = document.getElementById('colour')
-const canvas = document.getElementById('canvas')
-const ctx = canvas.getContext('2d')
 
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
@@ -223,9 +221,10 @@ function randomLAB(l, a, b){
     return { 'l':l, 'a':a, 'b':b }
 }
 
-function updateCanvasColour(lab){
+function colourBackground(lab){
     const rgb = lab2rgb(lab)
-    fillColour(rgb)
+    document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+}
 }
 
 function fillColour(rgb){
@@ -258,7 +257,7 @@ function newTrial(){
             currentColour = lch2lab(lch)
         }
         // Present starting colour
-        updateCanvasColour(currentColour)
+        colourBackground(currentColour)
     }
 }
 
@@ -369,7 +368,7 @@ function changeLAB(e){
     }
 
     console.log('lab: ', currentColour, 'lch: ', lab2lch(currentColour), 'rgb: ', lab2rgb(currentColour))
-    updateCanvasColour(currentColour)
+    colourBackground(currentColour)
 }
 
 function clickHold(e){
