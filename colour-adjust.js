@@ -1,8 +1,11 @@
 // GLObALS ---------------------------------------------------------------
 // Dom references
-const colour = document.getElementById('colour') // Text display of colour
 const installButton = document.getElementById("installButton") // Button for installing
 const installInstructions = document.getElementById("installInstructions") // Install instructions
+const mainInstructions = document.getElementById('mainInstructions')
+const trialsContainer = document.getElementById('trials')
+const survey = document.getElementById('survey')
+const colour = document.getElementById('colour') // Text display of colour
 
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
