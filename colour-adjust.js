@@ -51,6 +51,16 @@ function randomID(len){ // Note consider a gross UUID function: https://stackove
     }
     return id;
 }
+
+// SURVEY ---------------------------------------------------------------
+document.getElementById('survey').addEventListener('submit', submitSurvey)
+
+function submitSurvey(e){
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    data.survey = Object.fromEntries(formData.entries())
+    console.log(data)
+}
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
