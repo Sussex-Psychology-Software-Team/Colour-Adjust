@@ -14,7 +14,7 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-input[type=button]{
+input[type=button] {
     color: black;
 }
 
@@ -29,7 +29,7 @@ input[type=button]{
     user-select: none;
 }
 
-li{
+li {
     text-align: start;
 }
 
@@ -45,13 +45,11 @@ li{
 
 
 /* Instructions */
-#mainInstructions{
-    font-size: 20px;
+#mainInstructions {
     width: 80%;
 }
 
-#continue{
-    font-size: 20px;
+#continue {
     padding: 5px;
 }
 
