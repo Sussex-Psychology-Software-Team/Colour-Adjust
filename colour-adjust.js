@@ -18,7 +18,7 @@ document.addEventListener('mouseup', cancelClickHold)
 document.addEventListener('touchstart', clickHold);
 document.addEventListener('touchend', cancelClickHold);
 document.addEventListener('touchcancel', cancelClickHold);
-document.getElementById('submit').addEventListener('click', newTrial)
+document.getElementById('submit').addEventListener('click', submit)
 
 // Installing functions and vars
 const installButton = document.getElementById("install");
@@ -227,6 +227,12 @@ function colourBackground(lab){
     const rgb = lab2rgb(lab)
     document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
 }
+
+
+// End trial --------------------
+function submit(e){
+    saveTrial(e.timeStamp)
+    newTrial()
 }
 
 function saveTrial(time){
