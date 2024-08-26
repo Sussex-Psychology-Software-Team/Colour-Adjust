@@ -5,10 +5,14 @@ const colour = document.getElementById('colour')
 
 // Trial vars
 const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
-let currentColour // Current user selected LAB for background
+let currentColour, // Current user selected LAB for background
+    timer, // Records reaction time
+    initialColour, // Data for current trial
+    intervalID, // Stores loaded call for button clicks
+    installPrompt = null
+const data = []
 
 // Event listeners
-let intervalID // Stores loaded call for button clicks
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
 document.addEventListener('touchstart', clickHold);
@@ -17,7 +21,6 @@ document.addEventListener('touchcancel', cancelClickHold);
 document.getElementById('submit').addEventListener('click', newTrial)
 
 // Installing functions and vars
-let installPrompt = null;
 const installButton = document.getElementById("install");
 const instructions = document.getElementById("instructions")
 window.addEventListener("appinstalled", hideInstructions);
@@ -26,7 +29,6 @@ document.addEventListener('visibilitychange', hideInstructions); //hacky but fir
 
 // Init functions
 const il = illuminants()
-const data = [];
 
 // COLOUR CONVERSION ---------------------------------------------------------------
 
