@@ -13,9 +13,7 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-#canvas {
-    height: 100%;
-    width: 100%;
+#trials {
     -webkit-user-select: none; /* Safari */
     user-select: none;
 }
@@ -23,7 +21,6 @@ html, body {
 
 /* Buttons */
 .adjustColourButton {
-    /* padding: 40px; */
     width: 70px;
     height: 70px;
     background: transparent;
@@ -53,51 +50,23 @@ html, body {
     pointer-events: none;
 }
 
+#left { left: 10% }
+#up { top: 10% }
+#right { left: 90% }
+#down { top: 90% }
 
-#left {
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#up {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#right {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#down {
-    position: absolute;
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+/* Central color display and submit button */
+#colourAndSubmit{
+    text-align: center;
 }
 
 #submit {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* padding: 20px; */
-    /* width: 150px; */
-    
     height: initial;
     width: initial;
     padding: 10px;
     font-size: 15px;
 }
 
-/* Colour Display */
 #colour {
     font-size: 30px;
 }
