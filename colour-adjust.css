@@ -97,17 +97,23 @@ li{
 
 /* survey */
 form {
+    padding: 10px;
     max-width: 100%;
 }
 
-
 fieldset{
     padding: 5%;
+    margin-top: 10px;
+}
+
+legend{
+    font-weight: bold;
 }
 
 #about, #surroundings{
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid black;
 }
 
 #about > label, #surroundings > label {
