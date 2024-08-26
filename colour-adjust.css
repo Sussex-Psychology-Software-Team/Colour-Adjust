@@ -1,8 +1,9 @@
 /* Global and canvas */
-
 html, body {
     margin: 0;
     overscroll-behavior-y: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
 }
 
 .centre {
