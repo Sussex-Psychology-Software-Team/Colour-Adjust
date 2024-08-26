@@ -229,10 +229,6 @@ function colourBackground(lab){
 }
 }
 
-function fillColour(rgb){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
-    ctx.fillRect(0,0,canvas.width,canvas.height)
 }
 
 // Define trials ---------------------------------------------------------------
