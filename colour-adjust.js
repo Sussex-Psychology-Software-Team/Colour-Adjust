@@ -18,7 +18,6 @@ let currentColour, // Current user selected LAB for background
 const data = { 
         metadata:{
             randomID: randomID(24),
-            username: 'abc123',
             userAgent: window.navigator.userAgent
         },
         trials: [], 
@@ -60,12 +59,23 @@ function randomID(len){ // Note consider a gross UUID function: https://stackove
 
 // SURVEY ---------------------------------------------------------------
 function submitSurvey(e){
+    // Send responses
     e.preventDefault()
     const formData = new FormData(e.target)
     data.survey = Object.fromEntries(formData.entries())
     console.log(data)
-    const requestBody = makeRequestBody("CdE5fn8ckU5w", data)
-    sendData(requestBody)
+    const responses = makeRequestBody("CdE5fn8ckU5w", data)
+    sendData(responses)
+    
+    // Send participant username
+    const participantInfo = {
+        username: document.getElementById('username').value,
+        randomID: data.metadata.randomID
+    }
+    const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
+    sendData(participant)
+
+    // Show debrief
     hideMaterials()
     document.getElementById('debrief').hidden = false
     document.getElementById('displayData').innerHTML = JSON.stringify(data, null, 4)
@@ -320,7 +330,8 @@ function saveTrial(time){
 
 
 // Define trials ---------------------------------------------------------------
-function setupTrials(){
+function setupTrials(e){
+    e.preventDefault()
     document.getElementById('mainInstructions').hidden = true
     document.getElementById('trials').hidden = false
     newTrial() // call new trial
