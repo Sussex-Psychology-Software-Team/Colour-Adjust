@@ -239,6 +239,7 @@ function fillColour(rgb){
 function newTrial(){
     if(colours.length === 0) endTrials()
     else {
+        timer = performance.now()
         colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
         // Change buttons for white or hue
         if(colour.innerText === 'White'){
