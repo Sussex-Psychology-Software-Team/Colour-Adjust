@@ -397,9 +397,9 @@ function cancelClickHold(){
 
 // Installers ---------------------------------------------------------------
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
-window.addEventListener("beforeinstallprompt", (event) => {
-    event.preventDefault()
-    installPrompt = event
+window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault()
+    installPrompt = e
     installButton.removeAttribute("hidden")
 })
 
