@@ -96,8 +96,13 @@ li{
 }
 
 /* survey */
+form {
+    max-width: 100%;
+}
+
+
 fieldset{
-    width: 700px;
+    padding: 5%;
 }
 
 #about, #surroundings{
@@ -107,7 +112,8 @@ fieldset{
 
 #about > label, #surroundings > label {
     border-top: 1px solid black;
-    margin-bottom: 5px;
+    padding-top: 5px;
+    padding-bottom: 10px;
     font-weight: bold;
     /* border-bottom: 1px solid black; */
 }
@@ -120,12 +126,13 @@ fieldset{
 
 .radio {
     display: grid;
-    grid-template-columns: auto auto;
-    width: 200px;
+    grid-template-columns: max-content min-content;
+    column-gap: 10px;
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
 input[type=number]{
-    width: 100px;
+    width: 50px;
+}
 }
