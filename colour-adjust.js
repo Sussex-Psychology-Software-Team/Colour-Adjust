@@ -253,10 +253,7 @@ function saveTrial(time){
 
 // Define trials ---------------------------------------------------------------
 function setupTrials(){
-    const buttons = document.getElementsByClassName('adjustColourButton')
-    for(let i=0; i<buttons.length; i++){
-        buttons[i].hidden = false
-    }
+    document.getElementById('trials').hidden = false
     newTrial() // call new trial
 }
 
