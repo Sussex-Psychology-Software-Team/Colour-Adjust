@@ -38,6 +38,18 @@ li{
     }
 }
 
+
+/* Instructions */
+#mainInstructions{
+    font-size: 20px;
+    width: 80%;
+}
+
+#continue{
+    font-size: 20px;
+    padding: 5px;
+}
+
 /* Trials */
 #trials {
     -webkit-user-select: none; /* Safari */
