@@ -514,7 +514,9 @@ window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) =
     if(e.matches || inStandalone()) {
         document.getElementById('browserModeWarning').hidden = true
         installInstructions.hidden = true
+        // Show materials then check orientation
         showMaterials()
+        checkOrientation()
     } else {
         hideMaterials()
         // Show reinstall prompt
@@ -542,9 +544,8 @@ function startExperiment(){
         disableInAppInstallPrompt()
         // Load Orientation listener
         screen.orientation.addEventListener("change", checkOrientation)
-        // Show relevant part of exp   
+        // Show materials then check orientation
         showMaterials()
-        // Double check orientation again
         checkOrientation()
     }
 }
