@@ -41,6 +41,16 @@ document.getElementById('submit').addEventListener('click', submit)
 const il = illuminants()
 // setupTrials() // For testing
 
+// METADATA ---------------------------------------------------------------
+function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
+    const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let id = ''
+    // Loop to generate characters for the specified length
+    for (let i=0; i<len; i++) {
+        id += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return id;
+}
 // COLOUR CONVERSION ---------------------------------------------------------------
 
 // CIE illuminants D-value and degree FOV
