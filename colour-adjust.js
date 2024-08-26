@@ -243,7 +243,7 @@ function saveTrial(time){
         LAB: currentColour,
         RGB: lab2rgb(currentColour),
         LCH: lab2lch(currentColour),
-        rt: timer-time,
+        rt: time-timer,
     }
 
     data.push(trialData)
