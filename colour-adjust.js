@@ -66,7 +66,7 @@ function submitSurvey(e){
     console.log(data)
     const responses = makeRequestBody("CdE5fn8ckU5w", data)
     sendData(responses)
-    
+
     // Send participant username
     const participantInfo = {
         username: document.getElementById('username').value,
@@ -514,13 +514,13 @@ function hideMaterials(){
 }
 
 function inStandalone(){
-    return window.matchMedia("(display-mode: standalone)").matches || // Android
+    return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
     window.navigator.standalone || // iOS
     document.referrer.includes("android-app://") // Android 2
 }
 
 // Listener if not in PWA mode
-window.matchMedia('(display-mode: standalone)').addEventListener('change', (e) => {
+window.matchMedia('(display-mode: fullscreen)').addEventListener('change', (e) => {
     if(e.matches || inStandalone()) {
         document.getElementById('browserModeWarning').hidden = true
         installInstructions.hidden = true
