@@ -30,7 +30,7 @@ window.addEventListener("load", startExperiment) //when opened up
 document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
 // Event listeners for trials
-document.getElementById('continue').addEventListener('click', setupTrials)
+document.getElementById('usernameForm').addEventListener('submit', setupTrials)
 document.addEventListener('mousedown', clickHold)
 document.addEventListener('mouseup', cancelClickHold)
 document.addEventListener('touchstart', clickHold)
