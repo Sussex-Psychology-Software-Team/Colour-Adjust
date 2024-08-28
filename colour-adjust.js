@@ -428,20 +428,6 @@ function lab2rgb(lab){
     return rgb
 }
 
-
-// Canvas colour changes ---------------------------------------------------------------
-function randomLAB(l, a, b){
-    if(!l) l = Math.floor(Math.random() * (100 - 0 + 1)) // max/min inclusive
-    //−128 to 127 https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates:~:text=the%20range%20of-,%E2%88%92128%20to%20127,-.
-    if(!a) a = Math.floor(Math.random() * (127 - -128 + 1) + -128)
-    if(!b) b = Math.floor(Math.random() * (127 - -128 + 1) + -128)
-    return { 'l':l, 'a':a, 'b':b }
-}
-
-function colourBackground(lab){
-    const rgb = lab2rgb(lab)
-    document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
-}
 // Check colour validity ---------------------------------------------------------------
 
 // Colour checks ---
@@ -468,7 +454,22 @@ function validAB(lab){
     return lab.a>=-127 && lab.a<=128 && lab.b>=-127 && lab.b<=128
 }
 
-// Helpers ---------------------------------------------------------------
+// Background colour changes ---------------------------------------------------------------
+function randomLAB(l, a, b){
+    if(!l) l = Math.floor(Math.random() * (100 - 0 + 1)) // max/min inclusive
+    //−128 to 127 https://en.wikipedia.org/wiki/CIELAB_color_space#Coordinates:~:text=the%20range%20of-,%E2%88%92128%20to%20127,-.
+    if(!a) a = Math.floor(Math.random() * (127 - -128 + 1) + -128)
+    if(!b) b = Math.floor(Math.random() * (127 - -128 + 1) + -128)
+    return { 'l':l, 'a':a, 'b':b }
+}
+
+function colourBackground(lab){
+    const rgb = lab2rgb(lab)
+    document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
+}
+
+
+// Colour Adjust button listeners ---------------------------------------------------------------
 // mod fuction to handle negative numbers
 function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
     return ((n % m) + m) % m;
