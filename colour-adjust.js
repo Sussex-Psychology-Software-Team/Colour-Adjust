@@ -562,20 +562,15 @@ function disableInAppInstallPrompt() {
 
 // Show and hide materials on change
 function showMaterials(){
-    if(colours.length === 5){ // If no colours removed yet
-        mainInstructions.hidden = false
-    } else if(colours.length === 0){ // If no colours left
-        survey.hidden = false
-    } else { // Else show the current trial
-        trialsContainer.hidden = false
-    }
+    // Note listener is removed after trials are complete
+    if(colours.length === 5) mainInstructions.hidden = false // If no colours removed yet
+    else trialsContainer.hidden = false // Else show the current trial
 }
 
 function hideMaterials(){
     // hide everything
     mainInstructions.hidden = true
     trialsContainer.hidden = true
-    survey.hidden = true
 }
 
 function inStandalone(){
