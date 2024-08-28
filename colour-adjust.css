@@ -15,15 +15,16 @@ html, body {
 }
 
 input[type=button] {
-    color: black;
+    color: black; /* Ensure black buttons for ios */
 }
+
+
 
 /* Install instructions */
 #installInstructions {
     width: 80%;
     font-size: larger;
     color: black;
-    /* text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000; */
     text-align: center;
     -webkit-user-select: none; /* Safari */
     user-select: none;
@@ -98,7 +99,7 @@ li {
 .adjustColourButton:disabled {
     /* Allow for border-color to have disabled styling */
     border-color: initial;
-    /* allows for mouseup events on a disable element to cancel interval */
+    /* Allow for mouseup events on a disable element to cancel interval */
     pointer-events: none;
 }
 
