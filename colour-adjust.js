@@ -218,6 +218,7 @@ function debrief(){
     document.body.scrollTop = 0
 }
 
+// SEND DATA ---------------------------------------------------------------
 function makeRequestBody(id, dataToSend){
     // Responses: CdE5fn8ckU5w https://pipe.jspsych.org/admin/CdE5fn8ckU5w OSF: https://osf.io/7qs4n/
     // Participants: eXM0k3gPdL9y https://pipe.jspsych.org/admin/eXM0k3gPdL9y OSF: https://osf.io/7ecsb/
@@ -246,7 +247,6 @@ async function sendData(requestBody){
         console.error(error.message);
     }
 }
-
 
 // COLOUR CONVERSION ---------------------------------------------------------------
 
@@ -485,7 +485,6 @@ function toggleButtonDisable(){
     document.getElementById('right').disabled = currentColour.b >= 128
 }
 
-// Main listeners ---------------------------------------------------------------
 function changeLAB(e){
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     // White trials
@@ -528,6 +527,10 @@ function clickHold(e){
 function cancelClickHold(){
     intervalID && clearInterval(intervalID)
 }
+
+
+
+
 
 
 // Installers ---------------------------------------------------------------
@@ -579,14 +582,15 @@ function inStandalone(){
 // Listener if not in PWA mode
 window.matchMedia('(display-mode: fullscreen)').addEventListener('change', (e) => {
     if(e.matches || inStandalone()) {
+        // Hide Installation instructions
         document.getElementById('browserModeWarning').hidden = true
         installInstructions.hidden = true
         // Show materials then check orientation
         showMaterials()
         checkOrientation()
     } else {
+        // Show reinstall prompt - likely not actually relevant to mobile??
         hideMaterials()
-        // Show reinstall prompt
         document.getElementById('browserModeWarning').hidden = false
     }
 })
@@ -595,9 +599,11 @@ window.matchMedia('(display-mode: fullscreen)').addEventListener('change', (e) =
 function checkOrientation(){
     if(inStandalone()){ // Run if in app mode
         if(screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary'){
+            // If in portrait hide materials and show warning
             hideMaterials()
             document.getElementById('orientationWarning').hidden = false
-        } else { // if landscape
+        } else {
+            // If landscape show relevant materials
             document.getElementById('orientationWarning').hidden = true
             showMaterials()
         }
@@ -606,7 +612,7 @@ function checkOrientation(){
 
 // Start the experiment if install load or visibility change triggered
 function startExperiment(){
-    if(inStandalone() && !installInstructions.hidden){
+    if(inStandalone() && !installInstructions.hidden){ // If installation instructions triggered
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
