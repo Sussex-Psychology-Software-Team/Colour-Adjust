@@ -205,7 +205,10 @@ function submitSurvey(e){
     const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
     sendData(participant)
 
-    // Show debrief
+    // End survey and show next page
+    document.getElementById('survey').hidden = true
+    enterCalibrationMode()
+}
 
 // Debrief ---------------------------------------------------------------
 function debrief(){
