@@ -29,16 +29,8 @@ window.addEventListener("appinstalled", startExperiment)
 window.addEventListener("load", startExperiment) //when opened up
 document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
-// Event listeners for trials
+// Form listeners
 document.getElementById('usernameForm').addEventListener('submit', setupTrials)
-document.addEventListener('mousedown', clickHold)
-document.addEventListener('mouseup', cancelClickHold)
-document.addEventListener('touchstart', clickHold)
-document.addEventListener('touchend', cancelClickHold)
-document.addEventListener('touchcancel', cancelClickHold)
-document.getElementById('submit').addEventListener('click', submit)
-
-// Survey listener
 document.getElementById('survey').addEventListener('submit', submitSurvey)
 
 
@@ -55,6 +47,101 @@ function randomID(len){ // Note consider a gross UUID function: https://stackove
         id += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return id;
+}
+
+
+// Define trials ---------------------------------------------------------------
+function setupTrials(e){
+    e.preventDefault()
+    document.getElementById('mainInstructions').hidden = true
+    document.getElementById('trials').hidden = false
+    // Add listeners
+    document.addEventListener('mousedown', clickHold)
+    document.addEventListener('mouseup', cancelClickHold)
+    document.addEventListener('touchstart', clickHold)
+    document.addEventListener('touchend', cancelClickHold)
+    document.addEventListener('touchcancel', cancelClickHold)
+    document.getElementById('submit').addEventListener('click', submitTrial)
+    newTrial() // call new trial
+}
+
+function newTrial(){
+    if(colours.length === 0) endTrials()
+    else {
+        timer = performance.now()
+        colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
+        // Change buttons for white or hue
+        if(colour.innerText === 'White'){
+            whiteTrialButtons()
+            currentColour = randomLAB(75)
+        } else{
+            hueTrialButtons()
+            const lch = randomHue()
+            currentColour = lch2lab(lch)
+        }
+        
+        // Present starting colour
+        colourBackground(currentColour)
+        initialColour = currentColour
+    }
+}
+
+function randomHue(){
+    // Get fully saturated RGB
+    let rgb
+    if(colour.innerText === 'Red') rgb = {r:255, g:0, b:0}
+    if(colour.innerText === 'Green') rgb = {r:0, g:255, b:0}
+    if(colour.innerText === 'Blue') rgb = {r:0, g:0, b:255}
+    if(colour.innerText === 'Yellow') rgb = {r:255, g:255, b:0}
+    // convert to lch to randomise h and convert back
+    const lab = rgb2lab(rgb)
+    const lch = lab2lch(lab)
+    lch.h = Math.floor(Math.random()*(360-0+1)+0) //random degree
+    return lch
+}
+function whiteTrialButtons(){
+    document.getElementById('left').hidden = false
+    document.getElementById('right').hidden = false
+    document.getElementById('up').value = 'R+'
+    document.getElementById('down').value = 'G+'
+}
+
+function hueTrialButtons(){
+    document.getElementById('left').hidden = true
+    document.getElementById('right').hidden = true
+    document.getElementById('up').value = '+'
+    document.getElementById('down').value = '-'
+}
+
+function submitTrial(e){
+    saveTrial(e.timeStamp)
+    newTrial()
+}
+
+function saveTrial(time){
+    const trialData = {
+        targetColour: colour.innerText,
+        initialColour: initialColour,
+        finalColour: currentColour,
+        rt: time-timer,
+    }
+
+    data.trials.push(trialData)
+}
+
+function endTrials(){
+    // End trials
+    document.getElementById('trials').hidden = true
+    // Remove listeners
+    screen.orientation.removeEventListener("change", checkOrientation)
+    document.removeEventListener('mousedown', clickHold)
+    document.removeEventListener('mouseup', cancelClickHold)
+    document.removeEventListener('touchstart', clickHold)
+    document.removeEventListener('touchend', cancelClickHold)
+    document.removeEventListener('touchcancel', cancelClickHold)
+    document.getElementById('submit').removeEventListener('click', submitTrial)
+
+    showSurvey()
 }
 
 // SURVEY ---------------------------------------------------------------
@@ -308,88 +395,7 @@ function colourBackground(lab){
     const rgb = lab2rgb(lab)
     document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
 }
-
-
-// End trial ---------------------------------------------------------------
-function submit(e){
-    saveTrial(e.timeStamp)
-    newTrial()
-}
-
-function saveTrial(time){
-    const trialData = {
-        targetColour: colour.innerText,
-        initialColour: initialColour,
-        finalColour: currentColour,
-        rt: time-timer,
-    }
-
-    data.trials.push(trialData)
-}
-
-
-
-// Define trials ---------------------------------------------------------------
-function setupTrials(e){
-    e.preventDefault()
-    document.getElementById('mainInstructions').hidden = true
-    document.getElementById('trials').hidden = false
-    newTrial() // call new trial
-}
-
-function newTrial(){
-    if(colours.length === 0) endTrials()
-    else {
-        timer = performance.now()
-        colour.innerText = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
-        // Change buttons for white or hue
-        if(colour.innerText === 'White'){
-            whiteTrial()
-            currentColour = randomLAB(75)
-        } else{
-            hueTrial()
-            // Get fully saturated RGB
-            let rgb
-            if(colour.innerText === 'Red') rgb = {r:255, g:0, b:0}
-            if(colour.innerText === 'Green') rgb = {r:0, g:255, b:0}
-            if(colour.innerText === 'Blue') rgb = {r:0, g:0, b:255}
-            if(colour.innerText === 'Yellow') rgb = {r:255, g:255, b:0}
-            // convert to lch to randomise h and convert back
-            const lab = rgb2lab(rgb)
-            const lch = lab2lch(lab)
-            lch.h = Math.floor(Math.random()*(360-0+1)+0) //random degree
-            currentColour = lch2lab(lch)
-        }
-        
-        // Present starting colour
-        colourBackground(currentColour)
-
-        initialColour = currentColour
-    }
-}
-
-function whiteTrial(){
-    document.getElementById('left').hidden = false
-    document.getElementById('right').hidden = false
-    document.getElementById('up').value = 'R+'
-    document.getElementById('down').value = 'G+'
-}
-
-function hueTrial(){
-    document.getElementById('left').hidden = true
-    document.getElementById('right').hidden = true
-    document.getElementById('up').value = '+'
-    document.getElementById('down').value = '-'
-}
-
-function endTrials(){
-    document.getElementById('trials').hidden = true
-    document.body.style.backgroundColor = 'white'
-    document.getElementById('survey').hidden = false
-    screen.orientation.removeEventListener("change", checkOrientation)
-}
-
-// Button Listeners ---------------------------------------------------------------
+// Check colour validity ---------------------------------------------------------------
 
 // Colour checks ---
 function sameColour(colour1, colour2, channels){
