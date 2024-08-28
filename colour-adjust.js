@@ -206,9 +206,13 @@ function submitSurvey(e){
     sendData(participant)
 
     // Show debrief
+
+// Debrief ---------------------------------------------------------------
+function debrief(){
     hideMaterials()
     document.getElementById('debrief').hidden = false
     document.getElementById('displayData').innerHTML = JSON.stringify(data, null, 4)
+    document.body.scrollTop = 0
 }
 
 function makeRequestBody(id, dataToSend){
