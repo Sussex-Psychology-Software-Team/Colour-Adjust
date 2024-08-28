@@ -40,7 +40,9 @@
         <p>Input your university username (e.g. abc123) below:</p>
         <form id="usernameForm">
           <label for="username">Username:</label>
-          <div><input type="text" id="username" name="username" required></div>
+          <div><input type="text" id="username" name="username"
+            ontouchstart="this.removeAttribute('readonly');" 
+            onfocus="this.removeAttribute('readonly');" required></div>
           <div><input type="submit" id="continue" value="Continue"></div>
         </form>
         
