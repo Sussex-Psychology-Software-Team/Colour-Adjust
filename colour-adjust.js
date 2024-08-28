@@ -188,6 +188,11 @@ function endTrials(){
 }
 
 // SURVEY ---------------------------------------------------------------
+function showSurvey(){
+    document.body.style.backgroundColor = 'white'
+    document.getElementById('survey').hidden = false
+}
+
 function submitSurvey(e){
     // Send responses
     e.preventDefault()
