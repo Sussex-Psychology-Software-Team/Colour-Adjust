@@ -21,6 +21,7 @@ const data = {
             randomID: randomID(24),
             userAgent: window.navigator.userAgent
         },
+        consent:{},
         trials: [], 
         survey: {}
     }
@@ -31,7 +32,7 @@ window.addEventListener("load", startExperiment) //when opened up
 document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
 // Form listeners
-document.getElementById('consentForm').addEventListener('submit', setupTrials)
+document.getElementById('consentForm').addEventListener('submit', submitConsent)
 document.getElementById('survey').addEventListener('submit', submitSurvey)
 
 
@@ -40,20 +41,31 @@ const il = illuminants()
 // setupTrials() // For testing
 
 // CONSENT ---------------------------------------------------------------
-const dontRecord = document.getElementById('dontRecord');
-const requiredInputs = document.querySelectorAll('.required');
-
-dontRecord.addEventListener('change', function() {
-  if (this.checked) {
-    requiredInputs.forEach(input => {
-        input.removeAttribute('required')
-        input.value = ""
-        if(input.checked) input.checked = false
-    });
-  } else {
-    requiredInputs.forEach(input => input.setAttribute('required', 'required'));
-  }
+// Make "don't record" remove requirements for other fields
+document.getElementById('dontRecord').addEventListener('change', function() {
+    if(this.checked) {
+      document.querySelectorAll('.required').forEach(input => {
+          input.removeAttribute('required')
+          // Consider removing values too? .value = "" .checked = false
+      });
+    } else {
+      document.querySelectorAll('.required').forEach(input => input.setAttribute('required', 'required'));
+    }
 });
+
+function submitConsent(e){
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const consentData = Object.fromEntries(formData)
+    console.log(consentData)
+    // If keys not in object give default values https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
+    if(!("futureStudies" in consentData)) consentData.futureStudies = "false"
+    if(!("consentChecked" in consentData)) consentData.consentChecked = "false"
+    if(!("dontRecord" in consentData)) consentData.dontRecord = "false"
+    console.log(consentData)
+    // Setup trials and call new trial function
+    setupTrials()
+}
 
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
@@ -110,8 +122,7 @@ function enterCalibrationMode(){
 }
 
 // Define trials ---------------------------------------------------------------
-function setupTrials(e){
-    e.preventDefault()
+function setupTrials(){
     document.getElementById('consent').hidden = true
     document.getElementById('trials').hidden = false
     // Add listeners
