@@ -232,6 +232,47 @@ function showSurvey(){
     document.getElementById('survey').hidden = false
 }
 
+// Blue light filter conditional
+const filterRadios = document.getElementsByName('filter')
+for(let i=0; i<filterRadios.length; i++){
+    filterRadios[i].addEventListener('change', filterYes)
+}
+
+function toggleHidden(className, displayState){
+    const elements = document.getElementsByClassName(className)
+    for (let i = 0; i < elements.length; i++){
+        elements[i].hidden = displayState;
+    }
+}
+
+function filterYes(e){
+    if(document.getElementById('filterYes').checked){
+        // toggleHidden('filterOn', true)
+        document.getElementById('filterOn').hidden = false
+    } else {
+        // toggleHidden('filterOn', false)
+        document.getElementById('filterOn').hidden = true
+    }
+}
+
+//Campus room conditional
+const locationRadios = document.getElementsByName('location')
+for(let i=0; i<locationRadios.length; i++){
+    locationRadios[i].addEventListener('change', locationCampus)
+}
+
+function locationCampus(e){
+    if(document.getElementById('onCampus').checked){
+        // toggleHidden('filterOn', true)
+        document.getElementById('onCampusRoom').hidden = false
+    } else {
+        // toggleHidden('filterOn', false)
+        document.getElementById('onCampusRoom').hidden = true
+    }
+}
+
+
+
 function submitSurvey(e){
     // Send responses
     e.preventDefault()
@@ -602,7 +643,7 @@ function disableInAppInstallPrompt() {
 // Show and hide materials on change
 function showMaterials(){
     // Note listener is removed after trials are complete
-    if(Object.keys(data.consent).length === 0) consent.hidden = false
+    if(Object.keys(data.consent).length === 0) document.getElementById('survey').hidden = false
     else if(colours.length === 5) document.getElementById('setup').hidden = false // If no colours removed yet
     else trialsContainer.hidden = false // Else show the current trial
 }

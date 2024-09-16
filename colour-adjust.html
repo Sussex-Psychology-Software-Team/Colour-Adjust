@@ -208,13 +208,16 @@
                 <label for="filterDontKnow">Don't know</label><input type="radio" id="filterDontKnow" value="dontKnow" name="filter" required/>
               </div>
             
-            <label for="filterOn">[If yes] Was the “blue light filter” switched on when you completed the task?</label>
+            <div id="filterOn" hidden>
+              <label for="filterOn">Was the “blue light filter” switched on when you completed the task?</label>
               <div class="radio">
                 <label for="filterOnYes">Yes</label><input type="radio" id="filterOnYes" value="yes" name="filterOn"/>
                 <label for="filterOnNo">No</label><input type="radio" id="filterOnNo" value="no" name="filterOn"/>
                 <label for="filterOnDontKnow">Don't know</label><input type="radio" id="filterOnDontKnow" value="don't know" name="filterOn"/>
               </div>
-            
+            </div>
+
+
             <label for="mode">What mode do you generally use your phone in?</label>
               <div class="radio">
                 <label for="darkMode">Dark mode</label><input type="radio" id="darkMode" value="dark" name="mode" required/>
@@ -252,7 +255,10 @@
               <label for="onCampus">On campus</label><input type="radio" id="onCampus" value="campus" name="location" required/>
             </div>
           
-            <label for="room">[on campus] What room are you in?</label><input type="text" name="room" id="room">
+            <div id="onCampusRoom" hidden>
+              <label for="room">What room are you in?</label><input type="text" name="room" id="room">
+            </div>
+            
 
             <label for="lighting">What is the lighting like where you are sitting?</label>
             <div class="radio">
