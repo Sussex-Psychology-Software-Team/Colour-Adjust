@@ -39,6 +39,22 @@ document.getElementById('survey').addEventListener('submit', submitSurvey)
 const il = illuminants()
 // setupTrials() // For testing
 
+// CONSENT ---------------------------------------------------------------
+const dontRecord = document.getElementById('dontRecord');
+const requiredInputs = document.querySelectorAll('.required');
+
+dontRecord.addEventListener('change', function() {
+  if (this.checked) {
+    requiredInputs.forEach(input => {
+        input.removeAttribute('required')
+        input.value = ""
+        if(input.checked) input.checked = false
+    });
+  } else {
+    requiredInputs.forEach(input => input.setAttribute('required', 'required'));
+  }
+});
+
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
     const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -613,7 +629,7 @@ function checkOrientation(){
 
 // Start the experiment if install load or visibility change triggered
 function startExperiment(){
-    if(inStandalone() && !installInstructions.hidden){ // If installation instructions triggered
+    if(inStandalone() && !installInstructions.hidden){ // If installation instructions not hidden yet
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
