@@ -31,7 +31,7 @@ window.addEventListener("load", startExperiment) //when opened up
 document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
 // Form listeners
-document.getElementById('usernameForm').addEventListener('submit', setupTrials)
+document.getElementById('consentForm').addEventListener('submit', setupTrials)
 document.getElementById('survey').addEventListener('submit', submitSurvey)
 
 
