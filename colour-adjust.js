@@ -59,13 +59,14 @@ function submitConsent(e){
     const consentData = Object.fromEntries(formData)
     console.log(consentData)
     // If keys not in object give default values https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
-    if(!("futureStudies" in consentData)) consentData.futureStudies = "false"
-    if(!("consentChecked" in consentData)) consentData.consentChecked = "false"
-    if(!("dontRecord" in consentData)) consentData.dontRecord = "false"
-    // Create participant ID
-    consentData.participantID = consentData.codeBirth + consentData.codeName + consentData.codeStreet + consentData.codePhone
-    // Save to data object
-    data.consent = consentData
+    data.consent = {
+        futureStudies: ("futureStudies" in consentData), // If unchecked, is left out of object, so use that property here
+        consentChecked: ("consentChecked" in consentData),
+        dontRecord: ("dontRecord" in consentData),
+        participantID: consentData.codeBirth + consentData.codeName + consentData.codeStreet + consentData.codePhone,
+        email: consentData.email
+    }
+    console.log(data)
     // Setup trials and call new trial function
     setupTrials()
 }
