@@ -33,6 +33,7 @@ document.addEventListener('visibilitychange', startExperiment) //hacky but fires
 
 // Form listeners
 document.getElementById('consentForm').addEventListener('submit', submitConsent)
+document.getElementById('setupForm').addEventListener('submit', submitSetup)
 document.getElementById('survey').addEventListener('submit', submitSurvey)
 
 
@@ -58,19 +59,26 @@ function submitConsent(e){
     const formData = new FormData(e.target)
     const consentData = Object.fromEntries(formData)
     console.log(consentData)
-    // If keys not in object give default values https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
+    // Store consent data
     data.consent = {
-        futureStudies: ("futureStudies" in consentData), // If unchecked, is left out of object, so use that property here
-        consentChecked: ("consentChecked" in consentData),
+        futureStudies: ("futureStudies" in consentData), // If unchecked, is left out of object, so use that property here rather than value to get a bool
+        consentChecked: ("consentChecked" in consentData), //https://stackoverflow.com/questions/1098040/checking-if-a-key-exists-in-a-javascript-object
         dontRecord: ("dontRecord" in consentData),
         participantID: consentData.codeBirth + consentData.codeName + consentData.codeStreet + consentData.codePhone,
         email: consentData.email
     }
     console.log(data)
+    // Next page
+    document.getElementById('consent').hidden = true;
+    document.getElementById('setup').hidden = false;
+}
+
+function submitSetup(e){
+    e.preventDefault()
+    document.getElementById('setup').hidden = true;
     // Setup trials and call new trial function
     setupTrials()
 }
-
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
     const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -127,7 +135,6 @@ function enterCalibrationMode(){
 
 // Define trials ---------------------------------------------------------------
 function setupTrials(){
-    document.getElementById('consent').hidden = true
     document.getElementById('trials').hidden = false
     // Add listeners
     document.addEventListener('mousedown', clickHold)
@@ -595,13 +602,15 @@ function disableInAppInstallPrompt() {
 // Show and hide materials on change
 function showMaterials(){
     // Note listener is removed after trials are complete
-    if(colours.length === 5) consent.hidden = false // If no colours removed yet
+    if(Object.keys(data.consent).length === 0) consent.hidden = false
+    else if(colours.length === 5) document.getElementById('setup').hidden = false // If no colours removed yet
     else trialsContainer.hidden = false // Else show the current trial
 }
 
 function hideMaterials(){
     // hide everything
     consent.hidden = true
+    document.getElementById('setup').hidden = true
     trialsContainer.hidden = true
 }
 
