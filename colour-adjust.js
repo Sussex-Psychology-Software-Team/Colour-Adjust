@@ -62,7 +62,10 @@ function submitConsent(e){
     if(!("futureStudies" in consentData)) consentData.futureStudies = "false"
     if(!("consentChecked" in consentData)) consentData.consentChecked = "false"
     if(!("dontRecord" in consentData)) consentData.dontRecord = "false"
-    console.log(consentData)
+    // Create participant ID
+    consentData.participantID = consentData.codeBirth + consentData.codeName + consentData.codeStreet + consentData.codePhone
+    // Save to data object
+    data.consent = consentData
     // Setup trials and call new trial function
     setupTrials()
 }
