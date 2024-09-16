@@ -61,11 +61,13 @@ li {
 
 input:invalid + span::after {
     content: "✖";
+    color: red;
     padding-left: 5px;
 }
   
 input:valid + span::after {
     content: "✓";
+    color: green;
     padding-left: 5px;
 }
 
