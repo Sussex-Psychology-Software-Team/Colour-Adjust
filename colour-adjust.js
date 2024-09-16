@@ -2,7 +2,7 @@
 // Dom references
 const installButton = document.getElementById("installButton") // Button for installing
 const installInstructions = document.getElementById("installInstructions") // Install instructions
-const mainInstructions = document.getElementById('mainInstructions')
+const consent = document.getElementById('consent')
 const trialsContainer = document.getElementById('trials')
 const survey = document.getElementById('survey')
 const colour = document.getElementById('colour') // Text display of colour
@@ -96,7 +96,7 @@ function enterCalibrationMode(){
 // Define trials ---------------------------------------------------------------
 function setupTrials(e){
     e.preventDefault()
-    document.getElementById('mainInstructions').hidden = true
+    document.getElementById('consent').hidden = true
     document.getElementById('trials').hidden = false
     // Add listeners
     document.addEventListener('mousedown', clickHold)
@@ -142,6 +142,7 @@ function randomHue(){
     lch.h = Math.floor(Math.random()*(360-0+1)+0) //random degree
     return lch
 }
+
 function whiteTrialButtons(){
     document.getElementById('left').hidden = false
     document.getElementById('right').hidden = false
@@ -563,13 +564,13 @@ function disableInAppInstallPrompt() {
 // Show and hide materials on change
 function showMaterials(){
     // Note listener is removed after trials are complete
-    if(colours.length === 5) mainInstructions.hidden = false // If no colours removed yet
+    if(colours.length === 5) consent.hidden = false // If no colours removed yet
     else trialsContainer.hidden = false // Else show the current trial
 }
 
 function hideMaterials(){
     // hide everything
-    mainInstructions.hidden = true
+    consent.hidden = true
     trialsContainer.hidden = true
 }
 
