@@ -71,16 +71,14 @@ input:valid + span::after {
     padding-left: 5px;
 }
 
-#usernameForm{
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-}
-
-#continue {
+.continueButton {
     font-size: 20px;
     margin-top: 20px;
     padding: 10px;
+}
+
+#setup {
+    width: 80%;
 }
 
 /* Trials */
