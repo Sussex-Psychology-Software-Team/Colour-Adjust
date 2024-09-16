@@ -95,16 +95,16 @@
           <li>I understand that my participation will remain confidential in any written reports of this research, and that no information I disclose will lead to the identification in those reports of 
             any individual either by the researchers or by any other party, without first obtaining my written permission.</li>
         </ul>
-        <form id="consentForm">
+        <form id="consentForm" autocomplete="off">
           <div>
-            <input type="checkbox" name="futureStudies" id="futureStudies" class="required">
+            <input type="checkbox" name="futureStudies" id="futureStudies" value="true">
             <label for="futureStudies">Our research group at the University of Sussex carries out studies on colour vision and colour perception. 
               Please check this box if you are happy for us to include your data again in future studies if these have gained independent ethical approval, 
               based on the strict confidentiality terms described above</label>
           </div>
           <br>
           <div>
-            <input type="checkbox" name="consentChecked" id="consentChecked" required class="required">
+            <input type="checkbox" name="consentChecked" id="consentChecked" required class="required" value="true">
             <label for="consentChecked">I consent to take part in this study and agree to my data being recorded.</label>
           </div>
           <!-- CODE -->
@@ -112,34 +112,36 @@
           <ol>
             <li>
               <label for="codeBirth">Please enter the last letter of your place of birth:</label>
-              <input type="text" id="codeBirth" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" required>
+              <input type="text" id="codeBirth" name="codeBirth" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codeName">Please enter the second letter of your second name:</label>
-              <input type="text" id="codeName" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" required>
+              <input type="text" id="codeName" name="codeName" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codeStreet">Please enter the first letter of the street where you live:</label>
-              <input type="text" id="codeStreet" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" required>
+              <input type="text" id="codeStreet" name="codeStreet" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="required" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codePhone">Please enter the final digit of your mobile phone number:</label>
-              <input type="number" id="codePhone" min="0" max="9" step="1" autocomplete="off" class="required" required>
+              <input type="text" id="codeStreet" name="codeStreet" minlength="1" maxlength="1" size="1" pattern="[0-9]" autocomplete="off" class="required" value="" required>
+              <!-- <input type="number" id="codePhone" name="codePhone" min="0" max="9" step="1" autocomplete="off" class="required" value="" required> -->
               <span class="validity"></span>
             </li>
           </ol>
           
           <p>This study may have additional runs, and you may be invited back for further testing sessions.
-            If you’re interested in continuing your participation, please include your email address so you can be contacted for further tests 
-            <input type="email"/>.
+            If you’re interested in continuing your participation, please include your email address so you can be contacted for further tests:
+            <br>
+            <input type="email" placeholder="Email (optional)" name="email" value=""/>
           </p>
 
           <div>
             <p>OR</p>
-            <input type="checkbox" name="dontRecord" id="dontRecord">
+            <input type="checkbox" name="dontRecord" id="dontRecord" value="true">
             <label for="dontRecord">I would like to continue without my data being recorded.</label>
           </div>
           <input type="submit" id="continue" value="Continue">
