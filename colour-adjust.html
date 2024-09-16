@@ -144,20 +144,27 @@
             <input type="checkbox" name="dontRecord" id="dontRecord">
             <label for="dontRecord">I would like to continue without my data being recorded.</label>
           </div>
-          <input type="submit" id="continue" value="Continue">
+          <input type="submit" id="submitConsent" value="Continue" class="continueButton">
         </form>
+      </div>
 
-        <!-- <p>This app will present you with several buttons you can use to adjust the colour on the screen.</p>
-        <p>Please adjust the colour on the screen untill you have reached the most pure version of that colour.</p>
-        <p>Input your university username (e.g. abc123) below:</p>
-        <form id="usernameForm">
-          <label for="username">Username:</label>
-          <div><input type="text" id="username" name="username"
-            ontouchstart="this.removeAttribute('readonly');" 
-            onfocus="this.removeAttribute('readonly');" required></div>
-          <div><input type="submit" id="continue" value="Continue"></div>
-        </form> -->
-        
+      <div id="setup" class="centre" hidden>
+        <form id="setupForm">
+          <div>
+            <input type="checkbox" name="otherScreens" required>
+            <label for="otherScreens">Have you switched off any other screen which is nearby?</label>
+          </div>
+          <div>
+            <input type="checkbox" name="doNotDisturb" required>
+            <label for="doNotDisturb">Have you set Do Not Disturb?</label>
+          </div>
+          <div>
+            <input type="checkbox" name="fillingScreen" required>
+            <label for="fillingScreen">Is the app currently filling your screen?</label>
+          </div>
+          <p>If not try returning to home screen then opening the app again.</p>
+          <input type="submit" id="submitSetup" value="Continue" class="continueButton">
+        </form>
       </div>
       
       <!-- Task Materials -->
