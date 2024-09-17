@@ -232,45 +232,41 @@ function showSurvey(){
     document.getElementById('survey').hidden = false
 }
 
-// Blue light filter conditional
-const filterRadios = document.getElementsByName('filter')
-for(let i=0; i<filterRadios.length; i++){
-    filterRadios[i].addEventListener('change', filterYes)
-}
+function attachConditionalQuestion(radioName, showOptionId, conditionalSectionId){
+    // Attach change listeners to trigger conditional show/hide
+    const radioOptions = document.getElementsByName(radioName)
+    for(let o=0; o<radioOptions.length; o++){
+        radioOptions[o].addEventListener('change', showConditionalSection)
+    }
 
-function toggleHidden(className, displayState){
-    const elements = document.getElementsByClassName(className)
-    for (let i = 0; i < elements.length; i++){
-        elements[i].hidden = displayState;
+    // grab section to show/hide and make/remove required attribute
+    const showOption = document.getElementById(showOptionId)
+    const conditionalSection = document.getElementById(conditionalSectionId)
+    const conditionalOptions = document.getElementsByName(conditionalSectionId)
+    function changeRequired(state){
+        for(let o=0; o<conditionalOptions.length; o++){
+            conditionalOptions[o].required = state
+            // Remove selected options if hiding so don't appear in data
+            if(state === false) conditionalOptions[o].checked = false;
+        }
+    }
+
+    // Listener
+    function showConditionalSection(){
+        if(showOption.checked){
+            conditionalSection.hidden = false
+            changeRequired(true)
+        } else {
+            conditionalSection.hidden = true
+            changeRequired(false)
+        }
     }
 }
 
-function filterYes(e){
-    if(document.getElementById('filterYes').checked){
-        // toggleHidden('filterOn', true)
-        document.getElementById('filterOn').hidden = false
-    } else {
-        // toggleHidden('filterOn', false)
-        document.getElementById('filterOn').hidden = true
-    }
-}
-
-//Campus room conditional
-const locationRadios = document.getElementsByName('location')
-for(let i=0; i<locationRadios.length; i++){
-    locationRadios[i].addEventListener('change', locationCampus)
-}
-
-function locationCampus(e){
-    if(document.getElementById('onCampus').checked){
-        // toggleHidden('filterOn', true)
-        document.getElementById('onCampusRoom').hidden = false
-    } else {
-        // toggleHidden('filterOn', false)
-        document.getElementById('onCampusRoom').hidden = true
-    }
-}
-
+attachConditionalQuestion("os", "ios", "trueTone")
+attachConditionalQuestion("filter", "filterYes", "filterOn")
+attachConditionalQuestion("location", "onCampus", "onCampusRoom")
+attachConditionalQuestion("gender", "genderSelfDescribe", "genderSelfDescription")
 
 
 function submitSurvey(e){
