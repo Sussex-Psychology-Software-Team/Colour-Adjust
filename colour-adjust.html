@@ -187,80 +187,110 @@
       <!-- Survey -->
       <form id="survey" hidden>
         <i>Please answer the following questions about your device and lighting conditions:</i>
+        <!-- Device -->
         <fieldset>
           <legend>About your device:</legend>
-          <div id="about">
+          <div id="device" class="surveySection">
+            <!-- On phone -->
+            <span for="onPhone">Are you completing the study on your phone?</span>
+            <div class="radio">
+              <label for="onPhoneYes">Yes</label><input type="radio" id="onPhoneYes" name="onPhone" value="yes" required/>
+              <label for="onPhoneNo">No</label><input type="radio" id="onPhoneNo" name="onPhone" value="no"  required/>
+            </div>
+            <!-- Make -->
             <label for="make">What make is your phone?</label><input type="text" name="make" id="make" required>
+            <!-- Model -->
             <label for="model">What model is your phone?</label><input type="text" name="model" id="model" required>
+            <!-- OS -->
+            <span for="os">Does your phone run Android or iOS (Apple)?</span>
+            <div class="radio">
+              <label for="android">Android</label><input type="radio" id="android" name="os" value="android" required/>
+              <label for="ios">iOS</label><input type="radio" id="ios" name="os" value="ios"  required/>
+            </div>
 
-            <label for="os">Does your phone run Android or iOS?</label>
+            <span id="trueTone" class="conditionalQuestion" hidden>
+              <span for="trueTone">Does your phone have TrueTone (iPhone)?</span>
               <div class="radio">
-                <label for="android">Android</label><input type="radio" id="android" name="os" value="android" required/>
-                <label for="ios">iOS</label><input type="radio" id="ios" name="os" value="ios"  required/>
+                <label for="trueToneYes">Yes</label><input type="radio" id="trueToneYes" value="yes" name="trueTone"/>
+                <label for="trueToneNo">No</label><input type="radio" id="trueToneNo" value="no" name="trueTone"/>
+                <label for="trueToneDontKnow">Don't know</label><input type="radio" id="trueToneDontKnow" value="don't know" name="trueTone"/>
               </div>
-
+            </span>
+            <!-- Browser -->
             <label for="browser">What browser do you use?</label><input type="text" name="browser" id="browser" required>
-
-            <label for="filter">Do you use a “blue light filter” app or setting?</label>
-              <div class="radio">
-                <label for="filterYes">Yes</label><input type="radio" id="filterYes" value="yes" name="filter" required/>
-                <label for="filterNo">No</label><input type="radio" id="filterNo" value="no" name="filter" required/>
-                <label for="filterDontKnow">Don't know</label><input type="radio" id="filterDontKnow" value="dontKnow" name="filter" required/>
-              </div>
+            <!-- Blue Light Filter -->
+            <span for="filter">Do you use a “blue light filter” app or setting?</span>
+            <div class="radio">
+              <label for="filterYes">Yes</label><input type="radio" id="filterYes" value="yes" name="filter" required/>
+              <label for="filterNo">No</label><input type="radio" id="filterNo" value="no" name="filter" required/>
+              <label for="filterDontKnow">Don't know</label><input type="radio" id="filterDontKnow" value="don't know" name="filter" required/>
+            </div>
             
-            <div id="filterOn" hidden>
-              <label for="filterOn">Was the “blue light filter” switched on when you completed the task?</label>
+            <span id="filterOn" class="conditionalQuestion" hidden>
+              <span for="filterOn">Was the “blue light filter” switched on when you completed the task?</span>
               <div class="radio">
                 <label for="filterOnYes">Yes</label><input type="radio" id="filterOnYes" value="yes" name="filterOn"/>
                 <label for="filterOnNo">No</label><input type="radio" id="filterOnNo" value="no" name="filterOn"/>
                 <label for="filterOnDontKnow">Don't know</label><input type="radio" id="filterOnDontKnow" value="don't know" name="filterOn"/>
               </div>
+            </span>
+            <!-- Screen Mode -->
+            <span for="mode">What mode do you generally use your phone in?</span>
+            <div class="radio">
+              <label for="darkMode">Dark mode</label><input type="radio" id="darkMode" value="dark" name="mode" required/>
+              <label for="lightMode">Light mode</label><input type="radio" id="lightMode" value="light" name="mode" required/>
+              <label for="dontKnow">Don't know</label><input type="radio" id="dontKnow" value="don't know" name="mode" required/>
+              <label for="other">Other</label><input type="radio" id="other" value="other" name="mode"/>
+            </div>
+            <!-- Brightness -->
+            <span for="brightness">Does your phone adjust brightness automatically?</span>
+            <div class="radio">
+              <label for="brightnessYes">Yes</label><input type="radio" id="brightnessYes" value="yes" name="brightness" required/>
+              <label for="brightnessNo">No</label><input type="radio" id="brightnessNo" value="no" name="brightness" required/>
+              <label for="brightnessDontKnow">Don't know</label><input type="radio" id="brightnessDontKnow" value="don't know" name="brightness" required/>
             </div>
 
+            <!-- Colour -->
+            <span for="colour">Does your phone adjust colour automatically?</span>
+            <div class="radio">
+              <label for="colourYes">Yes</label><input type="radio" id="colourYes" value="yes" name="colour" required/>
+              <label for="colourNo">No</label><input type="radio" id="colourNo" value="no" name="colour" required/>
+              <label for="colourDontKnow">Don't know</label><input type="radio" id="colourDontKnow" value="don't know" name="colour" required/>
+            </div>
 
-            <label for="mode">What mode do you generally use your phone in?</label>
-              <div class="radio">
-                <label for="darkMode">Dark mode</label><input type="radio" id="darkMode" value="dark" name="mode" required/>
-                <label for="lightMode">Light mode</label><input type="radio" id="lightMode" value="light" name="mode" required/>
-                <label for="dontKnow">Don't know</label><input type="radio" id="dontKnow" value="don't know" name="mode" required/>
-                <label for="other">Other</label><input type="radio" id="other" value="other" name="mode"/>
-              </div>
-            
-            <label for="adjust">Does your phone adjust brightness automatically?</label>
-              <div class="radio">
-                <label for="adjustYes">Yes</label><input type="radio" id="adjustYes" value="yes" name="adjust" required/>
-                <label for="adjustNo">No</label><input type="radio" id="adjustNo" value="no" name="adjust" required/>
-                <label for="adjustDontKnow">Don't know</label><input type="radio" id="adjustDontKnow" value="don't know" name="adjust" required/>
-              </div>
-            
-            <label for="trueTone">Does your phone have TrueTone (iPhone)?</label>
-              <div class="radio">
-                <label for="trueToneYes">Yes</label><input type="radio" id="trueToneYes" value="yes" name="trueTone" required/>
-                <label for="trueToneNo">No</label><input type="radio" id="trueToneNo" value="no" name="trueTone" required/>
-                <label for="trueToneDontKnow">Don't know</label><input type="radio" id="trueToneDontKnow" value="don't know" name="trueTone" required/>
-              </div>
-
+            <!-- Accessibility -->
+            <span for="accessibility">Did you have any display accessibility settings on during the task?</span>
+            <div class="radio">
+              <label for="accessibilityYes">Yes</label><input type="radio" id="accessibilityYes" value="yes" name="accessibility" required/>
+              <label for="accessibilityNo">No</label><input type="radio" id="accessibilityNo" value="no" name="accessibility" required/>
+              <label for="accessibilityDontKnow">Don't know</label><input type="radio" id="accessibilityDontKnow" value="don't know" name="accessibility" required/>
+            </div>
+            <!-- Time -->
             <label for="months">How long have you had this phone for? (months)</label><input type="number" name="months" id="months" min="0" size="2" required>
             <label for="hours">Approximately how many hours per day do you spend using this phone?</label><input type="number" name="hours" id="hours" min="0" size="2" required>
-
+            <!-- Filters -->
+            <label for="filters">Please describe any other filter apps, adjustments or display settings that you use on your device (if there are none, or you just used default settings please state “none”):</label>
+            <input type="text" name="filters" id="filters" value="none" required>
+            <!-- ?otherScreens=on&doNotDisturb=on&fillingScreen=on -->
           </div>
         </fieldset>
+        <!-- Surroundings -->
         <fieldset>
           <legend>About your surroundings:</legend>
-
-          <div id="surroundings">
-            <label for="location">Where are you currently?</label>
+          
+          <div id="surroundings" class="surveySection">
+            <!-- Location -->
+            <span for="location">Where are you currently?</span>
             <div class="radio">
               <label for="atHome">At home</label><input type="radio" id="atHome" value="home" name="location" required/>
               <label for="onCampus">On campus</label><input type="radio" id="onCampus" value="campus" name="location" required/>
             </div>
-          
-            <div id="onCampusRoom" hidden>
+
+            <div id="onCampusRoom" class="conditionalQuestion" hidden>
               <label for="room">What room are you in?</label><input type="text" name="room" id="room">
             </div>
-            
-
-            <label for="lighting">What is the lighting like where you are sitting?</label>
+            <!-- Lighting -->
+            <span for="lighting">What is the lighting like where you are sitting?</span>
             <div class="radio">
               <label for="completelyNatural">Completely natural</label><input type="radio" id="completelyNatural" value="completely natural" name="lighting" required/>
               <label for="majorityNatural">Majority natural</label><input type="radio" id="majorityNatural" value="majority natural" name="lighting" required/>
