@@ -275,14 +275,16 @@ function submitSurvey(e){
     const formData = new FormData(e.target)
     data.survey = Object.fromEntries(formData.entries())
     console.log(data)
-    const responses = makeRequestBody("CdE5fn8ckU5w", data)
-    sendData(responses)
-
-    // Send participant username
+    // Save participantID and delete from responses
     const participantInfo = {
-        username: document.getElementById('username').value,
+        participantID: data.consent.participantID,
         randomID: data.metadata.randomID
     }
+    data.consent.participantID = ""
+    
+    // Send data to OSF
+    const responses = makeRequestBody("CdE5fn8ckU5w", data)
+    sendData(responses)
     const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
     sendData(participant)
 
