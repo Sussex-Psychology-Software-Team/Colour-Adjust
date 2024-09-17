@@ -34,7 +34,7 @@
       <p id="orientationWarning" class="centre" hidden>This app is only available in landscape mode. Please rotate your phone.</p>
       
       <!-- INFO, CONSENT, ID -->
-      <div id="consent" class="infoPage" hidden>
+      <div id="consentPage" class="infoPage" hidden>
         <!-- PARTICIPANT INFO -->
         <h1>ADULT INFORMATION & CONSENT SHEET</h1>
         <p>Thank you for carefully reading this information sheet, a copy of which you can keep for your records. 
@@ -105,7 +105,7 @@
           </div>
           <br>
           <div>
-            <input type="checkbox" name="consentChecked" id="consentChecked" required class="required">
+            <input type="checkbox" name="consentChecked" id="consentChecked" required class="requiredConsent">
             <label for="consentChecked">I consent to take part in this study and agree to my data being recorded.</label>
           </div>
           <!-- CODE -->
@@ -113,22 +113,22 @@
           <ol>
             <li>
               <label for="codeBirth">Please enter the last letter of your place of birth:</label>
-              <input type="text" id="codeBirth" name="codeBirth" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode required" value="" required>
+              <input type="text" id="codeBirth" name="codeBirth" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode requiredConsent" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codeName">Please enter the second letter of your second name:</label>
-              <input type="text" id="codeName" name="codeName" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode required" value="" required>
+              <input type="text" id="codeName" name="codeName" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode requiredConsent" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codeStreet">Please enter the first letter of the street where you live:</label>
-              <input type="text" id="codeStreet" name="codeStreet" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode required" value="" required>
+              <input type="text" id="codeStreet" name="codeStreet" minlength="1" maxlength="1" size="1" pattern="[a-zA-Z]" autocomplete="off" class="participantCode requiredConsent" value="" required>
               <span class="validity"></span>
             </li>
             <li>
               <label for="codePhone">Please enter the final digit of your mobile phone number:</label>
-              <input type="text" id="codePhone" name="codePhone" minlength="1" maxlength="1" size="1" pattern="[0-9]" autocomplete="off" class="participantCode required" value="" required>
+              <input type="text" id="codePhone" name="codePhone" minlength="1" maxlength="1" size="1" pattern="[0-9]" autocomplete="off" class="participantCode requiredConsent" value="" required>
               <!-- <input type="number" id="codePhone" name="codePhone" min="0" max="9" step="1" autocomplete="off" class="required" value="" required> -->
               <span class="validity"></span>
             </li>
@@ -149,8 +149,8 @@
         </form>
       </div>
 
-      <div id="setup" class="centre" hidden>
-        <form id="setupForm">
+      <div id="confirmSettingsPage" class="centre" hidden>
+        <form id="settingsForm">
           <div>
             <input type="checkbox" name="otherScreens" id="otherScreens" required>
             <label for="otherScreens">Have you switched off any other screen which is nearby?</label>
@@ -164,23 +164,23 @@
             <label for="fillingScreen">Is the app currently filling your screen?</label>
           </div>
           <p>If not try returning to home screen then opening the app again.</p>
-          <input type="submit" id="submitSetup" value="Continue" class="continueButton">
+          <input type="submit" id="confirmSettings" value="Continue" class="continueButton">
         </form>
       </div>
       
       <!-- Task Materials -->
-      <div id="trials" hidden>
+      <div id="trialsPage" hidden>
         <!-- Buttons -->
-        <input type="button" id="left" class="adjustColourButton centre" value="B+"/>
         <input type="button" id="up" class="adjustColourButton centre" value="R+"/>
-        <input type="button" id="right" class="adjustColourButton centre" value="Y+"/>
         <input type="button" id="down" class="adjustColourButton centre" value="G+"/>
+        <input type="button" id="left" class="adjustColourButton centre" value="B+"/>
+        <input type="button" id="right" class="adjustColourButton centre" value="Y+"/>
   
         <!-- Central stuff: Trial text and submit button-->
         <div id="colourAndSubmit" class="centre" >
           <!-- <p id="version">V1.19</p> -->
           <p id="colour"></p>
-          <input type="button" id="submit" class="adjustColourButton" value="Submit"/>
+          <input type="button" id="submitTrial" class="adjustColourButton" value="Submit"/>
         </div>
       </div>
 
@@ -389,5 +389,13 @@
 
     </main>
     <script src="colour-adjust.js?ver<%=DateTime.Now.Ticks.ToString()%>"></script>
+    <script src="scripts/app_installation.js"></script>
+    <script src="scripts/data.js"></script>
+    <script src="scripts/consent.js"></script>
+    <script src="scripts/confirm_settings.js"></script>
+    <script src="scripts/colour_conversion.js"></script>
+    <script src="scripts/trials.js"></script>
+    <script src="scripts/survey.js"></script>
+    <script src="scripts/debrief.js"></script>
   </body>
 </html>
