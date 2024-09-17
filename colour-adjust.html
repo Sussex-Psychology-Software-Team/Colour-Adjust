@@ -273,9 +273,60 @@
       </form>
 
       <!-- Debrief -->
-      <div id="debrief" hidden>
-        Thank you for taking part in the experiment<br><br>
-        <p id="displayData"></p>
+      <div id="debrief" class="infoPage" hidden>
+        <h1>Do we remember the colours of familiar devices?</h1>
+        <i>Yesesvi Konakanchi & Dr. John Maule</i><br>
+        <i>Statistical Perception Lab, University of Sussex</i>
+        <p>It has been shown that we build up specific memory for the colours of familiar objects. 
+          Hansen et al. (2006) showed that people perceive a grey banana as slightly yellow, illustrating that perceptual experience 
+          (e.g. seeing many bananas over your lifetime) influences our expectations about the world.</p>
+        <p>Adults spend on average over 6 hours every day using screens (Kemp, 2023). 
+          This means that for over 1/3rd of our waking hours we are seeing an interacting with a virtual world - 
+          one in which the visual properties are quite different from those of the real world. 
+          Screens constrain the range of colours which we see, and different screens will do this slightly differently. 
+          Past research has shown that the perception of white is affected by whether the incoming stimulus is perceived to be a screen or a real material surface (Wei, Chen, & Luo, 2018). 
+          However, it is an open and unexplored question if people can form priors to the colours rendered on familiar displays. 
+          This project is investigating how familiar people become with a screen that they use frequently, and ultimately whether this affects their perception of colour on that screen.</p>
+        <p>Digital screens are rows of pixels, each containing subpixels with red, green and blue, primaries (figure 1). 
+          Different combinations of these primaries means your screen can display a continuous range of colours. 
+          This is called the gamut. The range of colours which your screen can display is smaller than the range of colours in the real-world, 
+          and yet we generally do not notice this reduction in colour for images representing the real world. 
+          Due to technology differences, different displays have different gamuts. 
+          This means that the representation of colour on one screen does not necessarily match that on another (see figure 2). 
+          Red for one screen can be very different from the red of another.</p>
+        <p>The experiment you have just taken part in uses a psychophysical paradigm called the method of adjustment. 
+          Observers complete trials where they can adjust a stimulus to meet a certain criterion according to their own perception. 
+          We are gathering settings of unique hues (red, green, yellow and blue) (Hurvich & Jameson, 1957) and of unique white (Bosten et al., 2015). 
+          These are measures of subjective colour appearance. 
+          At the same time we are gathering measurements of a sub-sample of participants’ phones to help us better characterise the variation across devices. 
+          We are also measuring the ambient lighting at your desks. 
+          From the data we will analyse whether colour settings are determined more strongly by the immediate environment or by your prior knowledge of your device display.</p>
+        <p>If participants have priors for their own devices, their colour adjustments would be closer to their device’s RGB colours than to each other’s settings 
+          (which come from shared environments and culture).</p>
+        <p>Since we expect to obtain a large sample of data (approx. N=300-400) we will have high statistical power to detect effects. 
+          The size of the sample also means we will be able to explore further the individual differences. 
+          We will use clustering techniques such as k-means clustering to identify groups of participants with similar colour settings, 
+          and see whether they have things in common like phone manufacturer or operating system.</p>
+        <p>The results may illustrate the power of implicit learning and suggest that we understand virtual worlds via our experiences of the real world. 
+          It would suggest implicit understanding of how screens work, even in the absence of explicit knowledge or training.</p>
+        <p>Colour and vision scientists would need to think hard about what it means to present stimuli on a screen – 
+          are participants making judgements of the colour/stimulus alone, or through a lens of expectation about how displays warp the visual experience? 
+          It would emphasise the importance of not doing colour-critical work "by eye" and the need for robust calibration in the design industry, 
+          and display manufacturers will be interested in the time-scale over which people adapt to a new display technology.</p>
+        <p>In line with open science practices, we have pre-registered the design and analyses for this study, prior to gathering the data.</p>
+        <img src="pictures/screens.jpg" class="debriefImage" alt="Picture of computer screen pixels">
+        <i>Figure 1 - Depicts the pixel and sub-pixel distribution from a screen. 
+          The combinations of the light produced by the sub pixels are responsible for image formation on screens.</i>
+        <img src="pictures/colour space.png" class="debriefImage" alt="Picture of computer screen pixels">
+        <i>Figure 2 - This diagram shows the rendering capabilities of different screens each represented by a different triangle. 
+          The colours inside the triangle can be produced by the screen – the colours outside are physically possible but cannot be produced by the screen.</i>
+          
+        <p>Hansen, T., Olkkonen, M., Walter, S., & Gegenfurtner, K. R. (2006). Memory modulates color appearance. Nature Neuroscience, 9(11), 1367-1368. https://doi.org/10.1038/nn1794</p>
+        <p>Wei, M., Chen, S., & Luo, M. R. (2018, November). Effect of stimulus luminance and adapting luminance on viewing mode and display white appearance. 
+          In Color and Imaging Conference (Vol. 26, pp. 308-312). Society for Imaging Science and Technology.</p>
+        <p>Hurvich, L. M., & Jameson, D. (1957). An opponent-process theory of color vision. Psychological review, 64(6p1), 384.</p>
+        <p>Bosten, J. M., Beer, R. D., & MacLeod, D. I. A. (2015). What is white?. Journal of vision, 15(16), 5-5.</p>
+        <p>Kemp, S. (2023, January 26). Digital 2023: Global Overview Report. DataReportal. https://datareportal.com/reports/digital-2023-global-overview-report</p>
       </div>
 
     </main>
