@@ -51,7 +51,7 @@ li {
 
 
 /* Instructions */
-#consent {
+.infoPage {
     width: 80%;
     position: absolute;
     left: 50%;
@@ -59,13 +59,13 @@ li {
     padding-bottom: 20px;
 }
 
-input:invalid + span::after {
+.participantCode:invalid + span::after {
     content: "✖";
     color: red;
     padding-left: 5px;
 }
   
-input:valid + span::after {
+.participantCode:valid + span::after {
     content: "✓";
     color: green;
     padding-left: 5px;
@@ -151,7 +151,7 @@ form {
 }
 
 fieldset{
-    padding: 5%;
+    padding: 30px;
     margin-top: 10px;
 }
 
@@ -159,13 +159,12 @@ legend{
     font-weight: bold;
 }
 
-#about, #surroundings{
+.surveySection {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid black;
 }
 
-#about > label, #surroundings > label {
+.surveySection > label, .surveySection > span, .conditionalQuestion > label, .conditionalQuestion > span {
     border-top: 1px solid black;
     padding-top: 5px;
     padding-bottom: 10px;
@@ -173,10 +172,22 @@ legend{
     /* border-bottom: 1px solid black; */
 }
 
-#about > input, #surroundings > input {
+.conditionalQuestion > label, .conditionalQuestion > span {
+    border: none;
+}
+
+.surveySection > input, .conditionalQuestion > input {
     /* border-bottom: 1px solid black; */
     margin-left: 20px;
     margin-bottom: 20px;
+}
+
+.surveySection > label:first-child, .surveySection > span:first-child {
+  border: none;
+}
+
+.conditionalQuestion {
+    padding-left: 20px;
 }
 
 .radio {
@@ -197,4 +208,10 @@ input[type=number]{
     position: relative;
     left: 50%;
     transform: translateX(-50%)
+}
+
+/* debrief */
+.debriefImage {
+    display: block;
+    width: 90%;
 }
