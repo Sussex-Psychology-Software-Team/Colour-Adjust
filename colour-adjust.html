@@ -269,6 +269,34 @@
             </div>
           </div>
         </fieldset>
+        <!-- Demographics -->
+        <fieldset>
+          <legend>About you:</legend>
+          <div id="demographics" class="surveySection">
+            <label for="age">Age: </label><input type="number" name="age" id="age" min="0" size="2" required>
+            <!-- Gender -->
+            <span for="gender">Gender: </span>
+            <div class="radio">
+              <label for="genderMale">Male</label><input type="radio" id="genderMale" value="male" name="gender" required/>
+              <label for="genderFemale">Female</label><input type="radio" id="genderFemale" value="female" name="gender" required/>
+              <label for="genderNonBinary">Non-binary</label><input type="radio" id="genderNonBinary" value="non-binary" name="gender" required/>
+              <label for="genderSelfDescribe">Prefer to self-describe</label><input type="radio" id="genderSelfDescribe" value="prefer to self-describe" name="gender" required/>
+              <label for="genderNotSay">Prefer not to say</label><input type="radio" id="genderNotSay" value="prefer not to say" name="gender" required/>
+            </div>
+
+            <div id="genderSelfDescription" class="conditionalQuestion" hidden>
+              <label for="genderSelfDescriptionText">Self-described gender:</label><input type="text" name="genderSelfDescription" id="genderSelfDescriptionText">
+            </div>
+            <!-- Colour vision -->
+            <span for="colourDeficiency">Have you ever been diagnosed with a colour vision deficiency ("colour blindness")?</span>
+            <div class="radio">
+              <label for="colourDeficiencyYes">Yes</label><input type="radio" id="colourDeficiencyYes" value="yes" name="colourDeficiency" required/>
+              <label for="colourDeficiencyNo">No</label><input type="radio" id="colourDeficiencyNo" value="no" name="colourDeficiency" required/>
+              <label for="colourDeficiencyNotSure">Not sure</label><input type="radio" id="colourDeficiencyNotSure" value="not sure" name="colourDeficiency" required/>
+            </div>
+
+          </div>
+        </fieldset>
         <input type="submit" value="Submit" id="submitSurvey">
       </form>
 
