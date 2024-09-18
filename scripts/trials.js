@@ -1,7 +1,7 @@
 // Globals
 // Dom references
 const trialsPage = document.getElementById('trialsPage')
-const colour = document.getElementById('colour') // Text display of colour
+const colourPrompt = document.getElementById('colourPrompt') // Text display of colour
 const trialButtons = {
     up: document.getElementById('up'),
     down: document.getElementById('down'),
@@ -101,17 +101,15 @@ function newTrial(){
     else {
         enableColourChangeButtons() // Make sure not still disabled
         // Get colour name
-        const trialColour = trials.shift(); // Remove first element of array
+        colourPrompt.innerText = trials.shift(); // Remove first element of array
         // Change buttons for white or hue
-        if(trialColour === 'White'){
+        if(colourPrompt.innerText === 'White'){
             whiteTrialButtons()
         } else{
             hueTrialButtons()
         }
         // Get random starting colour
-        startingColour = randomStartingColour(trialColour) // Randomise starting hue
-        // Present starting colour
-        colour.innerText = trialColour
+        startingColour = randomStartingColour(colourPrompt.innerText) // Randomise starting hue
         colourBackground(startingColour)
         // Record starting data
         currentColour = { ...startingColour };
@@ -165,8 +163,8 @@ function changeColour(e){
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
 
     // Run trial functions
-    if(colour.textContent === 'White') changeAB(e.target.value)
-    else if(colour.textContent !== 'White') changeHue(e.target.value)
+    if(colourPrompt.textContent === 'White') changeAB(e.target.value)
+    else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
     // Change background colour
     colourBackground(currentColour)
 }
@@ -243,7 +241,7 @@ function roundToNearest(num, a, b) {
 }
 
 function constrainHue(h){
-    const hueRanges = colourConstraints[colour.textContent].hueRanges
+    const hueRanges = colourConstraints[colourPrompt.textContent].hueRanges
     const allHuesAllowed = hueRanges[0].min === 0 && hueRanges[0].max === 360
     // if bounds present and within them
     if(!allHuesAllowed && (h>hueRanges[0].max && h<hueRanges[1].min)){
@@ -273,7 +271,7 @@ function submitTrial(e){
 
 function saveTrial(time){
     const trialData = {
-        targetColour: colour.innerText,
+        targetColour: colourPrompt.innerText,
         startingColour: startingColour,
         finalColour: currentColour,
         rt: time-timer,
