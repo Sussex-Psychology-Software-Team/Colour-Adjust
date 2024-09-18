@@ -83,12 +83,6 @@ function createTrialsArray(){
             trials.push(hues[h])
         }
     }
-    console.log(trials);  // Check array directly
-    // console.log(`First Element: ${trials[0]}`);
-    // console.log(`Last Element: ${trials[trials.length - 1]}`);
-    // trials.forEach((trial, index) => {
-    //     console.log(`Index ${index}: ${trial}`);
-    // });
 }
 
 // Function to shuffle the array (Fisher-Yates Shuffle)
@@ -105,9 +99,9 @@ setupTrials()
 function newTrial(){
     if(trials.length === 0) endTrials() // End when colours array is empty
     else {
-        enableColourChangeButtons() // make sure not still disabled
+        enableColourChangeButtons() // Make sure not still disabled
         // Get colour name
-        const trialColour = trials.splice(Math.floor(Math.random() * trials.length), 1)[0]
+        const trialColour = trials.shift(); // Remove first element of array
         // Change buttons for white or hue
         if(trialColour === 'White'){
             whiteTrialButtons()
@@ -115,7 +109,7 @@ function newTrial(){
             hueTrialButtons()
         }
         // Get random starting colour
-        startingColour = randomStartingColour(trialColour) // randomise starting hue
+        startingColour = randomStartingColour(trialColour) // Randomise starting hue
         // Present starting colour
         colour.innerText = trialColour
         colourBackground(startingColour)
