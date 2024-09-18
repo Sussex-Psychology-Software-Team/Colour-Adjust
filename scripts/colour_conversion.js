@@ -157,7 +157,6 @@ function lch2lab(lch){
     const b = lch.c * Math.sin(lch.h*(Math.PI/180))
     // Check bounds on LAB
     let lab = { 'l':lch.l, 'a':a, 'b':b }
-    lab = clampLAB(lab)
     return lab
 }
 
