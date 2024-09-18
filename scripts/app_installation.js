@@ -46,6 +46,7 @@ function disableInAppInstallPrompt() {
 // CHECK PWA MODE ********************
 function inStandalone(){
     return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
+    window.matchMedia('(display-mode: standalone)').matches || // Allows for use on computer PWA not on fullscreen
     window.navigator.standalone || // iOS
     document.referrer.includes("android-app://") // Android 2
 }
