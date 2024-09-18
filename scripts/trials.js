@@ -11,6 +11,13 @@ const trialButtons = {
 
 // Vars
 const colourConstraints = {
+    White: {
+        l: 90,
+        c: 12.5, // max Ch
+        hueRanges: [
+            { min: 0, max: 360 }  // Full hue circle, but Ch is constrained
+        ]
+    },
     Red: {
         l: 40,
         c: 45,
@@ -40,16 +47,8 @@ const colourConstraints = {
             { min: 0, max: 155 },
             { min: 274, max: 360 }
         ]
-    },
-    White: {
-        l: 90,
-        c: 12.5, // max Ch
-        hueRanges: [
-            { min: 0, max: 360 }  // Full hue circle, but Ch is constrained
-        ]
     }
 };
-
 
 let startingColour, // Data for current trial
     currentColour, // Current user selected LAB for background
