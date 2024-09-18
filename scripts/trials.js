@@ -192,7 +192,6 @@ function changeAB(button){
     toggleWhiteTrialButtons(lab)
     // convert back to lch and make sure c isn't out of bounds
     currentColour = lab2lch(lab)
-    console.log("New Colour:", currentColour )
     // Clamp to desired colours: remove as should be unnecessary
     //currentColour.c = clamp(currentColour.c, 0, colourConstraints.White.c)
 }
@@ -205,20 +204,14 @@ function testABChange(lab, axisKey="a", change=1){
     // Compare to constraints
     const cBounds = predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
     const abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127 // Probably unncessary
-    console.log('Predicted LAB', predictedLAB)
-    console.log('Predicted LCH: ', predictedLCH)
     return cBounds || abBounds
 }
 
 function toggleWhiteTrialButtons(lab){
     // Disable if a +/- 1 change in relevant a or b would push chroma out of bounds
-    console.log('up')
     trialButtons.up.disabled = testABChange(lab,'a',1)
-    console.log('down')
     trialButtons.down.disabled = testABChange(lab,'a',-1)
-    console.log('left')
     trialButtons.left.disabled = testABChange(lab,'b',-1)
-    console.log('right')
     trialButtons.right.disabled = testABChange(lab,'b',1)
 }
 
