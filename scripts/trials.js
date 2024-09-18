@@ -276,7 +276,7 @@ function saveTrial(time){
 
 function endTrials(){
     // End trials
-    document.getElementById('trials').hidden = true
+    trialsPage.hidden = true
     // Remove listeners
     document.removeEventListener('mousedown', clickHold)
     document.removeEventListener('mouseup', cancelClickHold)
