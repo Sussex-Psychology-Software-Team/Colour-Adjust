@@ -158,15 +158,15 @@
       <div id="confirmSettingsPage" class="centre page" hidden>
         <form id="settingsForm">
           <div>
-            <input type="checkbox" name="otherScreens" id="otherScreens" required>
+            <input type="checkbox" name="settings" id="otherScreens" required>
             <label for="otherScreens">Have you switched off any other screen which is nearby?</label>
           </div>
           <div>
-            <input type="checkbox" name="doNotDisturb" id="doNotDisturb" required>
+            <input type="checkbox" name="settings" id="doNotDisturb" required>
             <label for="doNotDisturb">Have you set Do Not Disturb?</label>
           </div>
           <div>
-            <input type="checkbox" name="fillingScreen" id="fillingScreen" required>
+            <input type="checkbox" name="settings" id="fillingScreen" required>
             <label for="fillingScreen">Is the app currently filling your screen?</label>
           </div>
           <p>If not try returning to home screen then opening the app again.</p>
@@ -395,6 +395,7 @@
 
     </main>
     <!-- ?ver<%=DateTime.Now.Ticks.ToString()%> -->
+    <script src="scripts/orientation.js"></script>
     <script src="scripts/app_installation.js"></script>
     <script src="scripts/data.js"></script>
     <script src="scripts/consent.js"></script>
@@ -402,6 +403,5 @@
     <script src="scripts/colour_conversion.js"></script>
     <script src="scripts/trials.js"></script>
     <script src="scripts/survey.js"></script>
-    <script src="scripts/debrief.js"></script>
   </body>
 </html>

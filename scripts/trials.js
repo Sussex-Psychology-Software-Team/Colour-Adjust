@@ -1,6 +1,5 @@
 // Globals
 // Dom references
-const trialsPage = document.getElementById('trialsPage')
 const colourPrompt = document.getElementById('colourPrompt') // Text display of colour
 const trialButtons = {
     up: document.getElementById('up'),
@@ -59,8 +58,7 @@ const trials=[]
 
 // Trial Setup ---------------------------------------------------------------
 function setupTrials(){
-    document.getElementById('consentPage').hidden = true;
-    trialsPage.hidden = false
+    document.getElementById('trialsPage').hidden = false
     // Add listeners
     document.addEventListener('mousedown', clickHold)
     document.addEventListener('mouseup', cancelClickHold)
@@ -91,8 +89,6 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]];  // Swap
     }
 }
-
-setupTrials()
 
 // Define Trials
 function newTrial(){
@@ -275,15 +271,15 @@ function saveTrial(time){
 }
 
 function endTrials(){
-    // End trials
-    trialsPage.hidden = true
     // Remove listeners
     document.removeEventListener('mousedown', clickHold)
     document.removeEventListener('mouseup', cancelClickHold)
     document.removeEventListener('touchstart', clickHold)
     document.removeEventListener('touchend', cancelClickHold)
     document.removeEventListener('touchcancel', cancelClickHold)
-    document.getElementById('submit').removeEventListener('click', submitTrial)
-
+    document.getElementById('submitTrial').removeEventListener('click', submitTrial)
+    // End trials
+    document.getElementById('trialsPage').hidden = true
+    // Next page
     showSurvey()
 }

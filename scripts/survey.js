@@ -43,27 +43,20 @@ function attachConditionalQuestion(radioName, showOptionId, conditionalSectionId
     }
 }
 
-
 function submitSurvey(e){
     // Send responses
     e.preventDefault()
     const formData = new FormData(e.target)
     data.survey = Object.fromEntries(formData.entries())
     console.log(data)
-    // Save participantID and delete from responses
-    const participantInfo = {
-        participantID: data.consent.participantID,
-        randomID: data.metadata.randomID
-    }
-    data.consent.participantID = ""
-    
-    // Send data to OSF
-    const responses = makeRequestBody("CdE5fn8ckU5w", data)
-    sendData(responses)
-    const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
-    sendData(participant)
-
+    sendData() // See data.js
     // End survey and show next page
     survey.hidden = true
-    enterCalibrationMode()
+    debrief()
+}
+
+function debrief(){
+    document.getElementById('debriefPage').hidden = false
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }

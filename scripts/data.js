@@ -9,8 +9,6 @@ const data = {
     survey: {}
 }
 
-// Form listeners
-
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
     const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -33,7 +31,7 @@ function makeRequestBody(id, dataToSend){
     }
 }
 
-async function sendData(requestBody){
+async function dataPipe(requestBody){
     try {
         const response = await fetch("https://pipe.jspsych.org/api/data/", {
             method: "POST",
@@ -50,4 +48,19 @@ async function sendData(requestBody){
     } catch (error) {
         console.error(error.message);
     }
+}
+
+function sendData(){
+    // Save participantID and delete from responses
+    const participantInfo = {
+        participantID: data.consent.participantID,
+        randomID: data.metadata.randomID
+    }
+    data.consent.participantID = ""
+    
+    // Send data to OSF
+    const responses = makeRequestBody("CdE5fn8ckU5w", data)
+    dataPipe(responses)
+    const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
+    dataPipe(participant)
 }
