@@ -51,6 +51,9 @@ async function dataPipe(requestBody){
 }
 
 function sendData(){
+    // Leave if don't record is on
+    if(data.consent.dontRecord) return
+    
     // Save participantID separately
     const participantInfo = {
         participantID: data.consent.participantID,
