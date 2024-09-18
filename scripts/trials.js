@@ -161,10 +161,11 @@ function changeColour(e){
     if(e.target.disabled) return;
     // Stop if touch and mouse click
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
-
+    console.log('Old colour: ', currentColour)
     // Run trial functions
     if(colourPrompt.textContent === 'White') changeAB(e.target.value)
     else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
+    console.log('New colour: ', currentColour)
     // Change background colour
     colourBackground(currentColour)
 }
