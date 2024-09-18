@@ -204,6 +204,8 @@ function changeHue(button){
     // Extract hue and change
     if(button === '+') currentColour.h++
     else if(button === '-') currentColour.h--
+    // constrain 0-360
+    currentColour.h = mod(currentColour.h, 360) // custom mod handles negatives and >360
     console.log(currentColour.h)
     currentColour.h = constrainHue(currentColour.h)
 }
@@ -218,22 +220,16 @@ function roundToNearest(num, a, b) {
 
 function constrainHue(h){
     const hueRanges = colourConstraints[colour.textContent].hueRanges
-    // Loop back if 0 to 360
-    if(h<0 || h>360) return mod(h, 360) // custom mod handles negatives and >360
-    // Else if constraints present avoid segment in the middle of the hue circle
-    else if(hueRanges[0].min !== 0 && hueRanges[0].max !== 360){
-        if(h>hueRanges[0].max && h<hueRanges[1].min) return roundToNearest(h, hueRanges[0].max, hueRanges[1].min)
-        else return h
-    }
-    return h
-}
-
-function toggleHueTrialButtons(lch){
-    const hueRanges = colourConstraints[colour.textContent].hueRanges
-    if(hueRanges[0].min !== 0 && hueRanges[0].max !== 360){
-        trialButtons.left.disabled = lch.h <= hueRanges[0].max
-        trialButtons.right.disabled = lch.h >= hueRanges[1].min
-    }
+    const allHuesAllowed = hueRanges[0].min === 0 && hueRanges[0].max === 360
+    // if bounds present and within them
+    if(!allHuesAllowed && (h>hueRanges[0].max && h<hueRanges[1].min)){
+        // midpoint of segment
+        const midpoint = ((hueRanges[1].min-hueRanges[0].max)/2)+hueRanges[0].max
+        // if over min (under midpoint) round up to skip
+        if(h<midpoint) return hueRanges[1].min
+        // else round down to skip
+        else return hueRanges[0].max
+    } else return h;
 }
 
 // Listener registers and cancel
