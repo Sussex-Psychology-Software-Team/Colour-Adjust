@@ -2,9 +2,7 @@
 // Show and hide materials on change
 function showMaterials(){
     // Note listener is removed after trials are complete
-    if(Object.keys(data.consent).length === 0) document.getElementById('consentPage').hidden = false
-    else if(settingsNotConfirmed()) document.getElementById('confirmSettingsPage').hidden = false
-    else document.getElementById('trialsPage').hidden = false // If no colours removed yet
+    document.getElementById(currentPage).hidden = false
 }
 
 function settingsNotConfirmed(){

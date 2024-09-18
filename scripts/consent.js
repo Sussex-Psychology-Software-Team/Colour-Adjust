@@ -31,4 +31,5 @@ function submitConsent(e){
     // Next page
     document.getElementById('consentPage').hidden = true;
     document.getElementById('confirmSettingsPage').hidden = false;
+    currentPage = 'confirmSettingsPage';
 }

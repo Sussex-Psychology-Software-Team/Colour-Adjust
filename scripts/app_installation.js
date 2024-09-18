@@ -18,6 +18,7 @@ function startExperiment(){
         screen.orientation.addEventListener("change", checkOrientation)
         // Show materials then check orientation
         document.getElementById('consentPage').hidden = false
+        currentPage = "consentPage"
         checkOrientation()
     }
 }

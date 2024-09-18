@@ -58,6 +58,7 @@ const trials=[]
 
 // Trial Setup ---------------------------------------------------------------
 function setupTrials(){
+    currentPage = 'trialsPage'
     document.getElementById('trialsPage').hidden = false
     // Add listeners
     document.addEventListener('mousedown', clickHold)
