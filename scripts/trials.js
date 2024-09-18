@@ -278,7 +278,6 @@ function endTrials(){
     // End trials
     document.getElementById('trials').hidden = true
     // Remove listeners
-    screen.orientation.removeEventListener("change", checkOrientation)
     document.removeEventListener('mousedown', clickHold)
     document.removeEventListener('mouseup', cancelClickHold)
     document.removeEventListener('touchstart', clickHold)

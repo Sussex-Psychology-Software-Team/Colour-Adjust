@@ -3,6 +3,7 @@ survey.addEventListener('submit', submitSurvey)
 
 // SURVEY ---------------------------------------------------------------
 function showSurvey(){
+    screen.orientation.removeEventListener("change", checkOrientation) // not needed
     attachConditionalQuestion("os", "ios", "trueTone")
     attachConditionalQuestion("filter", "filterYes", "filterOn")
     attachConditionalQuestion("location", "onCampus", "onCampusRoom")
