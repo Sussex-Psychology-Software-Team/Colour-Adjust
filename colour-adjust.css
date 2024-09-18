@@ -116,10 +116,12 @@ li {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
-    /* Allow for border-color to have disabled styling */
-    border-color: initial;
     /* Allow for mouseup events on a disable element to cancel interval */
     pointer-events: none;
+    /* Disabled styling */
+    background-color: transparent;
+    border-color: darkgrey;
+    color: darkgrey;
 }
 
 #left { left: 10% }
