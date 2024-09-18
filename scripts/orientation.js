@@ -4,8 +4,7 @@ function showMaterials(){
     // Note listener is removed after trials are complete
     if(Object.keys(data.consent).length === 0) document.getElementById('consentPage').hidden = false
     else if(settingsNotConfirmed()) document.getElementById('confirmSettingsPage').hidden = false
-    else if(trials.length === 0) document.getElementById('surveyPage').hidden = false // If no colours removed yet
-    else document.getElementById('trialsPage').hidden = false // Else show the current trial
+    else document.getElementById('trialsPage').hidden = false // If no colours removed yet
 }
 
 function settingsNotConfirmed(){
