@@ -51,16 +51,18 @@ async function dataPipe(requestBody){
 }
 
 function sendData(){
-    // Save participantID and delete from responses
+    // Save participantID separately
     const participantInfo = {
         participantID: data.consent.participantID,
         randomID: data.metadata.randomID
     }
+    // Send participantID to OSF
+    const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
+    dataPipe(participant)
+
+    // delete participantID from responses
     data.consent.participantID = ""
-    
     // Send data to OSF
     const responses = makeRequestBody("CdE5fn8ckU5w", data)
     dataPipe(responses)
-    const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
-    dataPipe(participant)
 }
