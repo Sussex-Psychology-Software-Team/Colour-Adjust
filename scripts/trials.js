@@ -10,7 +10,6 @@ const trialButtons = {
 }
 
 // Vars
-const colours = ['White', 'Green', 'Red', 'Blue', 'Yellow']
 const colourConstraints = {
     Red: {
         l: 40,
@@ -52,11 +51,12 @@ const colourConstraints = {
 };
 
 
-let currentColour, // Current user selected LAB for background
-    currentBounds,
+let startingColour, // Data for current trial
+    currentColour, // Current user selected LAB for background
     timer, // Records reaction time
-    startingColour, // Data for current trial
     intervalID // Stores loaded call for button clicks
+
+const trials=[]
 
 // Trial Setup ---------------------------------------------------------------
 function setupTrials(){
@@ -69,18 +69,45 @@ function setupTrials(){
     document.addEventListener('touchend', cancelClickHold)
     document.addEventListener('touchcancel', cancelClickHold)
     document.getElementById('submitTrial').addEventListener('click', submitTrial)
+    createTrialsArray()
     newTrial() // call new trial
+}
+
+function createTrialsArray(){
+    const hues = ['Red', 'Green', 'Blue', 'Yellow']
+    const nBlocks = 3
+    for (let b=0; b<nBlocks; b++) {
+        shuffle(hues) // Random shuffle on hues
+        for(let h=0; h<hues.length; h++){
+            trials.push('White')
+            trials.push(hues[h])
+        }
+    }
+    console.log(trials);  // Check array directly
+    // console.log(`First Element: ${trials[0]}`);
+    // console.log(`Last Element: ${trials[trials.length - 1]}`);
+    // trials.forEach((trial, index) => {
+    //     console.log(`Index ${index}: ${trial}`);
+    // });
+}
+
+// Function to shuffle the array (Fisher-Yates Shuffle)
+function shuffle(array) {
+    for(let i=array.length-1; i>0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];  // Swap
+    }
 }
 
 setupTrials()
 
 // Define Trials
 function newTrial(){
-    if(colours.length === 0) endTrials() // End when colours array is empty
+    if(trials.length === 0) endTrials() // End when colours array is empty
     else {
         enableColourChangeButtons() // make sure not still disabled
         // Get colour name
-        const trialColour = colours.splice(Math.floor(Math.random() * colours.length), 1)[0]
+        const trialColour = trials.splice(Math.floor(Math.random() * trials.length), 1)[0]
         // Change buttons for white or hue
         if(trialColour === 'White'){
             whiteTrialButtons()
@@ -184,7 +211,7 @@ function testABChange(lab, axisKey="a", change=1){
     const predictedLCH = lab2lch(predictedLAB) // Convert to lch
     // Compare to constraints
     const cBounds = predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
-    const abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127
+    const abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127 // Probably unncessary
     console.log('Predicted LAB', predictedLAB)
     console.log('Predicted LCH: ', predictedLCH)
     return cBounds || abBounds
