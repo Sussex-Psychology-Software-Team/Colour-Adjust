@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Colour Adjust</title>
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="shortcut icon" type="image/x-icon" href="./icons/favicon.ico?">
+    <!-- Viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -9,9 +13,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#000000">
-    <title>Colour Adjust</title>
-    <link rel="manifest" href="manifest.json"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./icons/favicon.ico?">
     <!-- Styling -->
     <link rel="stylesheet" href="styles/colour-adjust.css"/>
     <link rel="stylesheet" href="styles/app_installation.css"/>
@@ -38,7 +39,7 @@
       <p id="orientationWarning" class="centre" hidden>This app is only available in landscape mode. Please rotate your phone.</p>
       
       <!-- INFO, CONSENT, ID -->
-      <div id="consentPage" class="infoPage" hidden>
+      <div id="consentPage" class="infoPage page" hidden>
         <!-- PARTICIPANT INFO -->
         <h1>ADULT INFORMATION & CONSENT SHEET</h1>
         <p>Thank you for carefully reading this information sheet, a copy of which you can keep for your records. 
@@ -153,7 +154,8 @@
         </form>
       </div>
 
-      <div id="confirmSettingsPage" class="centre" hidden>
+      <!-- Confirm Settings Page -->
+      <div id="confirmSettingsPage" class="centre page" hidden>
         <form id="settingsForm">
           <div>
             <input type="checkbox" name="otherScreens" id="otherScreens" required>
@@ -172,8 +174,8 @@
         </form>
       </div>
       
-      <!-- Task Materials -->
-      <div id="trialsPage" hidden>
+      <!-- EXPERIMENTAL TASK -->
+      <div id="trialsPage" class="page" hidden>
         <!-- Buttons -->
         <input type="button" id="up" class="adjustColourButton centre" value="R+"/>
         <input type="button" id="down" class="adjustColourButton centre" value="G+"/>
@@ -188,8 +190,8 @@
         </div>
       </div>
 
-      <!-- Survey -->
-      <form id="survey" hidden>
+      <!-- SURVEY -->
+      <form id="surveyPage" hidden>
         <i>Please answer the following questions about your device and lighting conditions:</i>
         <!-- Device -->
         <fieldset>
@@ -334,8 +336,8 @@
         <input type="submit" value="Submit" id="submitSurvey">
       </form>
 
-      <!-- Debrief -->
-      <div id="debrief" class="infoPage" hidden>
+      <!-- DEBRIEF -->
+      <div id="debriefPage" class="infoPage page" hidden>
         <h1>Do we remember the colours of familiar devices?</h1>
         <i>Yesesvi Konakanchi & Dr. John Maule</i><br>
         <i>Statistical Perception Lab, University of Sussex</i>

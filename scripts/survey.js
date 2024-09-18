@@ -1,4 +1,4 @@
-const survey = document.getElementById('survey')
+const survey = document.getElementById('surveyPage')
 survey.addEventListener('submit', submitSurvey)
 
 // SURVEY ---------------------------------------------------------------
