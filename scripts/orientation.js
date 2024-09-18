@@ -1,5 +1,7 @@
 // SHOW/HIDE MATERIALS  ********************
 // Show and hide materials on change
+let currentPage = 'consentPage'
+
 function showMaterials(){
     // Note listener is removed after trials are complete
     document.getElementById(currentPage).hidden = false
