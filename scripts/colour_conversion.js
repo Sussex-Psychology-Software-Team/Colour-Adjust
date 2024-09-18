@@ -151,11 +151,10 @@ function lab2lch(lab){ //https://en.wikipedia.org/wiki/CIELAB_color_space#Cylind
 }
 
 function lch2lab(lch){
-    // convert h back to radians
-    lch.h *= Math.PI/180  // John's code states /= (2*Math.PI)*360?
+    // convert h back to radians - John's code states /= (2*Math.PI)*360?
     // convert h and c to a and b
-    const a = lch.c * Math.cos(lch.h)
-    const b = lch.c * Math.sin(lch.h)
+    const a = lch.c * Math.cos(lch.h*(Math.PI/180))
+    const b = lch.c * Math.sin(lch.h*(Math.PI/180))
     // Check bounds on LAB
     let lab = { 'l':lch.l, 'a':a, 'b':b }
     lab = clampLAB(lab)
