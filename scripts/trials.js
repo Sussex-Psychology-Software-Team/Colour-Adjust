@@ -192,8 +192,9 @@ function changeAB(button){
     toggleWhiteTrialButtons(lab)
     // convert back to lch and make sure c isn't out of bounds
     currentColour = lab2lch(lab)
-    currentColour.c = clamp(currentColour.c, 0, colourConstraints.White.c)
     console.log("New Colour:", currentColour )
+    // Clamp to desired colours: remove as should be unnecessary
+    //currentColour.c = clamp(currentColour.c, 0, colourConstraints.White.c)
 }
 
 function testABChange(lab, axisKey="a", change=1){
