@@ -95,7 +95,6 @@ function newTrial(){
         // Record starting data
         currentColour = { ...startingColour };
         timer = performance.now()
-        
     }
 }
 
@@ -134,7 +133,6 @@ function randomStartingColour(colour) {
 
 function colourBackground(lch){
     const rgb = lch2rgb(lch)
-    console.log('New background colour: ', rgb)
     document.body.style.backgroundColor = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`
 }
 
@@ -176,6 +174,7 @@ function changeAB(button){
     // convert back to lch and make sure c isn't out of bounds
     currentColour = lab2lch(lab)
     currentColour.c = clamp(currentColour.c, 0, colourConstraints.White.c)
+    console.log("New Colour:", currentColour )
 }
 
 function testABChange(lab, axisKey="a", change=1){
@@ -193,9 +192,13 @@ function testABChange(lab, axisKey="a", change=1){
 
 function toggleWhiteTrialButtons(lab){
     // Disable if a +/- 1 change in relevant a or b would push chroma out of bounds
+    console.log('up')
     trialButtons.up.disabled = testABChange(lab,'a',1)
+    console.log('down')
     trialButtons.down.disabled = testABChange(lab,'a',-1)
+    console.log('left')
     trialButtons.left.disabled = testABChange(lab,'b',-1)
+    console.log('right')
     trialButtons.right.disabled = testABChange(lab,'b',1)
 }
 
