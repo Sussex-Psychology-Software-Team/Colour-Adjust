@@ -176,10 +176,15 @@ function changeAB(button){
 
 function testABChange(lab, axisKey="a", change=1){
     const predictedLAB = {...lab}
+    // Get predicted value after change in LAB and LCH
     predictedLAB[axisKey] += change // Change relevant value
-    const lch = lab2lch(predictedLAB) // Convert to lch
+    const predictedLCH = lab2lch(predictedLAB) // Convert to lch
     // Compare to constraints
-    return lch.c < 0 || lch.c > colourConstraints.White.c
+    const cBounds = predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
+    const abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127
+    console.log('Predicted LAB', predictedLAB)
+    console.log('Predicted LCH: ', predictedLCH)
+    return cBounds || abBounds
 }
 
 function toggleWhiteTrialButtons(lab){
