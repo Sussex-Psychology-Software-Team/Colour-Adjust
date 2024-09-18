@@ -1,0 +1,20 @@
+/* Install instructions */
+#installInstructions {
+    width: 80%;
+    font-size: larger;
+    text-align: center;
+}
+
+li {
+    text-align: start;
+}
+
+#installButton {
+    position: relative;
+}
+
+@media all and (display-mode: standalone) {
+    #installInstructions{
+        display: none;
+    }
+}

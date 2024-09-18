@@ -1,0 +1,59 @@
+fieldset {
+    padding: 30px;
+    margin-top: 10px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+.surveySection {
+    display: flex;
+    flex-direction: column;
+}
+
+.surveySection > label, .surveySection > span, .conditionalQuestion > label, .conditionalQuestion > span {
+    border-top: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    /* border-bottom: 1px solid black; */
+}
+
+.conditionalQuestion > label, .conditionalQuestion > span {
+    border: none;
+}
+
+.surveySection > input, .conditionalQuestion > input {
+    /* border-bottom: 1px solid black; */
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.surveySection > label:first-child, .surveySection > span:first-child {
+  border: none;
+}
+
+.conditionalQuestion {
+    padding-left: 20px;
+}
+
+.radio {
+    display: grid;
+    grid-template-columns: max-content min-content;
+    column-gap: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+input[type=number]{
+    width: 50px;
+}
+
+#submitSurvey{
+    font-size: 20px;
+    margin: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}

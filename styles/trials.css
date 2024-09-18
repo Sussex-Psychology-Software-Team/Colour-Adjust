@@ -1,0 +1,52 @@
+/* Trials */
+/* Buttons */
+.adjustColourButton {
+    width: 70px;
+    height: 70px;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+.adjustColourButton:hover {
+    cursor: pointer;
+}
+
+.adjustColourButton:active {
+    background-color: black;
+}
+
+.adjustColourButton:disabled {
+    /* Allow for :disabled custom styling */
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    /* Allow for mouseup events on a disable element to cancel interval */
+    pointer-events: none;
+    /* Disabled styling */
+    background-color: transparent;
+    border-color: darkgrey;
+    color: darkgrey;
+}
+
+#left { left: 10% }
+#up { top: 10% }
+#right { left: 90% }
+#down { top: 90% }
+
+/* Central color display and submit button */
+#colourAndSubmit{
+    text-align: center;
+}
+
+#submitTrial {
+    height: initial;
+    width: initial;
+    padding: 10px;
+    font-size: 15px;
+}
+
+#colourPrompt {
+    font-size: 30px;
+}
