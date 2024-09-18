@@ -139,8 +139,9 @@ function colourBackground(lch){
 }
 
 // Colour Adjust button listeners ---------------------------------------------------------------
-
 function changeColour(e){
+    // Stop if button disabled
+    if(e.target.disabled) return;
     // Stop if touch and mouse click
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
 
