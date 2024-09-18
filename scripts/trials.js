@@ -158,6 +158,10 @@ function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-mo
     return ((n % m) + m) % m;
 }
 
+function clamp(number, min, max) {
+    return Math.max(min, Math.min(number, max));
+}
+
 // WHITE TRIALS --------------
 function changeAB(button){
     // convert to lab
@@ -193,10 +197,6 @@ function toggleWhiteTrialButtons(lab){
     trialButtons.down.disabled = testABChange(lab,'a',-1)
     trialButtons.left.disabled = testABChange(lab,'b',-1)
     trialButtons.right.disabled = testABChange(lab,'b',1)
-}
-
-function clamp(number, min, max) {
-    return Math.max(min, Math.min(number, max));
 }
 
 // HUE TRIALS --------------
