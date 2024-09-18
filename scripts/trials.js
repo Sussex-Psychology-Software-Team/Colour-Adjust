@@ -52,7 +52,7 @@ const colourConstraints = {
 let startingColour, // Data for current trial
     currentColour, // Current user selected LAB for background
     timer, // Records reaction time
-    intervalID // Stores loaded call for button clicks
+    intervalID = null // Stores loaded call for button clicks
 
 const trials=[]
 
@@ -153,8 +153,9 @@ function colourBackground(lch){
 
 // Colour Adjust button listeners ---------------------------------------------------------------
 function changeColour(e){
+    console.log(intervalID)
     // Stop if button disabled
-    if(e.target.disabled) return;
+    if(e.target.disabled || intervalID === null) return;
     // Stop if touch and mouse click
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     console.log('Old colour: ', currentColour)
@@ -164,6 +165,20 @@ function changeColour(e){
     console.log('New colour: ', currentColour)
     // Change background colour
     colourBackground(currentColour)
+}
+
+// Listener registers and cancel
+function clickHold(e){
+    console.log(e.type)
+    if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
+}
+
+function cancelClickHold(e){
+    console.log(e.type)
+    if(intervalID !== null){
+        clearInterval(intervalID)
+        intervalID = null
+    }
 }
 
 // Helpers (Bounding functions)
@@ -243,15 +258,6 @@ function constrainHue(h){
         // else round down to skip
         else return hueRanges[0].max
     } else return h;
-}
-
-// Listener registers and cancel
-function clickHold(e){
-    if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
-}
-
-function cancelClickHold(){
-    intervalID && clearInterval(intervalID)
 }
 
 // Submit button
