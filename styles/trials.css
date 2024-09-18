@@ -7,6 +7,11 @@
     border: 2px solid black;
     border-radius: 15px;
     font-size: 20px;
+    -webkit-touch-callout: none; /* Safari */
+    -webkit-user-select: none; /* Chrome */     
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; 
 }
 
 .adjustColourButton:hover {
