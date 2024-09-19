@@ -11,8 +11,8 @@ const trialButtons = {
 // Vars
 const colourConstraints = {
     White: {
-        l: 90,
-        c: 12.5, // max Ch
+        l: 85,
+        c: 20, // max Ch
         hueRanges: [
             { min: 0, max: 360 }  // Full hue circle, but Ch is constrained
         ]
