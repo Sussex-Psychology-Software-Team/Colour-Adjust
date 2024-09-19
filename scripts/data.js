@@ -5,7 +5,7 @@ const data = {
     survey: {}
 }
 
-const participantInfo = {}
+let participantInfo = {}
 
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
