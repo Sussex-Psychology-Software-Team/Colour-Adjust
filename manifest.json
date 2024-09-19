@@ -1,5 +1,5 @@
 {
-    "name": "Adjustour",
+    "name": "Colour Adjuster",
     "start_url": "http://127.0.0.1:5501/colour-adjust.html", 
     "scope": "http://127.0.0.1:5501/colour-adjust.html",
     "display": "fullscreen",
