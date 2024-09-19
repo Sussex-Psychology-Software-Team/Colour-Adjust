@@ -1,4 +1,8 @@
 /* Apples across most surveys */
+#surveyPage {
+    color: black;
+}
+
 /* HTML tags */
 fieldset {
     padding: 30px;
