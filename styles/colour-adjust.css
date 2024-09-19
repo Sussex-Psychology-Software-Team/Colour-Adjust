@@ -21,7 +21,7 @@ html, body {
 
 body{
     background-color: black;
-    color: grey;
+    color: lightgrey;
 }
 
 /* Stop useragent styling on fullscreen */
