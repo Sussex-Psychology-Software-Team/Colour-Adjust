@@ -1,4 +1,4 @@
-/* Global and canvas */
+/* Global */
 html, body {
     margin: 0;
     /* overscroll-behavior-y: none; */
@@ -12,15 +12,26 @@ html, body {
        -moz-user-select: none !important; /* Firefox */
         -ms-user-select: none !important; /* Internet Explorer/Edge */
             user-select: none !important; 
+    -webkit-tap-highlight-color: transparent !important; /* Stop hold blue highlight on Android */
 }
 
+/* :focus {
+    outline: none !important;
+} */
+
+body{
+    background-color: black;
+    color: grey;
+}
+
+/* Stop useragent styling on fullscreen */
 :fullscreen::backdrop{
     position: relative;
     inset: initial;
     background: initial;
-    
 }
 
+/* General class for centering things */
 .centre {
     position: absolute;
     left: 50%;
@@ -28,32 +39,20 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-input[type=button] {
-    color: black; /* Ensure black buttons for ios */
+/* General text pages: consent/survey/debrief */
+.infoPage {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 20px;
 }
 
-#browserModeWarning, #orientationWarning{
+/* Warnings */
+.warning {
     width: 80%;
     text-align: center;
 }
 
-
-/* Instructions */
-.infoPage {
-    width: 80%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    padding-bottom: 20px;
-}
-
-.continueButton {
-    font-size: 20px;
-    margin-top: 20px;
-    padding: 10px;
-}
-
-/* Survey */
+/* Surveys */
 form {
     padding: 10px;
     max-width: 100%;

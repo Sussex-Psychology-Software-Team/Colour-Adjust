@@ -1,3 +1,5 @@
+/* Apples across most surveys */
+/* HTML tags */
 fieldset {
     padding: 30px;
     margin-top: 10px;
@@ -7,21 +9,55 @@ legend {
     font-weight: bold;
 }
 
+input[type=number]{
+    width: 50px;
+}
+
+input[type=button] {
+    color: black; /* Ensure black buttons for ios */
+}
+
+/* Remove white backgrounds on inputs */
+input[type=checkbox], input[type=radio] {
+    /* accent-color: black; */
+    filter: contrast(60%);
+} /* input[type="checkbox"]:not(:checked), input[type="radio"]:not(:checked){ opacity:0.8; } */
+
+input[type="text"], textarea, input[type="email"] {
+    background-color: lightgrey; 
+}
+
+
+/* Submit form buttons */
+.continueButton {
+    font-size: 20px;
+    background-color: lightgrey;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+#submitSurvey{
+    font-size: 20px;
+    margin: 5px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+
+/* Section of surveys */
 .surveySection {
     display: flex;
     flex-direction: column;
 }
 
+/* Label-input pairs in survey */
 .surveySection > label, .surveySection > span, .conditionalQuestion > label, .conditionalQuestion > span {
     border-top: 1px solid black;
     padding-top: 5px;
     padding-bottom: 10px;
     font-weight: bold;
     /* border-bottom: 1px solid black; */
-}
-
-.conditionalQuestion > label, .conditionalQuestion > span {
-    border: none;
 }
 
 .surveySection > input, .conditionalQuestion > input {
@@ -34,26 +70,20 @@ legend {
   border: none;
 }
 
+/* Conditional question dropdown changes */
+.conditionalQuestion > label, .conditionalQuestion > span {
+    border: none;
+}
+
 .conditionalQuestion {
     padding-left: 20px;
 }
 
+/* Radio Grids */
 .radio {
     display: grid;
     grid-template-columns: max-content min-content;
     column-gap: 10px;
     margin-left: 20px;
     margin-bottom: 20px;
-}
-
-input[type=number]{
-    width: 50px;
-}
-
-#submitSurvey{
-    font-size: 20px;
-    margin: 5px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%)
 }
