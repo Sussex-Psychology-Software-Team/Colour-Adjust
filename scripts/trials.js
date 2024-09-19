@@ -98,14 +98,16 @@ function newTrial(){
         enableColourChangeButtons() // Make sure not still disabled
         // Get colour name
         colourPrompt.innerText = trials.shift(); // Remove first element of array
+        startingColour = randomStartingColour(colourPrompt.innerText) // Randomise starting hue
         // Change buttons for white or hue
         if(colourPrompt.innerText === 'White'){
             whiteTrialButtons()
+            // Random white chroma
+            startingColour.c = Math.random() * colourConstraints.White.c
         } else{
             hueTrialButtons()
         }
         // Get random starting colour
-        startingColour = randomStartingColour(colourPrompt.innerText) // Randomise starting hue
         colourBackground(startingColour)
         // Record starting data
         currentColour = { ...startingColour };
