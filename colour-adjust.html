@@ -111,8 +111,12 @@
           </div>
           <br>
           <div>
-            <input type="checkbox" name="consentChecked" id="consentChecked" required class="requiredConsent">
-            <label for="consentChecked">I consent to take part in this study and agree to my data being recorded.</label>
+            <input type="radio" name="consent" id="fullConsent" value="true" required>
+            <label for="fullConsent">I consent to take part in this study and agree to my data being recorded.</label>
+          </div>
+          <div>
+            <input type="radio" name="consent" id="dontRecord" value="false" required>
+            <label for="dontRecord">I would like to continue without my data being recorded.</label>
           </div>
           <!-- CODE -->
           <h1>Participant code:</h1>
@@ -145,12 +149,6 @@
             <br>
             <input type="email" placeholder="Email (optional)" name="email" value="" autocomplete="email"/>
           </p>
-
-          <div>
-            <p>OR</p>
-            <input type="checkbox" name="dontRecord" id="dontRecord">
-            <label for="dontRecord">I would like to continue without my data being recorded.</label>
-          </div>
           <input type="submit" id="submitConsent" value="Continue" class="continueButton">
         </form>
       </div>

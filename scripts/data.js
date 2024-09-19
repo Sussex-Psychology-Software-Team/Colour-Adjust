@@ -1,13 +1,11 @@
 // Participant data structure
 const data = { 
-    metadata:{
-        randomID: randomID(24),
-        userAgent: window.navigator.userAgent
-    },
-    consent:{},
+    randomID: randomID(24),
     trials: [], 
     survey: {}
 }
+
+const participantInfo = {}
 
 // METADATA ---------------------------------------------------------------
 function randomID(len){ // Note consider a gross UUID function: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
@@ -26,7 +24,7 @@ function makeRequestBody(id, dataToSend){
     // Participants: eXM0k3gPdL9y https://pipe.jspsych.org/admin/eXM0k3gPdL9y OSF: https://osf.io/7ecsb/
     return {
         experimentID: id,
-        filename: data.metadata.randomID + ".json",
+        filename: data.randomID + ".json",
         data: JSON.stringify(dataToSend)
     }
 }
@@ -52,19 +50,12 @@ async function dataPipe(requestBody){
 
 function sendData(){
     // Leave if don't record is on
-    if(data.consent.dontRecord) return
-    
-    // Save participantID separately
-    const participantInfo = {
-        participantID: data.consent.participantID,
-        randomID: data.metadata.randomID
-    }
+    if(!participantInfo.consent) return
+
     // Send participantID to OSF
     const participant = makeRequestBody("eXM0k3gPdL9y", participantInfo)
     dataPipe(participant)
 
-    // delete participantID from responses
-    data.consent.participantID = ""
     // Send data to OSF
     const responses = makeRequestBody("CdE5fn8ckU5w", data)
     dataPipe(responses)
