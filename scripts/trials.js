@@ -101,11 +101,18 @@ function newTrial(){
         startingColour = randomStartingColour(colourPrompt.innerText) // Randomise starting hue
         // Change buttons for white or hue
         if(colourPrompt.innerText === 'White'){
+            // Setup buttons
             whiteTrialButtons()
             // Random white chroma
             startingColour.c = Math.random() * colourConstraints.White.c
+            // Test buttons
+            const startingLAB = lch2lab(startingColour)
+            toggleWhiteTrialButtons(startingLAB)
         } else{
+            // Setup buttons
             hueTrialButtons()
+            // Test buttons
+            toggleHueButtons(startingColour.h)
         }
         console.log('startingColour: ',startingColour)
         // Get random starting colour
