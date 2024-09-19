@@ -107,6 +107,7 @@ function newTrial(){
         } else{
             hueTrialButtons()
         }
+        console.log('startingColour: ',startingColour)
         // Get random starting colour
         colourBackground(startingColour)
         // Record starting data
@@ -237,7 +238,7 @@ function changeHue(button){
     // constrain 0-360
     currentColour.h = mod(currentColour.h, 360) // custom mod handles negatives and >360
     console.log(currentColour.h)
-    currentColour.h = constrainHue(currentColour.h)
+    toggleHueButtons(currentColour.h)
 }
 
 function roundToNearest(num, a, b) {
@@ -248,18 +249,11 @@ function roundToNearest(num, a, b) {
     return diffA < diffB ? a : b;
 }
 
-function constrainHue(h){
-    const hueRanges = colourConstraints[colourPrompt.textContent].hueRanges
-    const allHuesAllowed = hueRanges[0].min === 0 && hueRanges[0].max === 360
-    // if bounds present and within them
-    if(!allHuesAllowed && (h>hueRanges[0].max && h<hueRanges[1].min)){
-        // midpoint of segment
-        const midpoint = ((hueRanges[1].min-hueRanges[0].max)/2)+hueRanges[0].max
-        // if over min (under midpoint) round up to skip
-        if(h<midpoint) return hueRanges[1].min
-        // else round down to skip
-        else return hueRanges[0].max
-    } else return h;
+function toggleHueButtons(hue){
+    if(colourConstraints[colourPrompt.textContent].hueRanges.length > 1){
+        trialButtons.left.disabled = hue === colourConstraints[colourPrompt.textContent].hueRanges[1].min
+        trialButtons.right.disabled = hue === colourConstraints[colourPrompt.textContent].hueRanges[0].max
+    }
 }
 
 // Submit button
