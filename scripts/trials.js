@@ -138,7 +138,7 @@ function getRandomHue(hueRanges) {
     // Select a random range from hue ranges
     const randomRange = hueRanges[Math.floor(Math.random() * hueRanges.length)];
     // Generate a random hue within the selected range
-    return Math.random() * (randomRange.max - randomRange.min) + randomRange.min;
+    return Math.floor(Math.random() * (randomRange.max - randomRange.min+1) + randomRange.min);
 }
 
 function randomStartingColour(colour) {
