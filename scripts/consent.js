@@ -1,13 +1,15 @@
 // CONSENT FORM ---------------------------------------------------------------
 // add listeners (see below)
-document.getElementById('dontRecord').addEventListener('change', removeConsentRequirements);
+document.getElementById('fullConsent').addEventListener('change', toggleIdRequirements)
+document.getElementById('dontRecord').addEventListener('change', toggleIdRequirements)
+
 document.getElementById('consentForm').addEventListener('submit', submitConsent)
 
 // Make "don't record" button remove requirements for other fields
-function removeConsentRequirements(e){
+function toggleIdRequirements(e){
     // if checked, don't record, if unchecked, record
-    const recordData = !e.target.checked 
-    const requiredOpts = document.getElementsByClassName('requiredConsent')
+    const recordData = !document.getElementById('dontRecord').checked 
+    const requiredOpts = document.getElementsByClassName('participantCode')
     for(let e=0; e<requiredOpts.length; e++){
         // remove consent requirements if checked and vice versa
         requiredOpts[e].required = recordData
