@@ -27,7 +27,7 @@ function inStandalone(){
 
 // Start the experiment if install, load, visibility change, or not in mobile
 function startExperiment(){
-    if((inStandalone() && !installInstructions.hidden)){ // If installation instructions not hidden yet
+    if(inStandalone() && !installInstructions.hidden){ // If installation instructions not hidden yet
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
