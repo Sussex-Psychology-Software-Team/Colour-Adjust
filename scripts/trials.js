@@ -167,6 +167,8 @@ function changeColour(e){
     if(e.target.disabled || intervalID === null) return;
     // Stop if touch and mouse click
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
+    // Stop any multitouches
+    if(e.touches.length > 1) return
     // Run trial functions
     if(colourPrompt.textContent === 'White') changeAB(e.target.value)
     else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
