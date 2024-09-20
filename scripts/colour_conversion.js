@@ -1,44 +1,8 @@
-// COLOUR CONVERSION ---------------------------------------------------------------
-const il = illuminants()
-
-// CIE illuminants D-value and degree FOV
-function illuminants(d=65, deg=2, scale=1){
-    let Xn, Yn, Zn //not these assume 2 degree observer
-    if(d===65){ //from https://en.wikipedia.org/wiki/Standard_illuminant#D65_values
-        if(deg===2){
-            Xn = 95.0489
-            Yn = 100
-            Zn = 108.8840
-        } else if(deg===10){
-            Xn = 94.811
-            Yn = 100
-            Zn = 107.304
-        }
-    } else if(d===50){
-        if(deg===2){ //from: https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIEXYZ_to_CIELAB
-            Xn = 96.4212
-            Yn = 100
-            Zn = 82.5188
-        }
-    }
-
-    Xn = Xn/scale
-    Yn = Yn/scale
-    Zn = Zn/scale
-    return { 'Xn': Xn, 'Yn': Yn, 'Zn': Zn }
-}
-
+// Illuminants for D65, 2° observer
+const il = { Xn: 95.0489, Yn: 100, Zn: 108.884 };
 
 // Convert sRGB to XYZ
-function rgb2xyz(rgb){
-    // from https://en.wikipedia.org/wiki/SRGB#From_sRGB_to_CIE_XYZ
-        //may need to consider conversion for other colourspaces - D65 and 2deg here??
-
-    // scale 0-1
-    //for (key of Object.keys(rgb)) {
-    //    rgb[key]=rgb[key]/255;
-    //}
-    
+function rgb2xyz({r, g, b}) {
     // linear RGB
     function adj(C, d=12.9232102) { //or just use more common 12.92
         C = C/255 //Convert to 0-1
@@ -48,25 +12,21 @@ function rgb2xyz(rgb){
             return ((C+0.055)/1.055)**2.4
         }
     }
-
-    const R = adj(rgb.r)
-    const G = adj(rgb.g)
-    const B = adj(rgb.b)//, 12.02) //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
-
-    //adj gamma-expanded linear values https://color.org/chardata/rgb/sRGB.pdf
-    const x =  0.4124*R + 0.3576*G + 0.1805*B
-    const y = 0.2126*R + 0.7152*G + 0.0722*B
-    const z =  0.0193*R + 0.1192*G + 0.9505*B
-
-    return { 'x':x, 'y':y, 'z':z }
+    const [R, G, B] = [adj(r), adj(g), adj(b)];
+    
+    return {
+        x: 0.4124 * R + 0.3576 * G + 0.1805 * B,
+        y: 0.2126 * R + 0.7152 * G + 0.0722 * B,
+        z: 0.0193 * R + 0.1192 * G + 0.9505 * B
+    };
 }
 
-// Convert XYZ to CIELAB
-function xyz2lab(xyz, scale=1){
+// Convert XYZ to LAB
+function xyz2lab({x, y, z}) {
     // scale 0-100
-    for (key of Object.keys(xyz)) {
-        xyz[key]=xyz[key]*100;
-    }
+    x*=100
+    y*=100
+    z*=100
 
     //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIEXYZ_to_CIELAB
     function f(t){
@@ -78,19 +38,16 @@ function xyz2lab(xyz, scale=1){
         }
     }
 
-    const l = 116 * f(xyz.y / il.Yn) - 16
-    const a = 500 * (f(xyz.x / il.Xn) - f(xyz.y / il.Yn))
-    const b = 200 * (f(xyz.y / il.Yn) - f(xyz.z / il.Zn))
-
-    return { 'l':l, 'a':a, 'b':b }
+    return {
+        l: 116 * f(y / il.Yn) - 16,
+        a: 500 * (f(x / il.Xn) - f(y / il.Yn)),
+        b: 200 * (f(y / il.Yn) - f(z / il.Zn))
+    };
 }
 
-
-
-// Convert CIELAB to XYZ
-function lab2xyz(lab, scale=1){
+// Convert LAB to XYZ
+function lab2xyz({l, a, b}) {
     //https://en.wikipedia.org/wiki/CIELAB_color_space#From_CIELAB_to_CIEXYZ
-    //reference white 100
     function finv(t){
         const sigma = 6/29
         if(t>sigma){
@@ -100,32 +57,31 @@ function lab2xyz(lab, scale=1){
         }
     }
 
-    const fy = ((lab.l+16)/116)
-    const x = (il.Xn/scale) * finv( fy + (lab.a/500))
-    const y = (il.Yn/scale) * finv( fy )
-    const z = (il.Zn/scale) * finv( fy - (lab.b/200))
-    
-    return {'x':x, 'y':y, 'z':z}
+    const fy = (l + 16) / 116;
+    // or il/100 first?? scale 0-1 for RGB formula
+    return {
+        x: il.Xn * finv(fy + a / 500) / 100,
+        y: il.Yn * finv(fy) / 100,
+        z: il.Zn * finv(fy - b / 200) / 100
+    };
 }
 
-
 // Convert XYZ to sRGB
-function xyz2rgb(xyz){
+function xyz2rgb({x, y, z}) {
     // from: https://stackoverflow.com/a/45238704/7705626
     // c.f. https://en.wikipedia.org/wiki/SRGB#From_CIE_XYZ_to_sRGB, https://gist.github.com/mnito/da28c930d270f280f0989b9a707d71b5
-        //for D65 only??
     // for improved constants see: https://www.color.org/chardata/rgb/srgb.pdf
     //https://www.image-engineering.de/library/technotes/958-how-to-convert-between-srgb-and-ciexyz%20*%20@param%20%20%7Bstring%7D%20hex
     
     //get linear RGB - //more precise values from: https://en.wikipedia.org/wiki/SRGB#sYCC:~:text=higher%2Dprecision%20XYZ%20to%20sRGB%20matrix
-    const r =  3.2404542*xyz.x - 1.5372080*xyz.y - 0.4986286*xyz.z
-    const g = -0.9689307*xyz.x + 1.8757561*xyz.y + 0.0415175*xyz.z
-    const b =  0.0557101*xyz.x - 0.2040211*xyz.y + 1.0569959*xyz.z
+    const [r, g, b] = [
+        3.2404542 * x - 1.5372080 * y - 0.4986286 * z,
+       -0.9689307 * x + 1.8757561 * y + 0.0415175 * z,
+        0.0557101 * x - 0.2040211 * y + 1.0569959 * z
+    ];
 
     //convert to srgb
     function adj(c) {
-        //Clamp
-        c = Math.max(0, Math.min(1, c)); //clamp 0-1 -- REMOVE CLAMP - MAYBE GO BLACK IF OUT OF GAMUT
         //for more accurate values see: https://en.wikipedia.org/wiki/SRGB#Computing_the_transfer_function
         if (c <= 0.0031308) {
             c = 12.92 * c //12.9232102 often round to 12.92
@@ -135,57 +91,53 @@ function xyz2rgb(xyz){
         return Math.round(c*255) //'multiplied by 2^bit_depth-1 and quantized.'
     }
 
-    return { 'r':adj(r), 'g':adj(g), 'b':adj(b) } // Consider storing out of bounds values?
+    return {
+        r: adj(r),
+        g: adj(g),
+        b: adj(b)
+    };
 }
 
-// Convert LAB to Cylindrical model LCH
-function lab2lch(lab){ //https://en.wikipedia.org/wiki/CIELAB_color_space#Cylindrical_model
-    // convert from cartesian to polar
-    const c = Math.sqrt(lab.a**2 + lab.b**2)
-    let h = Math.atan2(lab.b, lab.a) //use atan2 not atan??
+// Convert LAB to LCH
+function lab2lch({l, a, b}) {
+    const c = Math.sqrt(a ** 2 + b ** 2);
     // h from radians to degrees for interpretability
-    h *= 180/Math.PI
-    if(h<0) h += 360 // h 0-360
-    // store and check bounds
-    return { 'l':lab.l, 'c':c, 'h':h }
+    let h = Math.atan2(b, a) * 180 / Math.PI;
+    // h 0-360
+    if (h < 0) h += 360;
+    
+    return { l, c, h };
 }
 
-function lch2lab(lch){
-    // convert h back to radians - John's code states /= (2*Math.PI)*360?
-    // convert h and c to a and b
-    const a = lch.c * Math.cos(lch.h*(Math.PI/180))
-    const b = lch.c * Math.sin(lch.h*(Math.PI/180))
-    // Check bounds on LAB
-    let lab = { 'l':lch.l, 'a':a, 'b':b }
-    return lab
+// Convert LCH to LAB
+function lch2lab({l, c, h}) {
+    // convert to rads
+    const rad = h * Math.PI / 180;
+    return { l, a: c * Math.cos(rad), b: c * Math.sin(rad) };
 }
 
 // Wrappers
 // Convert RGB to LAB
 function rgb2lab(rgb){
     const xyz = rgb2xyz(rgb)
-    const lab = xyz2lab(xyz)
-    return lab
+    return xyz2lab(xyz)
 }
 
 
 // Convert LAB to RGB
 function lab2rgb(lab){
-    const xyz = lab2xyz(lab, 100) //scale 0-1 for RGB formula
-    const rgb = xyz2rgb(xyz)
-    return rgb
+    const xyz = lab2xyz(lab)
+    return xyz2rgb(xyz)
 }
 
 // Convert lch to rgb
 function lch2rgb(lch){
     const lab = lch2lab(lch)
-    const rgb = lab2rgb(lab)
-    return rgb
+    return lab2rgb(lab)
 }
 
 // Convert rgb to lch
 function rgb2lch(rgb){
     const lab = rgb2lab(rgb)
-    const lch = lab2lch(lab)
-    return lch
+    return lab2lch(lab)
 }
