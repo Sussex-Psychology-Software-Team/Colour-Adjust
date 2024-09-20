@@ -25,7 +25,7 @@ const colorsArray = [
     ["B4", [0, 0, 200]]
 ];
 
-let currentColourIndex = 0
+let currentColourIndex = -1
 
 // Add event listeners
 participantIDForm.addEventListener('submit', getParticipantID)
