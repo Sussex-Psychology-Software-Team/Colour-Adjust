@@ -34,7 +34,8 @@ body {
 
 /* Warnings */
 .warning {
-    color: black;
+    background-color: black;
+    color: grey;
     width: 80%;
     text-align: center;
 }
