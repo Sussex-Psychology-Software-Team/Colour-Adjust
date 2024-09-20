@@ -167,7 +167,7 @@ function validTouch(e){
     // if id is null
     intervalID === null &&
     // Stop if touch and mouse click
-    !(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') &&
+    !(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown')
     // Only allow single touches
     //(e.touches && e.touches.length === 1)
 }
