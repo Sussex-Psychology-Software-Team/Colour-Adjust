@@ -163,14 +163,13 @@ function colourBackground(lch){
 
 // Colour Adjust button listeners ---------------------------------------------------------------
 function validTouch(e){
-    // If not disabled
     return !e.target.disabled &&
     // if id is null
     intervalID === null &&
     // Stop if touch and mouse click
     !(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') &&
     // Only allow single touches
-    (e.touches && e.touches.length === 1)
+    //(e.touches && e.touches.length === 1)
 }
 
 function changeColour(e){
@@ -185,7 +184,8 @@ function changeColour(e){
 // Listener registers and cancel
 function clickHold(e){
     e.preventDefault()
-    e.stopPropagation();
+    e.stopPropagation()
+    console.log(validTouch(e))
     if(validTouch(e)){
         if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
     }
