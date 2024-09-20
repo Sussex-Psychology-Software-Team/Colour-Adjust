@@ -30,6 +30,6 @@ body {
     font-size: x-large;
     color: lightgrey;
     /* Text Shadow Property */
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, 1px 1px 0 black, 1px 1px 0 black;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
 
