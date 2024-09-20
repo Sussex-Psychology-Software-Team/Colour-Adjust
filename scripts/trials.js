@@ -54,7 +54,7 @@ let startingColour, // Data for current trial
     timer, // Records reaction time
     intervalID = null // Stores loaded call for button clicks
 
-const trials=[]
+const trials = []
 
 // Trial Setup ---------------------------------------------------------------
 function setupTrials(){
@@ -163,12 +163,10 @@ function colourBackground(lch){
 
 // Colour Adjust button listeners ---------------------------------------------------------------
 function changeColour(e){
-    console.log(intervalID)
     // Stop if button disabled
     if(e.target.disabled || intervalID === null) return;
     // Stop if touch and mouse click
     if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
-    console.log('Old colour: ', currentColour)
     // Run trial functions
     if(colourPrompt.textContent === 'White') changeAB(e.target.value)
     else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
@@ -179,26 +177,14 @@ function changeColour(e){
 
 // Listener registers and cancel
 function clickHold(e){
-    console.log(e.type)
     if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
 }
 
 function cancelClickHold(e){
-    console.log(e.type)
     if(intervalID !== null){
         clearInterval(intervalID)
         intervalID = null
     }
-}
-
-// Helpers (Bounding functions)
-// mod fuction to handle negative numbers
-function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
-    return ((n % m) + m) % m;
-}
-
-function clamp(number, min, max) {
-    return Math.max(min, Math.min(number, max));
 }
 
 // WHITE TRIALS --------------
@@ -214,8 +200,6 @@ function changeAB(button){
     toggleWhiteTrialButtons(lab)
     // convert back to lch and make sure c isn't out of bounds
     currentColour = lab2lch(lab)
-    // Clamp to desired colours: remove as should be unnecessary
-    //currentColour.c = clamp(currentColour.c, 0, colourConstraints.White.c)
 }
 
 function testABChange(lab, axisKey="a", change=1){
@@ -224,9 +208,8 @@ function testABChange(lab, axisKey="a", change=1){
     predictedLAB[axisKey] += change // Change relevant value
     const predictedLCH = lab2lch(predictedLAB) // Convert to lch
     // Compare to constraints
-    const cBounds = predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
-    const abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127 // Probably unncessary
-    return cBounds || abBounds
+    // to check abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127
+    return predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
 }
 
 function toggleWhiteTrialButtons(lab){
@@ -244,16 +227,13 @@ function changeHue(button){
     else if(button === '-') currentColour.h--
     // constrain 0-360
     currentColour.h = mod(currentColour.h, 360) // custom mod handles negatives and >360
-    console.log(currentColour.h)
+    // Check buttons
     toggleHueButtons(currentColour.h)
 }
 
-function roundToNearest(num, a, b) {
-    // abs diffs
-    const diffA = Math.abs(num - a);
-    const diffB = Math.abs(num - b);
-    // return smaller diff
-    return diffA < diffB ? a : b;
+// mod fuction to handle negative numbers
+function mod(n, m) { //https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+    return ((n % m) + m) % m;
 }
 
 function toggleHueButtons(hue){
