@@ -9,9 +9,18 @@ window.addEventListener("load", startExperiment) //when opened up
 document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
 
 // IF INSTALLED, START ********************
-// Start the experiment if install load or visibility change triggered
+// Check PWA mode
+function inStandalone(){
+    return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
+    window.matchMedia('(display-mode: standalone)').matches || // Allows for use on computer PWA not on fullscreen
+    window.navigator.standalone || // iOS
+    document.referrer.includes("android-app://") // Android 2
+}
+
+// Start the experiment if install, load, visibility change, or not in mobile
 function startExperiment(){
-    if(inStandalone() && !installInstructions.hidden){ // If installation instructions not hidden yet
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    if((inStandalone() && !installInstructions.hidden) || !isMobile){ // If installation instructions not hidden yet
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
@@ -43,26 +52,4 @@ function disableInAppInstallPrompt() {
     installButton.hidden = true
 }
 
-// CHECK PWA MODE ********************
-function inStandalone(){
-    return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
-    window.matchMedia('(display-mode: standalone)').matches || // Allows for use on computer PWA not on fullscreen
-    window.navigator.standalone || // iOS
-    document.referrer.includes("android-app://") // Android 2
-}
-
-// Listener to check if they leave PWA MODE - note might have issues on computer
-window.matchMedia('(display-mode: fullscreen)').addEventListener('change', (e) => {
-    if(e.matches || inStandalone()) {
-        // Hide Installation instructions
-        document.getElementById('browserModeWarning').hidden = true
-        // Show materials then check orientation
-        showMaterials()
-        checkOrientation()
-    } else {
-        // Show reinstall prompt - likely not actually relevant to mobile??
-        hideMaterials()
-        document.getElementById('browserModeWarning').hidden = false
-    }
-})
 
