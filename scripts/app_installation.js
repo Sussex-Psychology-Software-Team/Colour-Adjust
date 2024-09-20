@@ -4,9 +4,17 @@ let installPrompt = null
 const installButton = document.getElementById("installButton") // Button for installing
 const installInstructions = document.getElementById("installInstructions") // Install instructions
 // Install listeners
-window.addEventListener("appinstalled", startExperiment) // Not a guarantee but this is supposed to work
-window.addEventListener("load", startExperiment) // Load event also fires when opened up
-document.addEventListener('visibilitychange', startExperiment) // Hacky but fires on switch from browser to standalone
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+if(isMobile){
+    window.addEventListener("appinstalled", startExperiment) // Not a guarantee but this is supposed to work
+    window.addEventListener("load", startExperiment) // Load event also fires when opened up
+    document.addEventListener('visibilitychange', startExperiment) // Hacky but fires on switch from browser to standalone
+} else {
+    installInstructions.hidden = true
+    document.getElementById('consentPage').hidden = false
+    currentPage = "consentPage"
+}
+
 
 // IF INSTALLED, START ********************
 // Check PWA mode
@@ -19,8 +27,7 @@ function inStandalone(){
 
 // Start the experiment if install, load, visibility change, or not in mobile
 function startExperiment(){
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    if((inStandalone() && !installInstructions.hidden) || !isMobile){ // If installation instructions not hidden yet
+    if((inStandalone() && !installInstructions.hidden)){ // If installation instructions not hidden yet
         installInstructions.hidden = true
         disableInAppInstallPrompt()
         // Load Orientation listener
