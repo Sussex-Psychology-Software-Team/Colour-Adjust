@@ -173,6 +173,7 @@ function validTouch(e){
 }
 
 function changeColour(e){
+    if(e.target.disabled) return
     // Run trial functions
     if(colourPrompt.textContent === 'White') changeAB(e.target.value)
     else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
@@ -184,9 +185,9 @@ function changeColour(e){
 // Listener registers and cancel
 function clickHold(e){
     e.preventDefault()
-    e.stopPropagation()
-    console.log(validTouch(e))
-    if(validTouch(e)){
+    if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
+    // If not currently repeating, register new interval
+    if(intervalID === null){
         if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
     }
 }
@@ -219,6 +220,7 @@ function testABChange(lab, axisKey="a", change=1){
     // Get predicted value after change in LAB and LCH
     predictedLAB[axisKey] += change // Change relevant value
     const predictedLCH = lab2lch(predictedLAB) // Convert to lch
+    console.log('Predicted LCH:', predictedLCH);
     // Compare to constraints
     // to check abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127
     return predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
