@@ -4,9 +4,9 @@ let installPrompt = null
 const installButton = document.getElementById("installButton") // Button for installing
 const installInstructions = document.getElementById("installInstructions") // Install instructions
 // Install listeners
-window.addEventListener("appinstalled", startExperiment)
-window.addEventListener("load", startExperiment) //when opened up
-document.addEventListener('visibilitychange', startExperiment) //hacky but fires on switch from browser to standalone
+window.addEventListener("appinstalled", startExperiment) // Not a guarantee but this is supposed to work
+window.addEventListener("load", startExperiment) // Load event also fires when opened up
+document.addEventListener('visibilitychange', startExperiment) // Hacky but fires on switch from browser to standalone
 
 // IF INSTALLED, START ********************
 // Check PWA mode
