@@ -6,6 +6,7 @@ function showSurvey(){
     currentPage = 'surveyPage'
     screen.orientation.removeEventListener("change", checkOrientation) // not needed
     attachConditionalQuestion("os", "ios", "trueTone")
+    attachConditionalQuestion("trueTone", "trueToneYes", "trueToneOn")
     attachConditionalQuestion("filter", "filterYes", "filterOn")
     attachConditionalQuestion("location", "onCampus", "onCampusRoom")
     attachConditionalQuestion("gender", "genderSelfDescribe", "genderSelfDescription")
