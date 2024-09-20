@@ -46,6 +46,10 @@
 #right { left: 90% }
 #down { top: 90% }
 
+input[type=button] {
+    color: black; /* Ensure black buttons for ios */
+}
+
 /* Central color display and submit button */
 #colourAndSubmit{
     text-align: center;

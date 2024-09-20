@@ -17,10 +17,6 @@ input[type=number]{
     width: 50px;
 }
 
-input[type=button] {
-    color: black; /* Ensure black buttons for ios */
-}
-
 /* Remove white backgrounds on inputs */
 input[type=checkbox], input[type=radio] {
     /* accent-color: black; */
@@ -33,7 +29,7 @@ input[type="text"], textarea, input[type="email"] {
 
 
 /* Submit form buttons */
-.continueButton {
+.submitButton {
     font-size: 20px;
     background-color: lightgrey;
     margin-top: 20px;
@@ -41,13 +37,10 @@ input[type="text"], textarea, input[type="email"] {
 }
 
 #submitSurvey{
-    font-size: 20px;
-    margin: 5px;
     position: relative;
     left: 50%;
     transform: translateX(-50%)
 }
-
 
 /* Section of surveys */
 .surveySection {
@@ -55,39 +48,36 @@ input[type="text"], textarea, input[type="email"] {
     flex-direction: column;
 }
 
+.conditionalQuestion {
+    margin-left: 30px;
+}
+
+.radioGrid {
+    display: grid;
+    grid-template-columns: max-content min-content;
+    column-gap: 10px;
+}
+
+
 /* Label-input pairs in survey */
-.surveySection > label, .surveySection > span, .conditionalQuestion > label, .conditionalQuestion > span {
+.question {
+    /* Style labels */
     border-top: 1px solid black;
     padding-top: 5px;
     padding-bottom: 10px;
     font-weight: bold;
-    /* border-bottom: 1px solid black; */
 }
 
-.surveySection > input, .conditionalQuestion > input {
-    /* border-bottom: 1px solid black; */
+.surveySection > input, .conditionalQuestion > input, .surveySection > div, .conditionalQuestion > div {
+    /* Indent inputs */
     margin-left: 20px;
     margin-bottom: 20px;
 }
 
+/* Turn off borders */
 .surveySection > label:first-child, .surveySection > span:first-child {
-  border: none;
-}
-
-/* Conditional question dropdown changes */
-.conditionalQuestion > label, .conditionalQuestion > span {
     border: none;
 }
 
-.conditionalQuestion {
-    padding-left: 20px;
-}
 
-/* Radio Grids */
-.radio {
-    display: grid;
-    grid-template-columns: max-content min-content;
-    column-gap: 10px;
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
+
