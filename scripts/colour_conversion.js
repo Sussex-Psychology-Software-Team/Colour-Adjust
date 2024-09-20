@@ -4,7 +4,7 @@ const il = { Xn: 95.0489, Yn: 100, Zn: 108.884 };
 // Convert sRGB to XYZ
 function rgb2xyz({r, g, b}) {
     // linear RGB
-    function adj(C) { //or just use more common 12.92
+    function adj(C) {
         C = C/255 //Convert to 0-1
         if (Math.abs(C) <= 0.04045) {
             return C / 12.92// or 12.9232102 more accurate
