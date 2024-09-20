@@ -13,6 +13,8 @@ function rgb2xyz({r, g, b}) {
         }
     }
     const [R, G, B] = [adj(r), adj(g), adj(b)];
+    //see https://www.color.org/chardata/rgb/srgb.pdf 'Inverting the color component transfer function'
+    //adj gamma-expanded linear values https://color.org/chardata/rgb/sRGB.pdf
     
     return {
         x: 0.4124 * R + 0.3576 * G + 0.1805 * B,
