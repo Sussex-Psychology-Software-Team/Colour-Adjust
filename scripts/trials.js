@@ -163,6 +163,7 @@ function colourBackground(lch){
 
 // Colour Adjust button listeners ---------------------------------------------------------------
 function changeColour(e){
+    e.preventDefault()
     // Stop if button disabled
     if(e.target.disabled || intervalID === null) return;
     // Stop if touch and mouse click
@@ -179,10 +180,12 @@ function changeColour(e){
 
 // Listener registers and cancel
 function clickHold(e){
+    e.preventDefault()
     if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
 }
 
 function cancelClickHold(e){
+    e.preventDefault()
     if(intervalID !== null){
         clearInterval(intervalID)
         intervalID = null
