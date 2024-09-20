@@ -162,6 +162,17 @@ function colourBackground(lch){
 }
 
 // Colour Adjust button listeners ---------------------------------------------------------------
+function validTouch(e){
+    // If not disabled
+    return !e.target.disabled &&
+    // if id is null
+    intervalID === null &&
+    // Stop if touch and mouse click
+    !(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') &&
+    // Only allow single touches
+    (e.touches && e.touches.length === 1)
+}
+
 function changeColour(e){
     // Run trial functions
     if(colourPrompt.textContent === 'White') changeAB(e.target.value)
@@ -174,16 +185,14 @@ function changeColour(e){
 // Listener registers and cancel
 function clickHold(e){
     e.preventDefault()
-    // Stop if touch and mouse click
-    if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
-    // Stop any multitouches
-    if(e.touches && e.touches.length > 1) return
-    if(!e.target.disabled && intervalID === null){
+    e.stopPropagation();
+    if(validTouch(e)){
         if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
     }
 }
 
 function cancelClickHold(e){
+    e.preventDefault()
     if(intervalID !== null){
         clearInterval(intervalID)
         intervalID = null
