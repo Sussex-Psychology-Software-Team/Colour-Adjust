@@ -1,7 +1,7 @@
 {
     "name": "Colour Adjuster",
-    "start_url": "https://sussex-psychology-software-team.github.io/Colour-Adjust", 
-    "scope": "https://sussex-psychology-software-team.github.io/Colour-Adjust",
+    "start_url": "./",
+    "scope": ".",
     "display": "fullscreen",
     "description": "A colour adjustment experiment.",
     "theme_color": "#000000",

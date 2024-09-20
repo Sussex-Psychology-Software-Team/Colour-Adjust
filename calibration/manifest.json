@@ -1,7 +1,7 @@
 {
     "name": "DA Calibration",
-    "start_url": "https://sussex-psychology-software-team.github.io/Colour-Adjust/calibration", 
-    "scope": "https://sussex-psychology-software-team.github.io/Colour-Adjust/calibration",
+    "start_url": "./",
+    "scope": "../",
     "display": "fullscreen",
     "description": "A colour adjustment experiment.",
     "theme_color": "#000000",
