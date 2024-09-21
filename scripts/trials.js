@@ -63,13 +63,18 @@ function setupTrials(){
     
     // Add listeners
     Object.values(trialButtons).forEach(button => {
-        button.addEventListener('mousedown', clickHold)
-        button.addEventListener('touchstart', clickHold)
+        // Using Pointer events: Click is registered after mouseup, and touchstart emulates mouse events too so double fires
+        // https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Using_Touch_Events#from_interfaces_to_gestures
+        button.addEventListener("pointerdown", clickHold);
     });
+    // No harm in using these tbf....
+    // document.addEventListener('mouseup', cancelClickHold)
+    // document.addEventListener('touchend', cancelClickHold)
+    // document.addEventListener('touchcancel', cancelClickHold)
+    document.addEventListener('pointerup', cancelClickHold)
+    document.addEventListener('pointercancel', cancelClickHold)
 
-    document.addEventListener('mouseup', cancelClickHold)
-    document.addEventListener('touchend', cancelClickHold)
-    document.addEventListener('touchcancel', cancelClickHold)
+    // Submit trial button
     document.getElementById('submitTrial').addEventListener('click', submitTrial)
     createTrialsArray()
     newTrial() // call new trial
@@ -183,9 +188,9 @@ function changeColour(e){
 
 // Listener registers and cancel
 function clickHold(e){
+    //if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return
     // If not currently repeating, register new interval
     if(intervalID === null){
-        e.preventDefault()
         intervalID = setInterval(changeColour, 50, e)
     }
 }
