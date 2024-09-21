@@ -166,33 +166,27 @@ function colourBackground(lch){
 }
 
 // Colour Adjust button listeners ---------------------------------------------------------------
-function validTouch(e){
-    return !e.target.disabled &&
-    // if id is null
-    intervalID === null &&
-    // Stop if touch and mouse click
-    !(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown')
-    // Only allow single touches
-    //(e.touches && e.touches.length === 1)
-}
-
 function changeColour(e){
-    if(e.target.disabled) return
-    // Run trial functions
-    if(colourPrompt.textContent === 'White') changeAB(e.target.value)
-    else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
-    console.log('New colour: ', currentColour)
-    // Change background colour
-    colourBackground(currentColour)
+    // Double check callback still needs to be run
+    if(!e.target.disabled && intervalID !== null){
+        // Change colour and check if buttons need to be disabled
+        if(colourPrompt.textContent === 'White') changeAB(e.target.value)
+        else if(colourPrompt.textContent !== 'White') changeHue(e.target.value)
+        console.log('New colour: ', currentColour)
+        // Change background colour
+        colourBackground(currentColour)
+    } else {
+        cancelClickHold(e)
+        return
+    }
 }
 
 // Listener registers and cancel
 function clickHold(e){
-    e.preventDefault()
-    if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return;
     // If not currently repeating, register new interval
     if(intervalID === null){
-        if(['left','up','right','down'].includes(e.target.id)) intervalID = setInterval(changeColour, 50, e)
+        e.preventDefault()
+        intervalID = setInterval(changeColour, 50, e)
     }
 }
 
