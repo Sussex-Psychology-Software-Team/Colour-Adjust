@@ -196,8 +196,8 @@ function clickHold(e){
 }
 
 function cancelClickHold(e){
-    e.preventDefault()
     if(intervalID !== null){
+        e.preventDefault() // Call here as this will fire before click is registered on submit button
         clearInterval(intervalID)
         intervalID = null
     }
