@@ -218,7 +218,6 @@ function testABChange(lab, axisKey="a", change=1){
     // Get predicted value after change in LAB and LCH
     predictedLAB[axisKey] += change // Change relevant value
     const predictedLCH = lab2lch(predictedLAB) // Convert to lch
-    console.log('Predicted LCH:', predictedLCH);
     // Compare to constraints
     // to check abBounds = predictedLAB[axisKey] < -128 || predictedLAB[axisKey] > 127
     return predictedLCH.c < 0 || predictedLCH.c > colourConstraints.White.c
@@ -264,8 +263,9 @@ function submitTrial(e){
 function saveTrial(time){
     const trialData = {
         targetColour: colourPrompt.innerText,
-        startingColour: startingColour,
-        finalColour: currentColour,
+        startingLCH: startingColour,
+        finalLCH: currentColour,
+        finalRGB: lch2rgb(currentColour),
         rt: time-timer,
     }
 
