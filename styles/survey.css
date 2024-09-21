@@ -63,6 +63,7 @@ input[type="text"], textarea, input[type="email"] {
 /* Label-input pairs in survey */
 .question {
     /* Style labels */
+    display: inline-block; /* Stops top border spilling over multiple lines */
     border-top: 1px solid black;
     padding-top: 5px;
     padding-bottom: 10px;
