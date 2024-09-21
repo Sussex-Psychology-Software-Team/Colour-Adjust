@@ -60,10 +60,14 @@ const trials = []
 function setupTrials(){
     currentPage = 'trialsPage'
     document.getElementById('trialsPage').hidden = false
+    
     // Add listeners
-    document.addEventListener('mousedown', clickHold)
+    Object.values(trialButtons).forEach(button => {
+        button.addEventListener('mousedown', clickHold)
+        button.addEventListener('touchstart', clickHold)
+    });
+
     document.addEventListener('mouseup', cancelClickHold)
-    document.addEventListener('touchstart', clickHold)
     document.addEventListener('touchend', cancelClickHold)
     document.addEventListener('touchcancel', cancelClickHold)
     document.getElementById('submitTrial').addEventListener('click', submitTrial)
