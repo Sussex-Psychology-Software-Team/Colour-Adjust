@@ -190,9 +190,12 @@ function changeColour(e){
 function clickHold(e){
     //if(typeof(window.ontouchstart) != 'undefined' && e.type == 'mousedown') return
     // If not currently repeating, register new interval
+    //e.preventDefault()
     if(intervalID === null){
         intervalID = setInterval(changeColour, 50, e)
     }
+    //https://stackoverflow.com/questions/923782/disable-the-text-highlighting-magnifier-on-touch-hold-on-mobile-safari-webkit
+    //e.returnValue = false consider this to stop magnifying glass - maybe add touchend and click listeners too?
 }
 
 function cancelClickHold(e){
@@ -261,6 +264,11 @@ function toggleHueButtons(hue){
 
 // Submit button
 function submitTrial(e){
+    // Stop any interference from other listeners
+    e.preventDefault()
+    e.stopPropagation()
+    cancelClickHold(e) // just incase
+    // Save and move on
     saveTrial(e.timeStamp)
     newTrial()
 }
