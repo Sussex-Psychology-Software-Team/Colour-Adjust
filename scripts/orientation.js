@@ -7,14 +7,6 @@ function showMaterials(){
     document.getElementById(currentPage).hidden = false
 }
 
-function settingsNotConfirmed(){
-    const settingsCheckboxes = document.forms.settingsForm.elements.settings
-    for (var i = 0; i < settingsCheckboxes.length; i++) {
-        if (!settingsCheckboxes[i].checked) return true; //if any left unchecked
-    }
-    return false;
-}
-
 function hideMaterials(){
     // hide everything
     const pages = document.getElementsByClassName('page')
