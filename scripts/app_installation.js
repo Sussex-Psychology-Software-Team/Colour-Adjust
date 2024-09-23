@@ -1,62 +1,69 @@
 // Installers ---------------------------------------------------------------
 let installPrompt = null
 // Dom references
-const installButton = document.getElementById("installButton") // Button for installing
 const installInstructions = document.getElementById("installInstructions") // Install instructions
 // Install listeners
+addInstallListeners() // add these regardless - allows for pwa on computer and better testing
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if(isMobile){
-    window.addEventListener("appinstalled", startExperiment) // Not a guarantee but this is supposed to work
-    window.addEventListener("load", startExperiment) // Load event also fires when opened up
-    document.addEventListener('visibilitychange', startExperiment) // Hacky but fires on switch from browser to standalone
-} else {
-    installInstructions.hidden = true
-    document.getElementById('consentPage').hidden = false
-    currentPage = "consentPage"
-}
-
-
-// IF INSTALLED, START ********************
-// Check PWA mode
-function inStandalone(){
-    return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
-    window.matchMedia('(display-mode: standalone)').matches || // Allows for use on computer PWA not on fullscreen
-    window.navigator.standalone || // iOS
-    document.referrer.includes("android-app://") // Android 2
-}
-
-// Start the experiment if install, load, visibility change, or not in mobile
-function startExperiment(){
-    if(inStandalone() && !installInstructions.hidden){ // If installation instructions not hidden yet
-        installInstructions.hidden = true
-        disableInAppInstallPrompt()
-        // Load Orientation listener
-        screen.orientation.addEventListener("change", checkOrientation)
-        // Show materials then check orientation
-        document.getElementById('consentPage').hidden = false
-        currentPage = "consentPage"
-        checkOrientation()
-    }
+console.log(isMobile)
+if(!isMobile){
+    startExperiment() // if mobile 
 }
 
 // INSTALLING ********************
-// https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
-window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault()
-    installPrompt = e
-    installButton.hidden = false
-})
+function addInstallListeners(){
 
-installButton.addEventListener("click", async () => {
-    if (!installPrompt) { return }
-    const result = await installPrompt.prompt()
-    console.log(`Install prompt was: ${result.outcome}`)
-    disableInAppInstallPrompt()
-})
+    // Install button and prompt
+    // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Trigger_install_prompt
+    const installButton = document.getElementById("installButton") // Button for installing
+    window.addEventListener("beforeinstallprompt", enableInstallButton) // Fires if install available on chromium browsers
 
-function disableInAppInstallPrompt() {
-    installPrompt = null
-    installButton.hidden = true
+    function enableInstallButton(e){
+        //e.preventDefault() // prevents popup install prompt
+        installPrompt = e
+        installButton.hidden = false
+    }
+
+    installButton.addEventListener("click", async () => {
+        if (!installPrompt) { return }
+        const result = await installPrompt.prompt()
+        console.log(`Install prompt was: ${result.outcome}`)
+        disableInAppInstallPrompt()
+    })
+
+    function disableInAppInstallPrompt() {
+        installPrompt = null
+        installButton.hidden = true
+    }
+    
+
+    // Start the experiment when installed
+    function inStandalone(){
+        return window.matchMedia("(display-mode: fullscreen)").matches || // Android - note standalone will not match if mode:fullscreen
+        window.matchMedia('(display-mode: standalone)').matches || // Allows for use on computer PWA
+        window.navigator.standalone || // iOS
+        document.referrer.includes("android-app://") // Android 2
+    }
+
+    console.log(inStandalone())
+
+    function startPWA(){
+        // If in PWA mode and installation instructions not hidden yet
+        if(inStandalone() && !installInstructions.hidden){
+            disableInAppInstallPrompt()
+            startExperiment()
+            if(isMobile) initOrientationCheck()
+        }
+    }
+    // Attach listeners
+    window.addEventListener("appinstalled", startPWA) // Not a guarantee but this is supposed to work
+    window.addEventListener("load", startPWA) // Load event also fires when opened up
+    document.addEventListener('visibilitychange', startPWA) // Hacky but fires on switch from browser to standalone
+}
+
+function startExperiment(){
+    installInstructions.hidden = true
+    document.getElementById('consentPage').hidden = false
 }
 
 
